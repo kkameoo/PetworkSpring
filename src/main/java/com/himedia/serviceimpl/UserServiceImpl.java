@@ -3,6 +3,7 @@ package com.himedia.serviceimpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.himedia.mappers.UserMapper;
@@ -14,6 +15,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
 	public void registerUser (UserVo user) throws Exception {
@@ -27,7 +31,14 @@ public class UserServiceImpl implements UserService {
             throw new Exception("전화번호가 이미 사용 중입니다.");
         }
         
+        user.setPassword(passwordEncoder.encode(user.getPassword())); // 비밀번호 암호화
+        
         userMapper.insertUser(user); // 회원가입 진행
+	}
+	
+	@Override
+	public String encodePassword(String password) {
+		return passwordEncoder.encode(password); // 비밀번호 암호화 구현
 	}
 	
 	@Override

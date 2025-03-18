@@ -36,6 +36,9 @@ public class UserController {
 		}
 		
 		try {
+			// 비밀번호 암호화
+	        user.setPassword(userService.encodePassword(user.getPassword()));
+
 			userService.registerUser(user);
 			return ResponseEntity.ok("회원가입 성공");
 		} catch (Exception e) {
