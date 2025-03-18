@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.himedia.repository.vo.UserVo;
 import com.himedia.services.UserService;
 
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -25,9 +28,19 @@ public class UserController {
 	private UserService userService;
 	
 	// 생성 (CREATE)
-	@PostMapping("/")
-	public String createUser(@RequestBody UserVo user) {
-		return "생성 성공";
+	@PostMapping("/register")
+	public ResponseEntity<String> registerUser(@Valid @RequestBody UserVo user, BindingResult bindingResult) {
+		// 유효성 검사 실패 시 에러
+		if (bindingResult.hasErrors()) {
+			return ResponseEntity.badRequest().body(bindingResult.getFieldError().getDefaultMessage());
+		}
+		
+		try {
+			userService.registerUser(user);
+			return ResponseEntity.ok("회원가입 성공");
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	// 단일 조회 (READ)

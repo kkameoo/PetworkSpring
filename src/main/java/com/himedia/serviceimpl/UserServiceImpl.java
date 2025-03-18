@@ -16,8 +16,18 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	
 	@Override
-	public int createUser(UserVo user) {
-		return userMapper.insertUser(user);
+	public void registerUser (UserVo user) throws Exception {
+		if (userMapper.countNickname(user.getNickname()) > 0) {
+			throw new Exception("닉네임이 이미 사용 중입니다.");
+		}
+		if (userMapper.countEmail(user.getEmail()) > 0) {
+            throw new Exception("이메일이 이미 사용 중입니다.");
+        }
+        if (userMapper.countTelNumber(user.getTelNumber()) > 0) {
+            throw new Exception("전화번호가 이미 사용 중입니다.");
+        }
+        
+        userMapper.insertUser(user); // 회원가입 진행
 	}
 	
 	@Override
