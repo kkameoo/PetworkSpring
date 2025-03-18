@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,5 +48,28 @@ public class BoardController {
 			return ResponseEntity.ok(board);
 		}
 		return ResponseEntity.badRequest().body("에러가 발생했습니다.");
-	}	
+	}
+	
+	// 특정 테이블을 수정 (UPDATE)
+		@PutMapping("/{id}")
+		public ResponseEntity<?> updateBoard(@RequestBody BoardVo board, @PathVariable Integer id) {
+			board.setBoardId(id);
+			int result = boardService.updateBoard(board);
+			if (result == 1) {
+				return ResponseEntity.ok(board);
+			}
+			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+		}
+		
+		// 특정 테이블을 삭제 (DELETE)
+		@DeleteMapping("/{id}")
+		public ResponseEntity<?> deleteBoard(@PathVariable Integer id) {
+
+			int result = boardService.deleteBoard(id);
+			if (result == 1) {
+				return ResponseEntity.ok("정상적으로 삭제되었습니다.");
+			}
+			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+		}
+		
 }
