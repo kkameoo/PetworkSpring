@@ -14,4 +14,8 @@ public interface BoardService {
 	BoardVo selectOneBoard(Integer id);
 	// 특정 게시물을 입력하는 기능
 	int insertBoard(BoardVo board);
+	// 특정 게시물을 수정하는 기능
+	int updateBoard(BoardVo board);
+	// 특정 게시물을 삭제하는 기능
+	int deleteBoard(Integer id);
 }

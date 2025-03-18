@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.himedia.mappers.BoardMapper;
 import com.himedia.repository.vo.BoardVo;
-import com.himedia.repository.vo.UserVo;
 import com.himedia.services.BoardService;
 
 
@@ -31,6 +30,18 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int insertBoard(BoardVo board) {
 		int result = boardMapper.insertBoard(board);
+		return result;
+	}
+
+	@Override
+	public int updateBoard(BoardVo board) {
+		int result = boardMapper.updateBoard(board);
+		return result;
+	}
+
+	@Override
+	public int deleteBoard(Integer id) {
+		int result = boardMapper.deleteBoard(id);
 		return result;
 	}
 	
