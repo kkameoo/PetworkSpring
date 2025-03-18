@@ -24,6 +24,13 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+
+	 @GetMapping("")
+	    public ResponseEntity<UserVo> SelectAllUserList() {
+		 UserVo user = userService.selectAllUser();
+	        return ResponseEntity.ok(user);
+	    }
+
 	// 생성 (CREATE)
 	@PostMapping("/")
 	public String createUser(@RequestBody UserVo user) {
