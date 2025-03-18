@@ -18,6 +18,7 @@ public class BoardVo {
 	Integer userId;
 	String title;
 	String content;
+	Integer category;
 	Integer reportCount;
 	Integer clickCount;
 	Integer boardType;
