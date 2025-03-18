@@ -57,7 +57,6 @@ public class UserController {
 	     return ResponseEntity.ok(user);
 	 }
 	
-	
 	 // 수정 (UPDATE)
 	 @PutMapping("/{id}")
 	 public String updateUser(@PathVariable("id") String id, @RequestBody UserVo user) {
