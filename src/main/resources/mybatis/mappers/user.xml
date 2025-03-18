@@ -3,9 +3,51 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.himedia.mappers.UserMapper">
 
-	<!-- SELECT: GET -->
-	<select id="selectAllUser" resultType="UserVo">
-	SELECT * FROM user
-	</select>
+	<!-- 중복 체크 -->
+    <select id="countNickname" resultType="int">
+        SELECT COUNT(*) FROM user WHERE nickname = #{nickname};
+    </select>
+
+    <select id="countEmail" resultType="int">
+        SELECT COUNT(*) FROM user WHERE email = #{email};
+    </select>
+
+    <select id="countTelNumber" resultType="int">
+        SELECT COUNT(*) FROM user WHERE tel_number = #{telNumber};
+    </select>
+
+	<!-- 유저 생성 (CREATE)-->
+	<insert id="insertUser">
+	  	INSERT INTO user (name, nickname, password, tel_number, email, preference, local_si, local_gu, `update`)
+     	VALUES (#{name}, #{nickname}, #{password}, #{telNumber}, #{email}, #{preference}, #{localSi}, #{localGu}, NOW());
+	</insert>
+
+	<!-- 단일 유저 조회 (READ) -->
+    <select id="selectUserById" resultType="com.himedia.repository.vo.UserVo">
+        SELECT user_id as userId, name, nickname, password, tel_number as telNumber, email, preference, local_si as localSi, 
+               local_gu as localGu, reg_date as regDate, `update`
+        FROM user 
+        WHERE user_id = #{userId};
+    </select>
+
+    <!-- 전체 유저 조회 (READ) -->
+    <select id="selectAllUsers" resultType="com.himedia.repository.vo.UserVo">
+         SELECT user_id as userId, name, nickname, password, tel_number as telNumber, email, preference, local_si as localSi, 
+               local_gu as localGu, reg_date as regDate, `update`
+        FROM user;
+    </select>
+
+    <!-- 유저 정보 수정 (UPDATE) -->
+    <update id="updateUser">
+        UPDATE user 
+        SET name=#{name}, nickname=#{nickname}, telNumber=#{telNumber}, email=#{email}, preference=#{preference}, 
+            localSi=#{localSi}, localGu=#{localGu}, update=NOW()
+        WHERE userId=#{userId};
+    </update>
+
+    <!-- 유저 삭제 (DELETE) -->
+    <delete id="deleteUser">
+        DELETE FROM user WHERE userId=#{userId};
+    </delete>
 	
 </mapper>
