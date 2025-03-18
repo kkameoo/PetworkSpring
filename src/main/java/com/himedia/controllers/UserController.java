@@ -19,6 +19,7 @@ public class UserController {
 	 @GetMapping("")
 	    public ResponseEntity<UserVo> SelectAllUserList() {
 		 UserVo user = userService.selectAllUser();
+		 
 	        return ResponseEntity.ok(user);
 	    }
 
