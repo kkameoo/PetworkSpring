@@ -72,4 +72,16 @@ public class BoardController {
 			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
 		}
 		
+		//Click 카운트를 1 증가
+		@PutMapping("/count/{id}")
+		public ResponseEntity<?> increaseCount(@PathVariable Integer id) {
+
+			int result = boardService.increaseCount(id);
+			if (result == 1) {
+				return ResponseEntity.ok("정상적으로 카운트수 증가.");
+			}
+			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+		}
+		
+		
 }

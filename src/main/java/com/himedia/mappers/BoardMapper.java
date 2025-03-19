@@ -18,4 +18,6 @@ public interface BoardMapper {
 	int updateBoard(BoardVo board);
 	// 특정 게시물을 삭제하는 sql
 	int deleteBoard(Integer id);
+	// 특정 게시물의 count를 증가하는 sql
+	int increaseCount(Integer id);
 }

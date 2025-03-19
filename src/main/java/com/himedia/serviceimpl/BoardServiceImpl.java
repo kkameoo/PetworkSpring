@@ -44,6 +44,12 @@ public class BoardServiceImpl implements BoardService {
 		int result = boardMapper.deleteBoard(id);
 		return result;
 	}
+
+	@Override
+	public int increaseCount(Integer id) {
+		int result = boardMapper.increaseCount(id);
+		return result;
+	}
 	
 	
 	

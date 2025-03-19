@@ -63,4 +63,11 @@
 	DELETE FROM board WHERE board_id = #{id}	
 	</delete>
 	
+	<!-- UPDATE: PUT -->
+	<update id="increaseCount" parameterType="int">
+	UPDATE board 
+	SET click_count = click_count + 1
+	WHERE board_id = #{id};
+	</update>
+	
 </mapper>
