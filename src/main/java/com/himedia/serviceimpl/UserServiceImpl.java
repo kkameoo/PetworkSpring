@@ -41,6 +41,23 @@ public class UserServiceImpl implements UserService {
 		return passwordEncoder.encode(password); // 비밀번호 암호화 구현
 	}
 	
+	 @Override
+	    public UserVo login(String email, String password) {
+	        UserVo user = userMapper.findByEmail(email);
+
+	        // 🔹 비밀번호 검증 (암호화된 값과 비교)
+	        if (user != null) {
+	            System.out.println("입력한 비밀번호: " + password);
+	            System.out.println("DB 저장된 비밀번호: " + user.getPassword());
+	            System.out.println("BCrypt 비교 결과: " + passwordEncoder.matches(password, user.getPassword()));
+
+	            if (passwordEncoder.matches(password, user.getPassword())) {
+	                return user; // 로그인 성공
+	            }
+	        }
+	        return null; // 로그인 실패
+	    }
+	
 	@Override
 	public UserVo getUserById(Integer userId) {
 		return userMapper.selectUserById(userId);
