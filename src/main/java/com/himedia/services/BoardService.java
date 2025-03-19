@@ -18,4 +18,6 @@ public interface BoardService {
 	int updateBoard(BoardVo board);
 	// 특정 게시물을 삭제하는 기능
 	int deleteBoard(Integer id);
+	// 특정 게시물의 조회수를 증가하는 기능
+	int increaseCount(Integer id);
 }
