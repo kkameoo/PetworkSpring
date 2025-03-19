@@ -70,6 +70,24 @@ public class UserController {
 			}
 		}
 	
+	// 세션 유지 기능
+	@GetMapping("/session")
+	public ResponseEntity<?> getSessionUser(HttpSession session) {
+	    UserVo user = (UserVo) session.getAttribute("user");
+
+	    if (user == null) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+	    }
+
+	    return ResponseEntity.ok(user);
+	}
+	
+	// 로그아웃
+	@PostMapping("/logout")
+	public ResponseEntity<String> logout(HttpSession session) {
+	    session.invalidate(); //  세션 삭제
+	    return ResponseEntity.ok("로그아웃 성공");
+	}
 	
 	
 	// 단일 조회 (READ)
