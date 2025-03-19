@@ -47,7 +47,12 @@
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>3.0.4</version>
 		</dependency>
-
+		<!-- 암호화 추가 -->
+		<dependency>
+  		    <groupId>org.springframework.boot</groupId>
+   		    <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

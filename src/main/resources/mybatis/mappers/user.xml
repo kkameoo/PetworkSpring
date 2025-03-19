@@ -7,6 +7,14 @@
     <select id="countNickname" resultType="int">
         SELECT COUNT(*) FROM user WHERE nickname = #{nickname};
     </select>
+    
+    <!-- 이메일로 사용자 조회 -->
+	<select id="findByEmail" resultType="com.himedia.repository.vo.UserVo">
+ 	   SELECT user_id as userId, name, nickname, email, password, tel_number as telNumber, preference, local_si as localSi, 
+           local_gu as localGu, reg_date as regDate, `update`
+       FROM user
+  	   WHERE email = #{email};
+	</select>
 
     <select id="countEmail" resultType="int">
         SELECT COUNT(*) FROM user WHERE email = #{email};

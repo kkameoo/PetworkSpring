@@ -43,6 +43,7 @@ public class UserVo {
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.com$",
              message = "이메일 형식이 올바르지 않습니다. (예: example@domain.com)")
 	private String email; // 이메일 (이메일 형식 검사)
+	
 	private Integer preference;
 	private Integer localSi;
 	private Integer localGu;

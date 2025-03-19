@@ -3,6 +3,7 @@ package com.himedia.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,22 +13,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.himedia.repository.vo.UserVo;
 import com.himedia.services.UserService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+
+    private final BoardController boardController;
 	@Autowired
 	private UserService userService;
+
+    UserController(BoardController boardController) {
+        this.boardController = boardController;
+    }
 	
-	// 생성 (CREATE)
+	// 회원가입 (CREATE)
 	@PostMapping("/register")
 	public ResponseEntity<String> registerUser(@Valid @RequestBody UserVo user, BindingResult bindingResult) {
 		// 유효성 검사 실패 시 에러
@@ -42,6 +49,28 @@ public class UserController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	// 로그인
+	@PostMapping("/login")
+	public ResponseEntity<?> loginUser(@RequestBody UserVo user, HttpSession session) {
+		try {
+			UserVo authenticatedUser = userService.login(user.getEmail(), user.getPassword());
+			System.out.println(user.getEmail());
+			System.out.println(user.getPassword());
+			System.out.println(authenticatedUser);
+			
+			if (authenticatedUser != null) {
+				session.setAttribute("user", authenticatedUser);
+				return ResponseEntity.ok(authenticatedUser);
+				}else {
+					return ResponseEntity.badRequest().body("이메일 또는 비밀번호가 올바르지 않습니다.");
+				}
+			} catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 중 오류 발생");
+			}
+		}
+	
+	
 	
 	// 단일 조회 (READ)
     @GetMapping("/{id}")
