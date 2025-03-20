@@ -51,7 +51,7 @@
     SET name=#{name}, 
         nickname=#{nickname}, 
         tel_number=#{telNumber}, 
-        <!--email=#{email},--> 
+		email=#{email},
         preference=#{preference}, 
         local_si=#{localSi}, 
         local_gu=#{localGu}, 
