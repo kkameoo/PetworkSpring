@@ -69,8 +69,21 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public int updateUser(UserVo user) {
-		return userMapper.updateUser(user);
+	public void updateUser(UserVo user) throws Exception {
+		if (userMapper.countNickname(user.getNickname()) > 0) {
+			throw new Exception("닉네임이 이미 사용 중입니다.");
+		}
+		if (userMapper.countTelNumber(user.getTelNumber()) > 0) {
+		    throw new Exception("전화번호가 이미 사용 중입니다.");
+		}
+		
+		// 비밀번호 변경 요청이 있을 경우만 암호화 적용
+		if(user.getPassword() != null && !user.getPassword().isEmpty()) {
+			if (!user.getPassword().startsWith("$2a$10$")) { // 이미 암호화된 비밀번호인지 확인
+				user.setPassword(passwordEncoder.encode(user.getPassword())); // 암호화 하고 저장
+			}
+		}
+		userMapper.updateUser(user);
 	}
 
 	@Override
