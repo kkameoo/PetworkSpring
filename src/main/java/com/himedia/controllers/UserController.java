@@ -140,7 +140,7 @@ public class UserController {
 	         //  로그인한 유저 삭제 (본인 계정만 삭제 가능)
 	         userService.deleteUser(sessionUser.getUserId());
 
-	         //  계정 삭제 후 자동 로그아웃 (세션 삭제)
+	         //  계정 삭제 후 자동 로그아웃 세션 삭제
 	         session.invalidate();
 	         return ResponseEntity.ok("회원 탈퇴 완료");
 	     } catch (Exception e) {
