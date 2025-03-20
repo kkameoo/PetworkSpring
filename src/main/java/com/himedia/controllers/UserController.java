@@ -127,9 +127,24 @@ public class UserController {
 		 }
 	 }
 	 
-	 // 삭제 (DELETE)
-	 @DeleteMapping("/{id}")
-	 public String deleteUser(@PathVariable("id") String id) {
-		 return "삭제 성공";
+	 @DeleteMapping("/delete")
+	 public ResponseEntity<String> deleteUser(HttpSession session) {
+	     UserVo sessionUser = (UserVo) session.getAttribute("user");
+
+	     // 세션이 없으면 로그인 필요
+	     if (sessionUser == null) {
+	         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+	     }
+
+	     try {
+	         //  로그인한 유저 삭제 (본인 계정만 삭제 가능)
+	         userService.deleteUser(sessionUser.getUserId());
+
+	         //  계정 삭제 후 자동 로그아웃 (세션 삭제)
+	         session.invalidate();
+	         return ResponseEntity.ok("회원 탈퇴 완료");
+	     } catch (Exception e) {
+	         return ResponseEntity.badRequest().body(e.getMessage());
+	     }
 	 }
 }
