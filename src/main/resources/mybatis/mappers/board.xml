@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.BoardMapper">
+
+	<!-- SELECT: GET -->
+	<select id="selectAllBoard" resultType="BoardVo">
+	SELECT 
+	board_id as boardId, 
+	user_id as userId, 
+	title, 
+	content,
+	category, 
+	report_count as reportCount,
+	click_count as clickCount, 
+	board_type as boardType,
+	local_si as localSi,
+	local_gu as localGu,
+	reg_date as regDate, 
+	`update`
+	FROM board
+	</select>
+	
+	<!-- SELECT: GET -->
+	<select id="selectBoard" parameterType="int" resultType="BoardVo">
+	SELECT 
+	board_id as boardId, 
+	user_id as userId, 
+	title, 
+	content,
+	category, 
+	report_count as reportCount,
+	click_count as clickCount, 
+	board_type as boardType,
+	local_si as localSi,
+	local_gu as localGu,
+	reg_date as regDate, 
+	`update`
+	FROM board WHERE board_id = #{id}
+	</select>
+		
+	<!-- INSERT: POST -->
+	<insert id="insertBoard" parameterType="BoardVo">
+	INSERT INTO board (user_id, title, content, category, board_type, local_si, local_gu)
+	VALUES (#{userId}, #{title}, #{content}, #{category}, #{boardType}, #{localSi}, #{localGu});
+	</insert>
+	
+	<!-- UPDATE: PUT -->
+	<update id="updateBoard" parameterType="BoardVo">
+	UPDATE board 
+	SET title = #{title}, 
+	    content = #{content}, 
+	    category = #{category}, 
+	    board_type = #{boardType}, 
+	    local_si = #{localSi}, 
+	    local_gu = #{localGu},
+	    `update` = NOW()
+	WHERE board_id = #{boardId};
+	</update>
+	
+	<!-- DELETE: DELETE -->
+	<delete id="deleteBoard" parameterType="int">
+	DELETE FROM board WHERE board_id = #{id}	
+	</delete>
+	
+	<!-- UPDATE: PUT -->
+	<update id="increaseCount" parameterType="int">
+	UPDATE board 
+	SET click_count = click_count + 1
+	WHERE board_id = #{id};
+	</update>
+	
+</mapper>
