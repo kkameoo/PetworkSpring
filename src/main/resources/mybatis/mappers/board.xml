@@ -9,8 +9,7 @@
 	board_id as boardId, 
 	user_id as userId, 
 	title, 
-	content,
-	category, 
+	content, 
 	report_count as reportCount,
 	click_count as clickCount, 
 	board_type as boardType,
@@ -28,7 +27,6 @@
 	user_id as userId, 
 	title, 
 	content,
-	category, 
 	report_count as reportCount,
 	click_count as clickCount, 
 	board_type as boardType,
@@ -40,17 +38,16 @@
 	</select>
 		
 	<!-- INSERT: POST -->
-	<insert id="insertBoard" parameterType="BoardVo">
-	INSERT INTO board (user_id, title, content, category, board_type, local_si, local_gu)
-	VALUES (#{userId}, #{title}, #{content}, #{category}, #{boardType}, #{localSi}, #{localGu});
+	<insert id="insertBoard" parameterType="BoardVo" useGeneratedKeys="true" keyProperty="boardId" >
+	INSERT INTO board (user_id, title, content, board_type, local_si, local_gu)
+	VALUES (#{userId}, #{title}, #{content}, #{boardType}, #{localSi}, #{localGu});
 	</insert>
 	
 	<!-- UPDATE: PUT -->
 	<update id="updateBoard" parameterType="BoardVo">
 	UPDATE board 
 	SET title = #{title}, 
-	    content = #{content}, 
-	    category = #{category}, 
+	    content = #{content},  
 	    board_type = #{boardType}, 
 	    local_si = #{localSi}, 
 	    local_gu = #{localGu},
@@ -60,7 +57,7 @@
 	
 	<!-- DELETE: DELETE -->
 	<delete id="deleteBoard" parameterType="int">
-	DELETE FROM board WHERE board_id = #{id}	
+	DELETE FROM board WHERE board_id = #{id}
 	</delete>
 	
 	<!-- UPDATE: PUT -->
