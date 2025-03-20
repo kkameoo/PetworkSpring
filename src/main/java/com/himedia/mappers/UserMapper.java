@@ -18,5 +18,5 @@ public interface UserMapper {
 	 UserVo selectUserById(Integer userId);
 	 List<UserVo> selectAllUsers();
 	 int updateUser(UserVo user);
-	 int deleteUser(Integer userId);
+	 int deleteUser(@Param("userId") Integer userId);
 }

@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 	    public UserVo login(String email, String password) {
 	        UserVo user = userMapper.findByEmail(email);
 
-	        // 🔹 비밀번호 검증 (암호화된 값과 비교)
+	        // 비밀번호 검증 (암호화된 값과 비교)
 	        if (user != null) {
 	            System.out.println("입력한 비밀번호: " + password);
 	            System.out.println("DB 저장된 비밀번호: " + user.getPassword());
@@ -69,13 +69,32 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public int updateUser(UserVo user) {
-		return userMapper.updateUser(user);
+	public void updateUser(UserVo user) throws Exception {
+		if (userMapper.countNickname(user.getNickname()) > 0) {
+			throw new Exception("닉네임이 이미 사용 중입니다.");
+		}
+		if (userMapper.countTelNumber(user.getTelNumber()) > 0) {
+		    throw new Exception("전화번호가 이미 사용 중입니다.");
+		}
+		
+		// 비밀번호 변경 요청이 있을 경우만 암호화 적용
+		if(user.getPassword() != null && !user.getPassword().isEmpty()) {
+			if (!user.getPassword().startsWith("$2a$10$")) { // 이미 암호화된 비밀번호인지 확인
+				user.setPassword(passwordEncoder.encode(user.getPassword())); // 암호화 하고 저장
+			}
+		}
+		userMapper.updateUser(user);
 	}
 
 	@Override
-	public int deleteUser(Integer userId) {
-		return userMapper.deleteUser(userId);
+	public void deleteUser(Integer userId) throws Exception {
+	    // 유저 존재 여부 확인
+	    UserVo user = userMapper.selectUserById(userId);
+	    if (user == null) {
+	        throw new Exception("유저를 찾을 수 없습니다.");
+	    }
+
+	    userMapper.deleteUser(userId);
 	}
 	
 }
