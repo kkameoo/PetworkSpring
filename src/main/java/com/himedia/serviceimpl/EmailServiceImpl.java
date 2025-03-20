@@ -1,5 +1,6 @@
 package com.himedia.serviceimpl;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -41,7 +42,19 @@ public class EmailServiceImpl implements EmailService {
 			
 			helper.setTo(email);
 			helper.setSubject("이메일 인증코드");
-			helper.setText("인증 코드:" + verificationCode, true);  // HTML 지원 가능
+			
+			   String emailContent = "<div style='text-align: center; font-family: Arial, sans-serif;'>"
+		                + "<img src='cid:logo' style='width:200px; margin-bottom: 20px;'>"
+		                + "<h2 style='color: #333;'>페트워크에 오신 것을 환영합니다!</h2>"
+		                + "<p style='font-size:18px; color: #555;'>아래 인증 코드를 입력하여 이메일을 인증하세요.</p>"
+		                + "<p style='font-size:22px; font-weight: bold; color: blue;'>" + verificationCode + "</p>"
+		                + "<p>감사합니다!</p>"
+		                + "</div>";
+
+		        helper.setText(emailContent, true);  // HTML 지원 가능
+		        
+		        File file = new File("src/main/resources/static/logo.png");
+		        helper.addInline("logo", file);
 		
 			mailSender.send(message);	// 메일 전송
 		} catch (Exception e) {
