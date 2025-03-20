@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.himedia.repository.vo.BoardHireVo;
+import com.himedia.repository.vo.BoardTradeVo;
 import com.himedia.repository.vo.BoardVo;
+import com.himedia.repository.vo.BoardWalkVo;
 import com.himedia.services.BoardService;
 
 @RestController
@@ -40,12 +43,35 @@ public class BoardController {
 		return ResponseEntity.badRequest().body("에러가 발생했습니다.");
 	}	
 	
-	// 특정 테이블을 입력 (INSERT)
-	@PostMapping("")
-	public ResponseEntity<?> insertBoard(@RequestBody BoardVo board) {
-		int result = boardService.insertBoard(board);
+	// 산책 테이블을 입력 (INSERT)
+	@PostMapping("/walk")
+	public ResponseEntity<?> insertBoardWalk(@RequestBody BoardWalkVo boardWalkVo) {
+		
+		int result = boardService.insertBoardWalk(boardWalkVo);
 		if (result == 1) {
-			return ResponseEntity.ok(board);
+			return ResponseEntity.ok(boardWalkVo);
+		}
+		return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+	}
+	
+	// 거래 테이블을 입력 (INSERT)
+	@PostMapping("/trade")
+	public ResponseEntity<?> insertBoardTrade(@RequestBody BoardTradeVo boaedTradeVo) {
+			
+		int result = boardService.insertBoardTrade(boaedTradeVo);
+		if (result == 1) {
+			return ResponseEntity.ok(boaedTradeVo);
+		}
+		return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+	}
+	
+	// 고용 테이블을 입력 (INSERT)
+	@PostMapping("/hire")
+	public ResponseEntity<?> insertBoardHire(@RequestBody BoardHireVo boardHireVo) {
+				
+		int result = boardService.insertBoardHire(boardHireVo);
+		if (result == 1) {
+			return ResponseEntity.ok(boardHireVo);
 		}
 		return ResponseEntity.badRequest().body("에러가 발생했습니다.");
 	}
