@@ -13,7 +13,7 @@ public interface UserService {
 	String encodePassword(String password); // 비밀번호 암호화 
 	UserVo getUserById(Integer userId); // READ (단일 조회)
 	List<UserVo> selectAllUsers(); // READ (전체 조회)
-	int updateUser(UserVo user); // UPDATE
-	int deleteUser(Integer userId); //DELETE
+	void updateUser(UserVo user) throws Exception; // UPDATE 수정기능
+	void deleteUser(Integer userId) throws Exception; //DELETE 삭제기능
 
 }
