@@ -14,6 +14,6 @@ public interface UserService {
 	UserVo getUserById(Integer userId); // READ (단일 조회)
 	List<UserVo> selectAllUsers(); // READ (전체 조회)
 	void updateUser(UserVo user) throws Exception; // UPDATE 수정기능
-	int deleteUser(Integer userId); //DELETE
+	void deleteUser(Integer userId) throws Exception; //DELETE 삭제기능
 
 }

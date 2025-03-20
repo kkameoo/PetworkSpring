@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 	    public UserVo login(String email, String password) {
 	        UserVo user = userMapper.findByEmail(email);
 
-	        // 🔹 비밀번호 검증 (암호화된 값과 비교)
+	        // 비밀번호 검증 (암호화된 값과 비교)
 	        if (user != null) {
 	            System.out.println("입력한 비밀번호: " + password);
 	            System.out.println("DB 저장된 비밀번호: " + user.getPassword());
@@ -87,8 +87,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int deleteUser(Integer userId) {
-		return userMapper.deleteUser(userId);
+	public void deleteUser(Integer userId) throws Exception {
+	    // 유저 존재 여부 확인
+	    UserVo user = userMapper.selectUserById(userId);
+	    if (user == null) {
+	        throw new Exception("유저를 찾을 수 없습니다.");
+	    }
+
+	    userMapper.deleteUser(userId);
 	}
 	
 }
