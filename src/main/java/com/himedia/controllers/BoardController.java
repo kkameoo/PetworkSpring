@@ -33,6 +33,13 @@ public class BoardController {
 		return ResponseEntity.ok(boardList);
 	}
 	
+	// 산책 게시물 전체 조회 (READ)
+	@GetMapping("/walk")
+	public ResponseEntity<?> selectAllBoardWalkList() {
+		List<BoardWalkVo> boardWalkVos = boardService.selectAllBoardWalk();
+		return ResponseEntity.ok(boardWalkVos);
+	}
+	
 	// 특정 테이블 조회 (READ)
 	@GetMapping("/{id}")
 	public ResponseEntity<?> selectAllBoardList(@PathVariable Integer id) {

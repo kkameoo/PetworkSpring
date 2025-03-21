@@ -119,6 +119,12 @@ public class BoardServiceImpl implements BoardService {
 		int result = boardMapper.increaseCount(id);
 		return result;
 	}
+
+	@Override
+	public List<BoardWalkVo> selectAllBoardWalk() {
+		List<BoardWalkVo> boardWalkVos = boardWalkMapper.selectAllBoardWalk();
+		return boardWalkVos;
+	}
 	
 	
 	

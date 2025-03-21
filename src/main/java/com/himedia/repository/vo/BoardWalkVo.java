@@ -20,8 +20,12 @@ public class BoardWalkVo {
 	private Integer boardType;
 	private String title;
 	private String content;
+	private Integer reportCount;
+	private Integer clickCount;
 	private Integer localSi;
 	private Integer localGu;
+	private Timestamp regDate;
+	private Timestamp update;
 	
 	private Integer boardWalkId;
 	private Integer walkCategory;

@@ -27,4 +27,6 @@ public interface BoardService {
 	int deleteBoard(Integer id);
 	// 특정 게시물의 조회수를 증가하는 기능
 	int increaseCount(Integer id);
+	// 산책 게시물들을 받아오는 기능
+	List<BoardWalkVo> selectAllBoardWalk();
 }
