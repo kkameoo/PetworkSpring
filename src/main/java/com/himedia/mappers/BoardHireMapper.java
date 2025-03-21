@@ -13,4 +13,6 @@ public interface BoardHireMapper {
 	int insertBoardHire(BoardHireVo boardHireVo);
 	//	<select id="selectAllBoardHire" resultType="BoardHireVo">
 	List<BoardHireVo> selectAllBoardHire();
+	// <select id="selectBoardHire" resultType="BoardHireVo" parameterType="int">
+	BoardHireVo selectBoardHire(Integer id);
 }

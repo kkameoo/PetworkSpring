@@ -143,6 +143,18 @@ public class BoardServiceImpl implements BoardService {
 		BoardWalkVo boardWalkVo = boardWalkMapper.selectBoardWalk(id);
 		return boardWalkVo;
 	}
+
+	@Override
+	public BoardTradeVo selectBoardTrade(Integer id) {
+		BoardTradeVo boardTradeVo = boardTradeMapper.selectBoardTrade(id);
+		return boardTradeVo;
+	}
+
+	@Override
+	public BoardHireVo selectBoardHire(Integer id) {
+		BoardHireVo boardHireVo = boardHireMapper.selectBoardHire(id);
+		return boardHireVo;
+	}
 	
 	
 	
