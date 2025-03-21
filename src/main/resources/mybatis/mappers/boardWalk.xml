@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.BoardWalkMapper">
+
+	<!-- INSERT: POST -->
+	<insert id="insertBoardWalk" parameterType="BoardWalkVo">
+	INSERT INTO board_walk (board_id, walk_category)
+	VALUES (#{boardId}, #{walkCategory});
+	</insert>
+</mapper>

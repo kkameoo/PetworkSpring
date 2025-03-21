@@ -23,7 +23,7 @@ public class SecurityConfig {
 	            )
 	            .formLogin(form -> form.disable()) // 기본 로그인 폼 비활성화
 	            .httpBasic(httpBasic -> httpBasic.disable()); // 기본 인증 비활성화
-
+	        
 	        return http.build();
     }
 }
