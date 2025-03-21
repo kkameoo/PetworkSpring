@@ -114,37 +114,68 @@ public class BoardController {
 	}
 	
 	// 특정 테이블을 수정 (UPDATE)
-		@PutMapping("/{id}")
-		public ResponseEntity<?> updateBoard(@RequestBody BoardVo board, @PathVariable Integer id) {
-			board.setBoardId(id);
-			int result = boardService.updateBoard(board);
-			if (result == 1) {
-				return ResponseEntity.ok(board);
-			}
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateBoard(@RequestBody BoardVo board, @PathVariable Integer id) {
+		board.setBoardId(id);
+		int result = boardService.updateBoard(board);
+		if (result == 1) {
+			return ResponseEntity.ok(board);
+		}
+		return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+	}
+		
+	// 산책 테이블을 수정 (UPDATE)
+	@PutMapping("/walk/{id}")
+	public ResponseEntity<?> updateBoardWalk(@RequestBody BoardWalkVo boardWalkVo, @PathVariable Integer id) {
+		boardWalkVo.setBoardId(id);
+		int result = boardService.updateBoardWalk(boardWalkVo);
+		if (result == 0) {
 			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
 		}
+		return ResponseEntity.ok(boardWalkVo);
+	}
+	
+	// 산책 테이블을 수정 (UPDATE)
+	@PutMapping("/trade/{id}")
+	public ResponseEntity<?> updateBoardTrade(@RequestBody BoardTradeVo boardTradeVo, @PathVariable Integer id) {
+		boardTradeVo.setBoardId(id);
+		int result = boardService.updateBoardTrade(boardTradeVo);
+		if (result == 0) {
+			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+		}
+		return ResponseEntity.ok(boardTradeVo);
+	}
+	
+	// 고용 테이블을 수정 (UPDATE)
+	@PutMapping("/hire/{id}")
+	public ResponseEntity<?> updateBoardHire(@RequestBody BoardHireVo boardHireVo, @PathVariable Integer id) {
+		boardHireVo.setBoardId(id);
+		int result = boardService.updateBoardHire(boardHireVo);
+		if (result == 0) {
+			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+		}
+		return ResponseEntity.ok(boardHireVo);
+	}
 		
-		// 특정 테이블을 삭제 (DELETE)
-		@DeleteMapping("/{id}")
-		public ResponseEntity<?> deleteBoard(@PathVariable Integer id) {
+	// 특정 테이블을 삭제 (DELETE)
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteBoard(@PathVariable Integer id) {
 
-			int result = boardService.deleteBoard(id);
-			if (result == 1) {
-				return ResponseEntity.ok("정상적으로 삭제되었습니다.");
-			}
-			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+		int result = boardService.deleteBoard(id);
+		if (result == 1) {
+			return ResponseEntity.ok("정상적으로 삭제되었습니다.");
 		}
+		return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+	}
 		
-		//Click 카운트를 1 증가
-		@PutMapping("/count/{id}")
-		public ResponseEntity<?> increaseCount(@PathVariable Integer id) {
+	//Click 카운트를 1 증가
+	@PutMapping("/count/{id}")
+	public ResponseEntity<?> increaseCount(@PathVariable Integer id) {
 
-			int result = boardService.increaseCount(id);
-			if (result == 1) {
-				return ResponseEntity.ok("정상적으로 카운트수 증가.");
-			}
-			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+		int result = boardService.increaseCount(id);
+		if (result == 1) {
+			return ResponseEntity.ok("정상적으로 카운트수 증가.");
 		}
-		
-		
+		return ResponseEntity.badRequest().body("에러가 발생했습니다.");
+	}	
 }

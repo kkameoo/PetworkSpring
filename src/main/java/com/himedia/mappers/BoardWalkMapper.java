@@ -14,6 +14,8 @@ public interface BoardWalkMapper {
 	List<BoardWalkVo> selectAllBoardWalk();
 	// <select id="selectBoardWalk" resultType="BoardWalkVo" parameterType="int">
 	BoardWalkVo selectBoardWalk(Integer id);
+	//	<update id="updateBoardWalk" parameterType="BoardWalkVo">
+	int updateBoardWalk(BoardWalkVo boardWalkVo);
 	
-	
+
 }

@@ -39,4 +39,10 @@ public interface BoardService {
 	BoardTradeVo selectBoardTrade(Integer id);
 	// 고용 게시물을 받아오는 기능
 	BoardHireVo selectBoardHire(Integer id);
+	// 산책 게시물을 수정하는 기능
+	int updateBoardWalk(BoardWalkVo boardWalkVo);
+	// 거래 게시물을 수정하는 기능
+	int updateBoardTrade(BoardTradeVo boardTradeVo);
+	// 고용 게시물을 수정하는 기능
+	int updateBoardHire(BoardHireVo boardHireVo);
 }
