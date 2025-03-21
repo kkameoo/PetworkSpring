@@ -50,7 +50,13 @@ public class BoardController {
 	public ResponseEntity<?> selectAllBoardHireList() {
 		List<BoardHireVo> boardHireVos = boardService.selectAllBoardHire();
 		return ResponseEntity.ok(boardHireVos);
-		}
+	}
+	// 산책 게시물 전체 조회 (READ)
+	@GetMapping("/walk/{id}")
+	public ResponseEntity<?> selectBoardWalk(@PathVariable Integer id) {
+		BoardWalkVo boardWalkVo = boardService.selectBoardWalk(id);
+		return ResponseEntity.ok(boardWalkVo);
+	}
 	
 	// 특정 테이블 조회 (READ)
 	@GetMapping("/{id}")

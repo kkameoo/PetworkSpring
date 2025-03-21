@@ -137,6 +137,12 @@ public class BoardServiceImpl implements BoardService {
 		List<BoardHireVo> boardHireVos = boardHireMapper.selectAllBoardHire();
 		return boardHireVos;
 	}
+
+	@Override
+	public BoardWalkVo selectBoardWalk(Integer id) {
+		BoardWalkVo boardWalkVo = boardWalkMapper.selectBoardWalk(id);
+		return boardWalkVo;
+	}
 	
 	
 	

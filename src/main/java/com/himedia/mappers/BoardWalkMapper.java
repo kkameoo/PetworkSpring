@@ -10,6 +10,10 @@ import com.himedia.repository.vo.BoardWalkVo;
 public interface BoardWalkMapper {
 	//	<insert id="insertBoardWalk" parameterType="BoardWalkVo">
 	int insertBoardWalk(BoardWalkVo boardWalkVo);
-	
+	// <select id="selectAllBoardWalk" resultType="BoardWalkVo">
 	List<BoardWalkVo> selectAllBoardWalk();
+	// <select id="selectBoardWalk" resultType="BoardWalkVo" parameterType="int">
+	BoardWalkVo selectBoardWalk(Integer id);
+	
+	
 }
