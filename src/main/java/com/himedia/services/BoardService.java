@@ -35,4 +35,8 @@ public interface BoardService {
 	List<BoardHireVo> selectAllBoardHire();
 	// 산책 게시물을 받아오는 기능
 	BoardWalkVo selectBoardWalk(Integer id);
+	// 거래 게시물을 받아오는 기능
+	BoardTradeVo selectBoardTrade(Integer id);
+	// 고용 게시물을 받아오는 기능
+	BoardHireVo selectBoardHire(Integer id);
 }
