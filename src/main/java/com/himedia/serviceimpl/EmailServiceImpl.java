@@ -64,6 +64,33 @@ public class EmailServiceImpl implements EmailService {
 	}
 	
 	@Override
+	public void sendPasswordResetEmail(String email) {
+	    String verificationCode = generateVerificationCode();
+	    verificationCodes.put(email, verificationCode);	// 이메일 코드 저장
+
+	    try {
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+	        helper.setTo(email);
+	        helper.setSubject("비밀번호 재설정 이메일 인증");
+
+	        String emailContent = "<div style='text-align: center; font-family: Arial, sans-serif;'>"
+	                + "<h2 style='color: #333;'>비밀번호를 변경하시려면 아래 인증코드를 입력해주세요.</h2>"
+	                + "<p style='font-size:22px; font-weight: bold; color: red;'>" + verificationCode + "</p>"
+	                + "<p>'본 메일은 인증확인용으로 회신하셔도 답변을 받을 수 없습니다.'</p>"
+	                + "</div>";
+
+	        helper.setText(emailContent, true);
+
+	        mailSender.send(message);
+	    } catch (Exception e) {
+	        throw new RuntimeException("비밀번호 인증 이메일 전송 실패: " + e.getMessage());
+	    }
+	}
+
+	
+	@Override
 	public boolean verifyCode(String email, String code) {
 		// 저장된 인증 코드와 비교
 		return verificationCodes.containsKey(email) && verificationCodes.get(email).equals(code);

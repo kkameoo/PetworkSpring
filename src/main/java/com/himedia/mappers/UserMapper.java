@@ -19,4 +19,5 @@ public interface UserMapper {
 	 List<UserVo> selectAllUsers();
 	 int updateUser(UserVo user);
 	 int deleteUser(@Param("userId") Integer userId);
+	 void updatePasswordByEmail(UserVo user);
 }
