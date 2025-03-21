@@ -6,10 +6,16 @@
 	<typeAliases>
 		<typeAlias alias="UserVo" type="com.himedia.repository.vo.UserVo"/>
 		<typeAlias alias="BoardVo" type="com.himedia.repository.vo.BoardVo"/>
+		<typeAlias alias="BoardWalkVo" type="com.himedia.repository.vo.BoardWalkVo"/>
+		<typeAlias alias="BoardTradeVo" type="com.himedia.repository.vo.BoardTradeVo"/>
+		<typeAlias alias="BoardHireVo" type="com.himedia.repository.vo.BoardHireVo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/board.xml" />
+		<mapper resource="mybatis/mappers/boardWalk.xml" />
+		<mapper resource="mybatis/mappers/boardTrade.xml" />
+		<mapper resource="mybatis/mappers/boardHire.xml" />
 	</mappers>
 </configuration>	
  
