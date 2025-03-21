@@ -47,15 +47,22 @@
 
     <!-- 유저 정보 수정 (UPDATE) -->
     <update id="updateUser">
-        UPDATE user 
-        SET name=#{name}, nickname=#{nickname}, telNumber=#{telNumber}, email=#{email}, preference=#{preference}, 
-            localSi=#{localSi}, localGu=#{localGu}, update=NOW()
-        WHERE userId=#{userId};
-    </update>
+    UPDATE user 
+    SET name=#{name}, 
+        nickname=#{nickname}, 
+        tel_number=#{telNumber}, 
+		email=#{email},
+        preference=#{preference}, 
+        local_si=#{localSi}, 
+        local_gu=#{localGu}, 
+        `update`=NOW()
+        <if test="password != null and password != ''">, password=#{password}</if>
+    WHERE user_id=#{userId};
+	</update>
 
     <!-- 유저 삭제 (DELETE) -->
     <delete id="deleteUser">
-        DELETE FROM user WHERE userId=#{userId};
+        DELETE FROM user WHERE user_id=#{userId};
     </delete>
 	
 </mapper>

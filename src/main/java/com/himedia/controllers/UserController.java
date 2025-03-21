@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.himedia.repository.vo.UserVo;
@@ -105,14 +106,45 @@ public class UserController {
 	 }
 	
 	 // 수정 (UPDATE)
-	 @PutMapping("/{id}")
-	 public String updateUser(@PathVariable("id") String id, @RequestBody UserVo user) {
-		 return "수정 성공";
+	 @PutMapping("/update")
+	 public ResponseEntity<String> updateUser(@Valid @RequestBody UserVo user, HttpSession session) {
+		 // 현재 로그인한 사용자 정보를 세션에서 가져옴
+		 UserVo sessionUser = (UserVo) session.getAttribute("user");
+		 
+		 // 만약 세션이 없으면 401 으로 응답
+		 if (sessionUser == null ) {
+			 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다");
+		 }
+		 
+		 try {
+			 // 로그인 한 사용자의 Id를 가져와서 업데이트
+			 user.setUserId(sessionUser.getUserId());
+			 
+			 userService.updateUser(user);
+			 return ResponseEntity.ok("회원 정보 수정 완료");
+		 } catch (Exception e) {
+			 return ResponseEntity.badRequest().body(e.getMessage());
+		 }
 	 }
 	 
-	 // 삭제 (DELETE)
-	 @DeleteMapping("/{id}")
-	 public String deleteUser(@PathVariable("id") String id) {
-		 return "삭제 성공";
+	 @DeleteMapping("/delete")
+	 public ResponseEntity<String> deleteUser(HttpSession session) {
+	     UserVo sessionUser = (UserVo) session.getAttribute("user");
+
+	     // 세션이 없으면 로그인 필요
+	     if (sessionUser == null) {
+	         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+	     }
+
+	     try {
+	         //  로그인한 유저 삭제 (본인 계정만 삭제 가능)
+	         userService.deleteUser(sessionUser.getUserId());
+
+	         //  계정 삭제 후 자동 로그아웃 세션 삭제
+	         session.invalidate();
+	         return ResponseEntity.ok("회원 탈퇴 완료");
+	     } catch (Exception e) {
+	         return ResponseEntity.badRequest().body(e.getMessage());
+	     }
 	 }
 }
