@@ -85,6 +85,12 @@ public class UserServiceImpl implements UserService {
 		}
 		userMapper.updateUser(user);
 	}
+	
+	@Override
+	public void updatePasswordByEmail(UserVo user) {
+	    userMapper.updatePasswordByEmail(user);
+	}
+
 
 	@Override
 	public void deleteUser(Integer userId) throws Exception {
