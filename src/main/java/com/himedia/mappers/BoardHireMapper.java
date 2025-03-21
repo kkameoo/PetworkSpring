@@ -15,4 +15,6 @@ public interface BoardHireMapper {
 	List<BoardHireVo> selectAllBoardHire();
 	// <select id="selectBoardHire" resultType="BoardHireVo" parameterType="int">
 	BoardHireVo selectBoardHire(Integer id);
+	//	<update id="updateBoardHire" parameterType="BoardHireVo">
+	int updateBoardHire(BoardHireVo boardHireVo);
 }

@@ -56,4 +56,21 @@
 	JOIN board_hire AS h ON b.board_id = h.board_id
 	WHERE board_type = 3 AND b.board_id = #{id}
 	</select>
+	
+	<!-- UPDATE: PUT -->
+	<update id="updateBoardHire" parameterType="BoardHireVo">
+	UPDATE board AS b
+	JOIN board_hire AS h ON b.board_id = h.board_id
+	SET 
+	b.title = #{title},
+	b.content = #{content},
+    b.local_si = #{localSi},
+    b.local_gu = #{localGu},
+    b.`update` = NOW(),
+    h.hire_condition = #{hireCondition},
+    h.hire_date = #{hireDate},
+    h.hire_price = #{hirePrice},
+    h.hire_category = #{hireCategory}
+	WHERE b.board_id = #{boardId};
+	</update>
 </mapper>
