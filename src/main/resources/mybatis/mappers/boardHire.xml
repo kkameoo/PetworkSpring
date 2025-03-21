@@ -8,4 +8,28 @@
 	INSERT INTO board_hire (board_id, hire_condition, hire_date, hire_price, hire_category)
 	VALUES (#{boardId}, #{hireCondition}, #{hireDate}, #{hirePrice}, #{hireCategory});
 	</insert>
+	
+	<!-- SELECT: GET -->
+	<select id="selectAllBoardHire" resultType="BoardHireVo">
+	SELECT 
+	b.board_id as boardId, 
+	b.user_id as userId, 
+	b.board_type as boardType,
+	b.title as title, 
+	b.content as content, 
+	b.report_count as reportCount,
+	b.click_count as clickCount, 
+	b.local_si as localSi, 
+	b.local_gu as localGu, 
+	b.reg_date as regDate, 
+	b.`update` as `update`, 
+	h.board_hire_id as boardHireId,
+	h.hire_condition as hireCondition,
+	h.hire_date as hireDate,
+	h.hire_price as hirePrice,
+	h.hire_category as hireCategory
+	FROM board AS b 
+	JOIN board_hire AS h ON b.board_id = h.board_id
+	WHERE board_type = 3
+	</select>
 </mapper>

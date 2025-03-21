@@ -29,4 +29,8 @@ public interface BoardService {
 	int increaseCount(Integer id);
 	// 산책 게시물들을 받아오는 기능
 	List<BoardWalkVo> selectAllBoardWalk();
+	// 거래 게시물들을 받아오는 기능
+	List<BoardTradeVo> selectAllBoardTrade();
+	// 고용 게시물들을 받아오는 기능
+	List<BoardHireVo> selectAllBoardHire();
 }
