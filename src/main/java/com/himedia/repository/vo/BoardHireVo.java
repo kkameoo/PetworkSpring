@@ -14,15 +14,19 @@ import lombok.ToString;
 @Setter
 @ToString
 public class BoardHireVo {
-	
+	//board 필드
 	private Integer boardId;
 	private Integer userId;
 	private Integer boardType;
 	private String title;
 	private String content;
+	private Integer reportCount;
+	private Integer clickCount;
 	private Integer localSi;
 	private Integer localGu;
-	
+	private Timestamp regDate;
+	private Timestamp update;
+	//hire 필드
 	private Integer boardHireId;
 	private String hireCondition;
 	private Timestamp hireDate;

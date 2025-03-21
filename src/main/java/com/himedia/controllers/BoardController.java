@@ -39,6 +39,18 @@ public class BoardController {
 		List<BoardWalkVo> boardWalkVos = boardService.selectAllBoardWalk();
 		return ResponseEntity.ok(boardWalkVos);
 	}
+	// 거래 게시물 전체 조회 (READ)
+	@GetMapping("/trade")
+	public ResponseEntity<?> selectAllBoardTradeList() {
+		List<BoardTradeVo> boardTradeVos = boardService.selectAllBoardTrade();
+		return ResponseEntity.ok(boardTradeVos);
+	}
+	// 고용 게시물 전체 조회 (READ)
+	@GetMapping("/hire")
+	public ResponseEntity<?> selectAllBoardHireList() {
+		List<BoardHireVo> boardHireVos = boardService.selectAllBoardHire();
+		return ResponseEntity.ok(boardHireVos);
+		}
 	
 	// 특정 테이블 조회 (READ)
 	@GetMapping("/{id}")
