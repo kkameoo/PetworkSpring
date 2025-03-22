@@ -10,6 +10,7 @@
 		<typeAlias alias="BoardTradeVo" type="com.himedia.repository.vo.BoardTradeVo"/>
 		<typeAlias alias="BoardHireVo" type="com.himedia.repository.vo.BoardHireVo"/>
 		<typeAlias alias="BoardPhotoVo" type="com.himedia.repository.vo.BoardPhotoVo"/>
+		<typeAlias alias="PetPhotoVo" type="com.himedia.repository.vo.PetPhotoVo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
@@ -18,6 +19,7 @@
 		<mapper resource="mybatis/mappers/boardTrade.xml" />
 		<mapper resource="mybatis/mappers/boardHire.xml" />
 		<mapper resource="mybatis/mappers/boardPhoto.xml" />
+		<mapper resource="mybatis/mappers/petPhoto.xml" />
 	</mappers>
 </configuration>	
  
