@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.PetMapper">
+
+<!-- CREATE -->
+    <insert id="insertPet">
+        INSERT INTO pet (user_id, pet_name, pet_type, pet_category, pet_introduce)
+        VALUES (#{userId}, #{petName}, #{petType}, #{petCategory}, #{petIntroduce});
+    </insert>
+
+    <!-- READ - 전체 (유저 기준) -->
+    <select id="selectPetsByUserId" resultType="com.himedia.repository.vo.PetVo">
+        SELECT * FROM pet
+        WHERE user_id = #{userId};
+    </select>
+
+    <!-- READ - 단일 -->
+    <select id="selectPetById" resultType="com.himedia.repository.vo.PetVo">
+        SELECT * FROM pet
+        WHERE pet_id = #{petId};
+    </select>
+
+    <!-- UPDATE -->
+    <update id="updatePet">
+        UPDATE pet
+        SET pet_name = #{petName},
+            pet_type = #{petType},
+            pet_category = #{petCategory},
+            pet_introduce = #{petIntroduce}
+        WHERE pet_id = #{petId};
+    </update>
+
+    <!-- DELETE -->
+    <delete id="deletePet">
+        DELETE FROM pet
+        WHERE pet_id = #{petId};
+    </delete>
+
+	
+</mapper>
