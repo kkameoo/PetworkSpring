@@ -13,15 +13,15 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class PhotoVo {
+public class BoardPhotoVo {
 	// pk
-	private Integer photoId;
+	private Integer boardPhotoId;
 	// fk
 	private Integer boardId;
 	// 파일 이름
-	private String photoName;
+	private String boardPhotoName;
 	// 파일 경로
-	private String prhotoSrc;
+	private String boardPhotoSrc;
 	// 가입 날짜
 	private Timestamp regDate;
 }
