@@ -11,6 +11,8 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,6 +47,14 @@ public class PhotoServiceImpl implements PhotoService {
 
 	@Override
 	public BoardPhotoVo getBoardPhoto(Integer id) {
-		return null;
+		BoardPhotoVo boardPhotoVo = boardPhotoMapper.getBoardPhotoById(id);
+		return boardPhotoVo;
+	}
+
+	@Override
+	public Resource convertFile(String fileSrc) throws IOException {
+		Path imagePath = Paths.get(fileSrc);
+		Resource resource = new UrlResource(imagePath.toUri());
+		return resource;
 	}
 }
