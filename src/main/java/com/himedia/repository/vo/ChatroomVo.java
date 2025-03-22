@@ -1,6 +1,5 @@
 package com.himedia.repository.vo;
 
-import java.nio.file.Path;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class FileVo {
-	private String fileName;
-	private Path filePath;
+public class ChatroomVo {
+	private Integer chatroomId;
+	private String chatroomName;
 }
