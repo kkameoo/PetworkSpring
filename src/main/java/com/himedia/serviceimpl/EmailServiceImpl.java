@@ -48,7 +48,8 @@ public class EmailServiceImpl implements EmailService {
 		                + "<h2 style='color: #333;'>페트워크에 오신 것을 환영합니다!</h2>"
 		                + "<p style='font-size:18px; color: #555;'>아래 인증 코드를 입력하여 이메일을 인증하세요.</p>"
 		                + "<p style='font-size:22px; font-weight: bold; color: blue;'>" + verificationCode + "</p>"
-		                + "<p>감사합니다!</p>"
+		                + "<p>'본 메일은 인증확인용으로 회신하셔도 답변을 받을 수 없습니다.!</p>"
+		                + "<p>문의사항은 카카오톡 문의를 이용해주시기 바랍니다'</p>"		                + "<p>감사합니다!</p>"
 		                + "</div>";
 
 		        helper.setText(emailContent, true);  // HTML 지원 가능
@@ -61,6 +62,33 @@ public class EmailServiceImpl implements EmailService {
 			throw new RuntimeException("이메일 전송 실패:" + e.getMessage());
 		}
 	}
+	
+	@Override
+	public void sendPasswordResetEmail(String email) {
+	    String verificationCode = generateVerificationCode();
+	    verificationCodes.put(email, verificationCode);	// 이메일 코드 저장
+
+	    try {
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+	        helper.setTo(email);
+	        helper.setSubject("비밀번호 재설정 이메일 인증");
+
+	        String emailContent = "<div style='text-align: center; font-family: Arial, sans-serif;'>"
+	                + "<h2 style='color: #333;'>비밀번호를 변경하시려면 아래 인증코드를 입력해주세요.</h2>"
+	                + "<p style='font-size:22px; font-weight: bold; color: red;'>" + verificationCode + "</p>"
+	                + "<p>'본 메일은 인증확인용으로 회신하셔도 답변을 받을 수 없습니다.'</p>"
+	                + "</div>";
+
+	        helper.setText(emailContent, true);
+
+	        mailSender.send(message);
+	    } catch (Exception e) {
+	        throw new RuntimeException("비밀번호 인증 이메일 전송 실패: " + e.getMessage());
+	    }
+	}
+
 	
 	@Override
 	public boolean verifyCode(String email, String code) {

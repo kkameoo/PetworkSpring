@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.himedia.services.EmailService;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/email")
 public class EmailController {
@@ -18,7 +20,7 @@ public class EmailController {
 	@Autowired
 	private EmailService emailService;
 	
-	// 이메일 인증 코드 전송
+	// 회원가입 이메일 인증 코드 전송
 	@PostMapping("/send")
 	public ResponseEntity<String> sendEmail(@RequestBody Map<String, String> request) {
 		String email = request.get("email");
@@ -27,6 +29,19 @@ public class EmailController {
 		}
 		emailService.sendVerificationEmail(email);
 		return ResponseEntity.ok("이메일 전송 완료");
+	}
+	
+	// 비밀번호 재설정 이메일 인증 코드 전송
+	@PostMapping("/send-reset-code")
+	public ResponseEntity<String> sendPasswordResetEmail(@RequestBody Map<String, String> request) {
+		String email = request.get("email");
+		
+		if (email == null || email.isEmpty()) {
+			return ResponseEntity.badRequest().body("이메일을 입력해주세요.");
+		}
+		
+		emailService.sendPasswordResetEmail(email);
+		return ResponseEntity.ok("비밀번호 재설정 이메일 전송 완료");
 	}
 	
 	
