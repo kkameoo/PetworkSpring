@@ -14,8 +14,7 @@
 	</insert>
 	
 	<!-- RETRIEVE: GET -->
-	<select id="getBoardPhotoById" parameterType="int"
-		resultType="BoardPhotoVo">
+	<select id="getBoardPhotoById" parameterType="int" resultType="BoardPhotoVo">
 		SELECT board_photo_id,
 		board_photo_name as boardPhotoName,
 		board_photo_src as boardPhotoSrc,
