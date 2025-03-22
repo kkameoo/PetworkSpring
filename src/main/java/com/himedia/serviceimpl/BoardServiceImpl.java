@@ -119,8 +119,60 @@ public class BoardServiceImpl implements BoardService {
 		int result = boardMapper.increaseCount(id);
 		return result;
 	}
-	
-	
+
+	@Override
+	public List<BoardWalkVo> selectAllBoardWalk() {
+		List<BoardWalkVo> boardWalkVos = boardWalkMapper.selectAllBoardWalk();
+		return boardWalkVos;
+	}
+
+	@Override
+	public List<BoardTradeVo> selectAllBoardTrade() {
+		List<BoardTradeVo> boardTradeVos = boardTradeMapper.selectAllBoardTrade();
+		return boardTradeVos;
+	}
+
+	@Override
+	public List<BoardHireVo> selectAllBoardHire() {
+		List<BoardHireVo> boardHireVos = boardHireMapper.selectAllBoardHire();
+		return boardHireVos;
+	}
+
+	@Override
+	public BoardWalkVo selectBoardWalk(Integer id) {
+		BoardWalkVo boardWalkVo = boardWalkMapper.selectBoardWalk(id);
+		return boardWalkVo;
+	}
+
+	@Override
+	public BoardTradeVo selectBoardTrade(Integer id) {
+		BoardTradeVo boardTradeVo = boardTradeMapper.selectBoardTrade(id);
+		return boardTradeVo;
+	}
+
+	@Override
+	public BoardHireVo selectBoardHire(Integer id) {
+		BoardHireVo boardHireVo = boardHireMapper.selectBoardHire(id);
+		return boardHireVo;
+	}
+
+	@Override
+	public int updateBoardWalk(BoardWalkVo boardWalkVo) {
+		int result = boardWalkMapper.updateBoardWalk(boardWalkVo);
+		return result;
+	}
+
+	@Override
+	public int updateBoardTrade(BoardTradeVo boardTradeVo) {
+		int result = boardTradeMapper.updateBoardTrade(boardTradeVo);
+		return result;
+	}
+
+	@Override
+	public int updateBoardHire(BoardHireVo boardHireVo) {
+		int result = boardHireMapper.updateBoardHire(boardHireVo);
+		return result;
+	}
 	
 	
 }
