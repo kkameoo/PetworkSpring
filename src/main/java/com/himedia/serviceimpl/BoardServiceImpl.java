@@ -1,20 +1,25 @@
 package com.himedia.serviceimpl;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.himedia.mappers.BoardHireMapper;
 import com.himedia.mappers.BoardMapper;
 import com.himedia.mappers.BoardTradeMapper;
 import com.himedia.mappers.BoardWalkMapper;
 import com.himedia.repository.vo.BoardHireVo;
+import com.himedia.repository.vo.BoardPhotoVo;
 import com.himedia.repository.vo.BoardTradeVo;
 import com.himedia.repository.vo.BoardVo;
+import com.himedia.repository.vo.BoardWalkRequestVo;
 import com.himedia.repository.vo.BoardWalkVo;
 import com.himedia.services.BoardService;
+import com.himedia.services.PhotoService;
 
 
 @Service
@@ -27,6 +32,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardTradeMapper boardTradeMapper;
 	@Autowired
 	private BoardHireMapper boardHireMapper;
+	@Autowired
+	private PhotoService photoService;
 
 	@Override
 	public List<BoardVo> selectAllBoard() {
@@ -57,6 +64,35 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println(board);
 		boardWalkVo.setBoardId(board.getBoardId());
 		int result2 = boardWalkMapper.insertBoardWalk(boardWalkVo);
+		
+		return result2;
+	}
+	
+	@Override
+	@Transactional
+	public int insertAllBoardWalk(MultipartFile file ,BoardWalkRequestVo boardWalkRequestVo) throws IOException {
+		BoardVo board = BoardVo.builder()
+				.userId(boardWalkRequestVo.getUserId())
+				.title(boardWalkRequestVo.getTitle())
+				.content(boardWalkRequestVo.getContent())
+				.localSi(boardWalkRequestVo.getLocalSi())
+				.localGu(boardWalkRequestVo.getLocalGu())
+				.boardType(boardWalkRequestVo.getBoardType())
+				.build();
+				
+		System.out.println(board);
+		int result = boardMapper.insertBoard(board);
+		System.out.println(board);
+		BoardWalkVo boardWalkVo = BoardWalkVo.builder()
+				.boardId(board.getBoardId())
+				.walkCategory(boardWalkRequestVo.getWalkCategory())
+				.build();
+		System.out.println(boardWalkVo);
+		int result2 = boardWalkMapper.insertBoardWalk(boardWalkVo);
+		
+		if (!file.isEmpty()) {
+			photoService.uploadBoardPicture(file, board.getBoardId());
+		}
 		
 		return result2;
 	}

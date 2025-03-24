@@ -1,12 +1,15 @@
 package com.himedia.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.himedia.repository.vo.BoardHireVo;
 import com.himedia.repository.vo.BoardTradeVo;
 import com.himedia.repository.vo.BoardVo;
+import com.himedia.repository.vo.BoardWalkRequestVo;
 import com.himedia.repository.vo.BoardWalkVo;
 
 @Service
@@ -45,4 +48,7 @@ public interface BoardService {
 	int updateBoardTrade(BoardTradeVo boardTradeVo);
 	// 고용 게시물을 수정하는 기능
 	int updateBoardHire(BoardHireVo boardHireVo);
+	
+	// 산책 게시물 + 이미지를 입력하는 기능
+	int insertAllBoardWalk(MultipartFile file, BoardWalkRequestVo boardWalkRequestVo) throws IOException;
 }
