@@ -3,7 +3,6 @@ package com.himedia.repository.vo;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,16 +13,16 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Builder
-public class BoardPhotoVo {
+public class PetPhotoVo {
 	// pk
-	private Integer boardPhotoId;
+	private Integer petPhotoId;
 	// fk
-	private Integer boardId;
+	private Integer petId;
 	// 파일 이름
-	private String boardPhotoName;
+	private String petPhotoName;
 	// 파일 경로
-	private String boardPhotoSrc;
+	private String petPhotoSrc;
 	// 가입 날짜
 	private Timestamp regDate;
+
 }

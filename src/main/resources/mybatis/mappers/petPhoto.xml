@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.PetPhotoMapper">
+
+	<!-- INSERT: POST -->
+	<insert id="insertOrUpdatePetPhoto" parameterType="PetPhotoVo">
+    INSERT INTO pet_photo 
+    (pet_id, pet_photo_name, pet_photo_src)
+    VALUES (#{petId}, #{petPhotoName}, #{petPhotoSrc})
+    ON DUPLICATE KEY UPDATE
+        pet_photo_name = VALUES(pet_photo_name),
+        pet_photo_src = VALUES(pet_photo_src)
+	</insert>
+	
+	<!-- RETRIEVE: GET -->
+	<select id="getPetPhotoById" parameterType="int"
+		resultType="PetPhotoVo">
+		SELECT pet_photo_id,
+		pet_photo_name as PetPhotoName,
+		pet_photo_src as PetPhotoSrc,
+		reg_date as regDate
+		FROM pet_photo
+		WHERE pet_id = #{id}
+	</select>
+
+</mapper>
