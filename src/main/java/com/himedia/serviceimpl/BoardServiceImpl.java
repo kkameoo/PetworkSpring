@@ -12,8 +12,10 @@ import com.himedia.mappers.BoardHireMapper;
 import com.himedia.mappers.BoardMapper;
 import com.himedia.mappers.BoardTradeMapper;
 import com.himedia.mappers.BoardWalkMapper;
+import com.himedia.repository.vo.BoardHireRequestVo;
 import com.himedia.repository.vo.BoardHireVo;
 import com.himedia.repository.vo.BoardPhotoVo;
+import com.himedia.repository.vo.BoardTradeRequestVo;
 import com.himedia.repository.vo.BoardTradeVo;
 import com.himedia.repository.vo.BoardVo;
 import com.himedia.repository.vo.BoardWalkRequestVo;
@@ -49,28 +51,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	@Transactional
-	public int insertBoardWalk(BoardWalkVo boardWalkVo) {
-		BoardVo board = BoardVo.builder()
-				.userId(boardWalkVo.getUserId())
-				.title(boardWalkVo.getTitle())
-				.content(boardWalkVo.getContent())
-				.localSi(boardWalkVo.getLocalSi())
-				.localGu(boardWalkVo.getLocalGu())
-				.boardType(boardWalkVo.getBoardType())
-				.build();
-				
-		System.out.println(board);
-		int result = boardMapper.insertBoard(board);
-		System.out.println(board);
-		boardWalkVo.setBoardId(board.getBoardId());
-		int result2 = boardWalkMapper.insertBoardWalk(boardWalkVo);
-		
-		return result2;
-	}
-	
-	@Override
-	@Transactional
-	public int insertAllBoardWalk(MultipartFile file ,BoardWalkRequestVo boardWalkRequestVo) throws IOException {
+	public int insertBoardWalk(MultipartFile file ,BoardWalkRequestVo boardWalkRequestVo) throws IOException {
 		BoardVo board = BoardVo.builder()
 				.userId(boardWalkRequestVo.getUserId())
 				.title(boardWalkRequestVo.getTitle())
@@ -99,42 +80,59 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	@Transactional
-	public int insertBoardTrade(BoardTradeVo boardTradeVo) {
+	public int insertBoardTrade(MultipartFile file ,BoardTradeRequestVo boardTradeRequestVo) throws IOException {
 		BoardVo board = BoardVo.builder()
-				.userId(boardTradeVo.getUserId())
-				.title(boardTradeVo.getTitle())
-				.content(boardTradeVo.getContent())
-				.localSi(boardTradeVo.getLocalSi())
-				.localGu(boardTradeVo.getLocalGu())
-				.boardType(boardTradeVo.getBoardType())
+				.userId(boardTradeRequestVo.getUserId())
+				.title(boardTradeRequestVo.getTitle())
+				.content(boardTradeRequestVo.getContent())
+				.localSi(boardTradeRequestVo.getLocalSi())
+				.localGu(boardTradeRequestVo.getLocalGu())
+				.boardType(boardTradeRequestVo.getBoardType())
 				.build();
 				
 		System.out.println(board);
 		int result = boardMapper.insertBoard(board);
 		System.out.println(board);
-		boardTradeVo.setBoardId(board.getBoardId());
+		BoardTradeVo boardTradeVo = BoardTradeVo.builder()
+				.boardId(board.getBoardId())
+				.tradePrice(boardTradeRequestVo.getTradePrice())
+				.tradeCategory(boardTradeRequestVo.getTradeCategory())
+				.build();
 		int result2 = boardTradeMapper.insertBoardTrade(boardTradeVo);
 		
+		if (!file.isEmpty()) {
+			photoService.uploadBoardPicture(file, board.getBoardId());
+		}
 		return result2;
 	}
 	
 	@Override
 	@Transactional
-	public int insertBoardHire(BoardHireVo boardHireVo) {
+	public int insertBoardHire(MultipartFile file ,BoardHireRequestVo boardHireRequestVo) throws IOException {
 		BoardVo board = BoardVo.builder()
-				.userId(boardHireVo.getUserId())
-				.title(boardHireVo.getTitle())
-				.content(boardHireVo.getContent())
-				.localSi(boardHireVo.getLocalSi())
-				.localGu(boardHireVo.getLocalGu())
-				.boardType(boardHireVo.getBoardType())
+				.userId(boardHireRequestVo.getUserId())
+				.title(boardHireRequestVo.getTitle())
+				.content(boardHireRequestVo.getContent())
+				.localSi(boardHireRequestVo.getLocalSi())
+				.localGu(boardHireRequestVo.getLocalGu())
+				.boardType(boardHireRequestVo.getBoardType())
 				.build();
 				
 		System.out.println(board);
 		int result = boardMapper.insertBoard(board);
 		System.out.println(board);
-		boardHireVo.setBoardId(board.getBoardId());
+		BoardHireVo boardHireVo = BoardHireVo.builder()
+				.boardId(board.getBoardId())
+				.hireCondition(boardHireRequestVo.getHireCondition())
+				.hireDate(boardHireRequestVo.getHireDate())
+				.hirePrice(boardHireRequestVo.getHirePrice())
+				.hireCategory(boardHireRequestVo.getHireCategory())
+				.build();
 		int result2 = boardHireMapper.insertBoardHire(boardHireVo);
+		
+		if (!file.isEmpty()) {
+			photoService.uploadBoardPicture(file, board.getBoardId());
+		}
 		return result2;
 	}
 
