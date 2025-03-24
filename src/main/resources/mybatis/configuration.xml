@@ -10,9 +10,11 @@
 		<typeAlias alias="BoardTradeVo" type="com.himedia.repository.vo.BoardTradeVo"/>
 		<typeAlias alias="BoardHireVo" type="com.himedia.repository.vo.BoardHireVo"/>
 		<typeAlias alias="BoardPhotoVo" type="com.himedia.repository.vo.BoardPhotoVo"/>
+		<typeAlias alias="PetVo" type="com.himedia.repository.vo.PetVo"/>
 		<typeAlias alias="PetPhotoVo" type="com.himedia.repository.vo.PetPhotoVo"/>
 		<typeAlias alias="PetPhotoVo" type="com.himedia.repository.vo.PetPhotoVo"/>
 		<typeAlias alias="ChatroomVo" type="com.himedia.repository.vo.ChatroomVo"/>
+
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
@@ -20,6 +22,7 @@
 		<mapper resource="mybatis/mappers/boardWalk.xml" />
 		<mapper resource="mybatis/mappers/boardTrade.xml" />
 		<mapper resource="mybatis/mappers/boardHire.xml" />
+		<mapper resource="mybatis/mappers/pet.xml" />
 		<mapper resource="mybatis/mappers/boardPhoto.xml" />
 		<mapper resource="mybatis/mappers/petPhoto.xml" />
 		<mapper resource="mybatis/mappers/chatroom.xml" />
