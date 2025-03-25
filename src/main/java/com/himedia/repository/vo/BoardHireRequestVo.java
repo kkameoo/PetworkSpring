@@ -3,7 +3,6 @@ package com.himedia.repository.vo;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,9 +13,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Builder
-public class BoardTradeVo {
-	// board필드
+public class BoardHireRequestVo {
+	//board 필드
 	private Integer boardId;
 	private Integer userId;
 	private Integer boardType;
@@ -28,9 +26,15 @@ public class BoardTradeVo {
 	private Integer localGu;
 	private Timestamp regDate;
 	private Timestamp update;
-	// trade필드
-	private Integer boardTradeId;
-	private Integer tradePrice;
-	private Integer tradeCategory;
+	//hire 필드
+	private Integer boardHireId;
+	private String hireCondition;
+	private Timestamp hireDate;
+	private Integer hirePrice;
+	private Integer hireCategory;
+	//photo 필드
+	private Integer boardPhotoId;
+	private String boardPhotoName;
+	private String boardPhotoSrc;
 
 }

@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.himedia.repository.vo.BoardHireRequestVo;
 import com.himedia.repository.vo.BoardHireVo;
+import com.himedia.repository.vo.BoardTradeRequestVo;
 import com.himedia.repository.vo.BoardTradeVo;
 import com.himedia.repository.vo.BoardVo;
 import com.himedia.repository.vo.BoardWalkRequestVo;
@@ -19,11 +21,11 @@ public interface BoardService {
 	// 특정 게시물을 받아오는 기능
 	BoardVo selectOneBoard(Integer id);
 	// 산책 게시물을 입력하는 기능
-	int insertBoardWalk(BoardWalkVo boardWalkVo);
+	int insertBoardWalk(MultipartFile file, BoardWalkRequestVo boardWalkRequestVo) throws IOException;
 	// 거래 게시물을 입력하는 기능
-	int insertBoardTrade(BoardTradeVo boardTradeVo);
+	int insertBoardTrade(MultipartFile file, BoardTradeRequestVo boardTradeRequestVo) throws IOException;
 	// 고용 게시물을 입력하는 기능
-	int insertBoardHire(BoardHireVo boardHireVo);
+	int insertBoardHire(MultipartFile file, BoardHireRequestVo boardHireRequestVo) throws IOException;
 	// 특정 게시물을 수정하는 기능
 	int updateBoard(BoardVo board);
 	// 특정 게시물을 삭제하는 기능
@@ -50,5 +52,5 @@ public interface BoardService {
 	int updateBoardHire(BoardHireVo boardHireVo);
 	
 	// 산책 게시물 + 이미지를 입력하는 기능
-	int insertAllBoardWalk(MultipartFile file, BoardWalkRequestVo boardWalkRequestVo) throws IOException;
+	
 }
