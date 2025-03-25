@@ -1,5 +1,6 @@
 package com.himedia.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ChatController {
 
     @MessageMapping("/chat")
     @SendTo("/topic/messages")
-    public ChatMessageVo sendChatMessage(ChatMessageVo chatMessage) {
+    public ChatMessageVo sendChatMessage(ChatMessageVo chatMessage) throws IOException {
     	chatService.sendMessage("topic/chat", chatMessage);
         return chatMessage;
     }
