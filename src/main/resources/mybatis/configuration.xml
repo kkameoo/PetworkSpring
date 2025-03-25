@@ -14,6 +14,7 @@
 		<typeAlias alias="PetPhotoVo" type="com.himedia.repository.vo.PetPhotoVo"/>
 		<typeAlias alias="PetPhotoVo" type="com.himedia.repository.vo.PetPhotoVo"/>
 		<typeAlias alias="ChatroomVo" type="com.himedia.repository.vo.ChatroomVo"/>
+		<typeAlias alias="BoardCommentVo" type="com.himedia.repository.vo.BoardCommentVo"/>
 
 	</typeAliases>
 	<mappers>
@@ -26,6 +27,7 @@
 		<mapper resource="mybatis/mappers/boardPhoto.xml" />
 		<mapper resource="mybatis/mappers/petPhoto.xml" />
 		<mapper resource="mybatis/mappers/chatroom.xml" />
+		<mapper resource="mybatis/mappers/boardComment.xml" />
 	</mappers>
 </configuration>	
  
