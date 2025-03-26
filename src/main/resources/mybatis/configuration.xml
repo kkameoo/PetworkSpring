@@ -12,7 +12,6 @@
 		<typeAlias alias="BoardPhotoVo" type="com.himedia.repository.vo.BoardPhotoVo"/>
 		<typeAlias alias="PetVo" type="com.himedia.repository.vo.PetVo"/>
 		<typeAlias alias="PetPhotoVo" type="com.himedia.repository.vo.PetPhotoVo"/>
-		<typeAlias alias="PetPhotoVo" type="com.himedia.repository.vo.PetPhotoVo"/>
 		<typeAlias alias="ChatroomVo" type="com.himedia.repository.vo.ChatroomVo"/>
 		<typeAlias alias="BoardCommentVo" type="com.himedia.repository.vo.BoardCommentVo"/>
 
