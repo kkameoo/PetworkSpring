@@ -4,10 +4,27 @@
 <mapper namespace="com.himedia.mappers.ChatroomMapper">
 
 	<!-- SELECT: GET -->
+	<select id="selectChatroom" resultType="ChatroomVo">
+		SELECT 
+		chatroom_id as chatroomId,
+		chatroom_name as chatroomName,
+		reg_date as regDate
+		FROM chatroom
+	</select>
+
+	<!-- SELECT: GET -->
 	<select id="selectOneChatroom" parameterType="int" resultType="ChatroomVo">
 		SELECT 
 		chatroom_id as chatroomId,
-		chatroom_name as chatroomName
-		FROM chatroom;
+		chatroom_name as chatroomName,
+		reg_date as regDate
+		FROM chatroom
+		WHERE chatroom_id = #{id}
 	</select>
+	
+	<!-- INSERT: POST -->
+	<insert id="insertChatroom" parameterType="ChatroomVo">
+	  	INSERT INTO chatroom (chatroom_name)
+     	VALUES (#{chatroomName});
+	</insert>
 </mapper>

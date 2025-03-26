@@ -3,6 +3,13 @@
 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+	<settings>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+
 	<typeAliases>
 		<typeAlias alias="UserVo" type="com.himedia.repository.vo.UserVo"/>
 		<typeAlias alias="BoardVo" type="com.himedia.repository.vo.BoardVo"/>
@@ -14,8 +21,9 @@
 		<typeAlias alias="PetPhotoVo" type="com.himedia.repository.vo.PetPhotoVo"/>
 		<typeAlias alias="ChatroomVo" type="com.himedia.repository.vo.ChatroomVo"/>
 		<typeAlias alias="BoardCommentVo" type="com.himedia.repository.vo.BoardCommentVo"/>
-
+		<typeAlias alias="ChatMessageVo" type="com.himedia.repository.vo.ChatMessageVo"/>
 	</typeAliases>
+	
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/board.xml" />
@@ -27,7 +35,10 @@
 		<mapper resource="mybatis/mappers/petPhoto.xml" />
 		<mapper resource="mybatis/mappers/chatroom.xml" />
 		<mapper resource="mybatis/mappers/boardComment.xml" />
+		<mapper resource="mybatis/mappers/chatMessage.xml" />
 	</mappers>
+
+	
 </configuration>	
  
 
