@@ -10,14 +10,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ChatroomVo {
 	
-	private String roomId;
-	private String name;
-	
-	@Builder
-	public ChatroomVo(String roomId, String name) {
-		this.roomId = roomId;
-		this.name = name;
-	}
+	private Integer chatroomId;
+	private String chatroomName;
+	private Timestamp regDate;
+
 }
