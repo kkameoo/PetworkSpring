@@ -86,7 +86,7 @@ public class UserController {
 	}
 	
 	// 로그아웃
-	@PostMapping("/logout")
+	@GetMapping("/logout")
 	public ResponseEntity<String> logout(HttpSession session) {
 	    session.invalidate(); //  세션 삭제
 	    return ResponseEntity.ok("로그아웃 성공");
