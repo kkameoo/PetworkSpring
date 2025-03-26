@@ -32,5 +32,7 @@ public class BoardTradeVo {
 	private Integer boardTradeId;
 	private Integer tradePrice;
 	private Integer tradeCategory;
+	//user 필드
+	private String nickname;
 
 }

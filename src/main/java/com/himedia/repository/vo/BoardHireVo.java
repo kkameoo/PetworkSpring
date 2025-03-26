@@ -34,5 +34,7 @@ public class BoardHireVo {
 	private Timestamp hireDate;
 	private Integer hirePrice;
 	private Integer hireCategory;
+	//user 필드
+	private String nickname;
 
 }

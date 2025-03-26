@@ -27,9 +27,11 @@
 	h.hire_condition as hireCondition,
 	h.hire_date as hireDate,
 	h.hire_price as hirePrice,
-	h.hire_category as hireCategory
+	h.hire_category as hireCategory,
+	u.nickname as nickname
 	FROM board AS b 
 	JOIN board_hire AS h ON b.board_id = h.board_id
+	JOIN user u ON b.user_id = u.user_id
 	WHERE board_type = 3
 	</select>
 	
@@ -51,9 +53,11 @@
 	h.hire_condition as hireCondition,
 	h.hire_date as hireDate,
 	h.hire_price as hirePrice,
-	h.hire_category as hireCategory
+	h.hire_category as hireCategory,
+	u.nickname as nick name
 	FROM board AS b 
 	JOIN board_hire AS h ON b.board_id = h.board_id
+	JOIN user AS u ON b.user_id = u.user_id
 	WHERE board_type = 3 AND b.board_id = #{id}
 	</select>
 	
