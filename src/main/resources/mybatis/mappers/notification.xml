@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.NotificationMapper">
+<resultMap id="NotificationResultMap" type="NotificationVo">
+  <id column="notification_id" property="notificationId"/>
+  <result column="receiver_id" property="receiverId"/>
+  <result column="content" property="content"/>
+  <result column="link" property="link"/>
+  <result column="is_read" property="isRead"/>
+  <result column="created_at" property="createdAt"/>
+</resultMap>
+<select id="selectByReceiverId" resultMap="NotificationResultMap">
+  SELECT * FROM notification WHERE receiver_id = #{userId} ORDER BY notification_id DESC
+</select>
+  <insert id="insertNotification" parameterType="com.himedia.repository.vo.NotificationVo">
+  	INSERT INTO notification (receiver_id, content, link, is_read, created_at)
+ 	VALUES (#{receiverId}, #{content}, #{link}, #{isRead}, NOW())
+  </insert>
+</mapper>
