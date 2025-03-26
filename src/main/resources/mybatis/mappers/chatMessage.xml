@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.ChatMessageMapper">
+
+	<!-- SELECT: GET -->
+	<select id="selectAllChatMessage" parameterType="int" resultType="ChatMessageVo">
+		SELECT 
+		chat_id as chatId,
+		chatroom_id as chatroomId,
+		sender,
+		content,
+		message_type as MessageType,
+		reg_date as regDate
+		FROM chat
+		WHERE chatroom_id = #{roomId}
+	</select>
+	
+	<!-- INSERT: POST -->
+	<insert id="insertChatMessages">
+	  	INSERT INTO chat (chatroom_id, sender, content, message_type)
+     	VALUES
+     	<foreach collection="list" item="ChatMessageVo" separator=",">
+     		 (#{ChatMessageVo.chatroomId}, #{ChatMessageVo.sender}, #{ChatMessageVo.content}, #{ChatMessageVo.messageType})
+     	</foreach>
+	</insert>
+</mapper>
