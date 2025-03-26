@@ -50,6 +50,9 @@ public interface BoardService {
 	int updateBoardTrade(BoardTradeVo boardTradeVo);
 	// 고용 게시물을 수정하는 기능
 	int updateBoardHire(BoardHireVo boardHireVo);
+	// 펫스타그램 게시글
+	int insertOneBoard(MultipartFile file, BoardVo boardVo) throws IOException;
+
 	
 	// 산책 게시물 + 이미지를 입력하는 기능
 	

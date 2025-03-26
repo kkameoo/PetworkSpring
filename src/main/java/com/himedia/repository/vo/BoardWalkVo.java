@@ -31,4 +31,6 @@ public class BoardWalkVo {
 	//hire 필드
 	private Integer boardWalkId;
 	private Integer walkCategory;
+	//user 필드
+	private String nickname;
 }

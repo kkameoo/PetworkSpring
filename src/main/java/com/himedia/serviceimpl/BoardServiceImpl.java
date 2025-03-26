@@ -208,5 +208,16 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 	
+	@Override
+	@Transactional
+	public int insertOneBoard(MultipartFile file, BoardVo boardVo) throws IOException {
+	    int result = boardMapper.insertBoard(boardVo); // board 등록
+	    if (!file.isEmpty()) {
+	        photoService.uploadBoardPicture(file, boardVo.getBoardId()); // 사진 등록
+	    }
+	    return result;
+	}
+
+	
 	
 }

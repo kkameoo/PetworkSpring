@@ -25,9 +25,11 @@
 	b.`update` as `update`, 
 	t.board_trade_id as boardTradeId,
 	t.trade_price as tradePrice,
-	t.trade_category as tradeCategory 
+	t.trade_category as tradeCategory,
+	u.nickname as nickname
 	FROM board AS b 
 	JOIN board_trade AS t ON b.board_id = t.board_id
+	JOIN user AS u ON b.user_id = u.user_id
 	WHERE board_type = 2
 	</select>
 	
@@ -47,9 +49,11 @@
 	b.`update` as `update`, 
 	t.board_trade_id as boardTradeId,
 	t.trade_price as tradePrice,
-	t.trade_category as tradeCategory 
+	t.trade_category as tradeCategory,
+	u.nickname as nickname
 	FROM board AS b 
 	JOIN board_trade AS t ON b.board_id = t.board_id
+	JOIN user AS u ON b.user_id = u.user_id
 	WHERE board_type = 2 AND b.board_id = #{id}
 	</select>
 	

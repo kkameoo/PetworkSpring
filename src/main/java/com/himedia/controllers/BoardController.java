@@ -17,13 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.himedia.repository.vo.BoardCommentVo;
 import com.himedia.repository.vo.BoardHireRequestVo;
 import com.himedia.repository.vo.BoardHireVo;
+import com.himedia.repository.vo.BoardPhotoVo;
 import com.himedia.repository.vo.BoardTradeRequestVo;
 import com.himedia.repository.vo.BoardTradeVo;
 import com.himedia.repository.vo.BoardVo;
 import com.himedia.repository.vo.BoardWalkRequestVo;
 import com.himedia.repository.vo.BoardWalkVo;
+import com.himedia.services.BoardCommentService;
 import com.himedia.services.BoardService;
 
 @RestController
@@ -32,6 +35,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private BoardCommentService boardCommentService;
 
 	// 전체 조회 (READ)
 	@GetMapping("")
@@ -191,4 +197,39 @@ public class BoardController {
 		}
 		return ResponseEntity.badRequest().body("에러가 발생했습니다.");
 	}	
+	
+	// 댓글 등록
+	@PostMapping("/{boardId}/comment")
+	public ResponseEntity<String> insertBoardComment(@PathVariable int boardId, @RequestBody BoardCommentVo comment){
+		comment.setBoardId(boardId);
+		boardCommentService.insertBoardComment(comment);
+		return ResponseEntity.ok("댓글이 등록되었습니다.");
+	}
+	
+	// 댓글 전체 조회
+	@GetMapping("/{boardId}/comment")
+	public ResponseEntity<List<BoardCommentVo>> getBoardComments(@PathVariable int boardId){
+		List<BoardCommentVo> comments = boardCommentService.selectBoardCommentsByBoardId(boardId);
+		return ResponseEntity.ok(comments);
+	}
+	
+	@PostMapping("/petstagram")
+	public ResponseEntity<?> insertPetstagramPost(@RequestParam("file") MultipartFile file,
+	                                              @RequestParam("requestJson") String requestJson) throws IOException {
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    BoardVo boardVo = objectMapper.readValue(requestJson, BoardVo.class);
+
+	    // 예외처리: boardType이 반드시 4여야 함
+	    if (boardVo.getBoardType() != 4) {
+	        return ResponseEntity.badRequest().body("boardType은 4 (펫스타그램) 이어야 합니다.");
+	    }
+
+	    int result = boardService.insertOneBoard(file, boardVo);
+	    if (result == 1) {
+	        return ResponseEntity.ok(boardVo);
+	    }
+	    return ResponseEntity.badRequest().body("게시글 등록 중 오류가 발생했습니다.");
+	}
+
+	
 }
