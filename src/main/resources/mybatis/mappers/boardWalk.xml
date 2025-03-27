@@ -55,6 +55,31 @@
 	WHERE board_type = 1 AND  b.board_id = #{id}
 	</select>
 	
+	<!--SELECT: DESC -->
+	<select id="selectPopularBoardWalk" resultType="BoardWalkVo">
+    SELECT 
+    b.board_id AS boardId,
+    b.user_id AS userId,
+    b.board_type AS boardType,
+    b.title AS title,
+    b.content AS content,
+    b.report_count AS reportCount,
+    b.click_count AS clickCount,
+    b.local_si AS localSi,
+    b.local_gu AS localGu,
+    b.reg_date AS regDate,
+    b.`update` AS `update`,
+    w.board_walk_id AS boardWalkId,
+    w.walk_category AS walkCategory,
+    u.nickname AS nickname
+    FROM board b
+    JOIN board_walk w ON b.board_id = w.board_id
+    JOIN user u ON b.user_id = u.user_id
+    WHERE b.board_type = 1
+    ORDER BY b.click_count DESC
+    LIMIT 6
+	</select>
+	
 	<!-- UPDATE: PUT -->
 	<update id="updateBoardWalk" parameterType="BoardWalkVo">
 	UPDATE board AS b

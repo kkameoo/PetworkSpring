@@ -49,4 +49,5 @@ public class UserVo {
 	private Integer localGu;
 	private Timestamp regDate;
 	private Timestamp update;
+	private boolean isAdmin;
 }
