@@ -17,6 +17,7 @@ import lombok.ToString;
 public class ChatroomVo {
 	
 	private Integer chatroomId;
+	private Integer boardId;
 	private String chatroomName;
 	private Timestamp regDate;
 

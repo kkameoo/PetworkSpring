@@ -16,6 +16,19 @@
 		WHERE chatroom_id = #{roomId}
 	</select>
 	
+	<!-- SELECT: GET -->
+	<select id="selectAllChatMessageByBoardId" parameterType="int" resultType="ChatMessageVo">
+		SELECT 
+		chat_id as chatId,
+		chatroom_id as chatroomId,
+		sender,
+		content,
+		message_type as MessageType,
+		reg_date as regDate
+		FROM chat
+		WHERE chatroom_id = (SELECT chatroom_id as chatroomId FROM chatroom WHERE board_id = #{id} )
+	</select>
+	
 	<!-- INSERT: POST -->
 	<insert id="insertChatMessages">
 	  	INSERT INTO chat (chatroom_id, sender, content, message_type)

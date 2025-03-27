@@ -14,10 +14,12 @@ public interface ChatService {
 	// 메세지 저장
 	void saveMessage(ChatMessageVo message, String chatroomKey) throws IOException;
 	// 최근 50개 메시지 가져오기(redis)
-	List<Object> getRecentMessages(String chatroomKey);
+	List<Object> getRecentMessages(Integer chatroomKey);
 	// 특정 방의 전체 메시지 조회(Mysql)
 	List<ChatMessageVo> selectAllChatMessage(Integer roomId);
 	
 	void insertChatMessages();
+//	채팅 가져오기 
+//	List<ChatMessageVo> selectAllChatMessageByBoardId(Integer Id);
 
 }

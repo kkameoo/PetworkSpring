@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.himedia.mappers.ChatMessageMapper;
+import com.himedia.mappers.ChatroomMapper;
 import com.himedia.repository.vo.ChatMessageVo;
+import com.himedia.repository.vo.ChatroomVo;
 import com.himedia.services.ChatService;
 
 import jakarta.annotation.PostConstruct;
@@ -36,7 +38,7 @@ public class ChatServiceImpl implements ChatService{
 	private final int BATCH_SIZE = 10;
 	private final ObjectMapper objectMapper;
 	private final ChatMessageMapper chatMessageMapper;
-	
+	private final ChatroomMapper chatroomMapper;
 
 	@Override
 	public void sendMessage(String channel, ChatMessageVo message) throws IOException {
@@ -61,8 +63,9 @@ public class ChatServiceImpl implements ChatService{
 	} 
 	
 	@Override
-	public List<Object> getRecentMessages(String chatroomKey) {
-		return redisTemplate.opsForList().range(chatroomKey, 0, MAX_MESSAGES - 1);
+	public List<Object> getRecentMessages(Integer chatroomKey) {
+		ChatroomVo chatroomVo = chatroomMapper.selectOneChatroomByBoardId(chatroomKey);
+		return redisTemplate.opsForList().range(chatroomVo.getChatroomId().toString(), 0, MAX_MESSAGES - 1);
 	}
 
 	@Override
