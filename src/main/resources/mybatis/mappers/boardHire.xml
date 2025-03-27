@@ -54,12 +54,40 @@
 	h.hire_date as hireDate,
 	h.hire_price as hirePrice,
 	h.hire_category as hireCategory,
-	u.nickname as nick name
+	u.nickname as nickname
 	FROM board AS b 
 	JOIN board_hire AS h ON b.board_id = h.board_id
 	JOIN user AS u ON b.user_id = u.user_id
 	WHERE board_type = 3 AND b.board_id = #{id}
 	</select>
+	
+	<!--SELECT: DESC-->
+	<select id="selectPopularBoardHire" resultType="BoardHireVo">
+    SELECT 
+    b.board_id AS boardId,
+    b.user_id AS userId,
+    b.board_type AS boardType,
+    b.title AS title,
+    b.content AS content,
+    b.report_count AS reportCount,
+    b.click_count AS clickCount,
+    b.local_si AS localSi,
+    b.local_gu AS localGu,
+    b.reg_date AS regDate,
+    b.`update` AS `update`,
+    h.board_hire_id AS boardHireId,
+    h.hire_category AS hireCategory,
+    h.charge_type AS chargeType,
+    h.price AS price,
+    u.nickname AS nickname
+    FROM board b
+    JOIN board_hire h ON b.board_id = h.board_id
+    JOIN user u ON b.user_id = u.user_id
+    WHERE b.board_type = 3
+    ORDER BY b.click_count DESC
+    LIMIT 10
+</select>
+
 	
 	<!-- UPDATE: PUT -->
 	<update id="updateBoardHire" parameterType="BoardHireVo">
