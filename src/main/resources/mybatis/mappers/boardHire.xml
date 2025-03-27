@@ -85,7 +85,7 @@
     JOIN user u ON b.user_id = u.user_id
     WHERE b.board_type = 3
     ORDER BY b.click_count DESC
-    LIMIT 6
+    LIMIT 10
 </select>
 
 	
