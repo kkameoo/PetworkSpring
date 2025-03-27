@@ -36,19 +36,22 @@ public class BoardServiceImpl implements BoardService {
 	private BoardHireMapper boardHireMapper;
 	@Autowired
 	private PhotoService photoService;
-
+	
+	// 모든 게시물 출력
 	@Override
 	public List<BoardVo> selectAllBoard() {
 		List<BoardVo> boardList = boardMapper.selectAllBoard();
 		return boardList;
 	}
 
+	// 하나의 게시물 출력
 	@Override
 	public BoardVo selectOneBoard(Integer id) {
 		BoardVo board = boardMapper.selectBoard(id);
 		return board;
 	}
 
+	// 산책 게시물 입력
 	@Override
 	@Transactional
 	public int insertBoardWalk(MultipartFile file ,BoardWalkRequestVo boardWalkRequestVo) throws IOException {
@@ -78,6 +81,7 @@ public class BoardServiceImpl implements BoardService {
 		return result2;
 	}
 	
+	// 거래 게시물 입력
 	@Override
 	@Transactional
 	public int insertBoardTrade(MultipartFile file ,BoardTradeRequestVo boardTradeRequestVo) throws IOException {
@@ -106,6 +110,7 @@ public class BoardServiceImpl implements BoardService {
 		return result2;
 	}
 	
+	// 고용 게시물 입력
 	@Override
 	@Transactional
 	public int insertBoardHire(MultipartFile file ,BoardHireRequestVo boardHireRequestVo) throws IOException {
@@ -136,78 +141,90 @@ public class BoardServiceImpl implements BoardService {
 		return result2;
 	}
 
+	// 일반 게시물 수정
 	@Override
 	public int updateBoard(BoardVo board) {
 		int result = boardMapper.updateBoard(board);
 		return result;
 	}
 
+	// 게시물 삭제(공용)
 	@Override
 	public int deleteBoard(Integer id) {
 		int result = boardMapper.deleteBoard(id);
 		return result;
 	}
 
+	// 조회수 증가
 	@Override
 	public int increaseCount(Integer id) {
-		int result = boardMapper.increaseCount(id);
+		int result = boardMapper.increaseClickCount(id);
 		return result;
 	}
 
+	// 모든 산책 게시물 출력
 	@Override
 	public List<BoardWalkVo> selectAllBoardWalk() {
 		List<BoardWalkVo> boardWalkVos = boardWalkMapper.selectAllBoardWalk();
 		return boardWalkVos;
 	}
-
+	
+	// 모든 거래 게시물 출력
 	@Override
 	public List<BoardTradeVo> selectAllBoardTrade() {
 		List<BoardTradeVo> boardTradeVos = boardTradeMapper.selectAllBoardTrade();
 		return boardTradeVos;
 	}
-
+	// 모든 고용 게시물 출력
 	@Override
 	public List<BoardHireVo> selectAllBoardHire() {
 		List<BoardHireVo> boardHireVos = boardHireMapper.selectAllBoardHire();
 		return boardHireVos;
 	}
 
+	// 하나의 산책 게시물 출력
 	@Override
 	public BoardWalkVo selectBoardWalk(Integer id) {
 		BoardWalkVo boardWalkVo = boardWalkMapper.selectBoardWalk(id);
 		return boardWalkVo;
 	}
-
+	
+	// 하나의 거래 게시물 출력
 	@Override
 	public BoardTradeVo selectBoardTrade(Integer id) {
 		BoardTradeVo boardTradeVo = boardTradeMapper.selectBoardTrade(id);
 		return boardTradeVo;
 	}
 
+	// 하나의 고용 게시물 출력
 	@Override
 	public BoardHireVo selectBoardHire(Integer id) {
 		BoardHireVo boardHireVo = boardHireMapper.selectBoardHire(id);
 		return boardHireVo;
 	}
 
+	// 산책 게시물 수정
 	@Override
 	public int updateBoardWalk(BoardWalkVo boardWalkVo) {
 		int result = boardWalkMapper.updateBoardWalk(boardWalkVo);
 		return result;
 	}
 
+	// 거래 게시물 수정
 	@Override
 	public int updateBoardTrade(BoardTradeVo boardTradeVo) {
 		int result = boardTradeMapper.updateBoardTrade(boardTradeVo);
 		return result;
 	}
 
+	// 고용 게시물 수정
 	@Override
 	public int updateBoardHire(BoardHireVo boardHireVo) {
 		int result = boardHireMapper.updateBoardHire(boardHireVo);
 		return result;
 	}
 	
+	// 일반 게시물 입력
 	@Override
 	@Transactional
 	public int insertOneBoard(MultipartFile file, BoardVo boardVo) throws IOException {
