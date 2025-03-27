@@ -5,8 +5,8 @@
 
 	<!-- 댓글 등록 -->
     <insert id="insertBoardComment" parameterType="com.himedia.repository.vo.BoardCommentVo">
-    INSERT INTO board_petstar_comment (comment_user, comment_content, board_id)
-    VALUES (#{commentUser}, #{commentContent}, #{boardId})
+    INSERT INTO board_petstar_comment (comment_user, comment_content, board_id, reg_date)
+    VALUES (#{commentUser}, #{commentContent}, #{boardId}, now())
     </insert>
 
     <!-- 특정 게시글의 댓글 전체 조회 -->
