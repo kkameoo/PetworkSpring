@@ -20,8 +20,8 @@
  	   preference, 
  	   local_si as localSi, 
        local_gu as localGu, 
-       reg_date as regDate, `
-       update`,
+       reg_date as regDate, 
+       `update`,
        is_admin as isAdmin
        FROM user
   	   WHERE email = #{email};
@@ -54,8 +54,8 @@
         local_si as localSi, 
         local_gu as localGu, 
         reg_date as regDate, 
-        `update`, 
-        is_admin as isAdmin 
+        `update`,
+        is_admin as isAdmin
        FROM user 
        WHERE user_id = #{userId};
     </select>
@@ -73,7 +73,7 @@
          local_gu as localGu, 
          reg_date as regDate, 
          `update`,
-         is_admin as isAdmin 
+         is_admin as isAdmin
         FROM user;
     </select>
 
