@@ -42,6 +42,21 @@ public class BoardServiceImpl implements BoardService {
 		List<BoardVo> boardList = boardMapper.selectAllBoard();
 		return boardList;
 	}
+	
+	@Override
+	public List<BoardWalkVo> getPopularBoardWalk() {
+	    return boardWalkMapper.selectPopularBoardWalk();
+	}
+	
+	@Override
+	public List<BoardHireVo> getPopularBoardHire() {
+	    return boardHireMapper.selectPopularBoardHire();
+	}
+	
+	@Override
+	public List<BoardTradeVo> getPopularBoardTrade() {
+	    return boardTradeMapper.selectPopularBoardTrade();
+	}
 
 	@Override
 	public BoardVo selectOneBoard(Integer id) {

@@ -17,5 +17,7 @@ public interface BoardTradeMapper {
 	BoardTradeVo selectBoardTrade(Integer id);
 	//	<update id="updateBoardTrade" parameterType="BoardTradeVo">
 	int updateBoardTrade(BoardTradeVo boardTradeVo);
+	// <select id="selectPopularBoardTrade" resultType="BoardTradeVo">
+	List<BoardTradeVo> selectPopularBoardTrade();
 }
 
