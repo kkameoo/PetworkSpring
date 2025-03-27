@@ -49,6 +49,21 @@ public class BoardServiceImpl implements BoardService {
 		List<BoardVo> boardList = boardMapper.selectAllBoard();
 		return boardList;
 	}
+	
+	@Override
+	public List<BoardWalkVo> getPopularBoardWalk() {
+	    return boardWalkMapper.selectPopularBoardWalk();
+	}
+	
+	@Override
+	public List<BoardHireVo> getPopularBoardHire() {
+	    return boardHireMapper.selectPopularBoardHire();
+	}
+	
+	@Override
+	public List<BoardTradeVo> getPopularBoardTrade() {
+	    return boardTradeMapper.selectPopularBoardTrade();
+	}
 
 	// 하나의 게시물 출력
 	@Override

@@ -52,6 +52,12 @@ public interface BoardService {
 	int updateBoardHire(BoardHireVo boardHireVo);
 	// 펫스타그램 게시글
 	int insertOneBoard(MultipartFile file, BoardVo boardVo) throws IOException;
+	// walk 게시글 인기순
+	List<BoardWalkVo> getPopularBoardWalk();
+	// Hire 게시글 인기순
+	List<BoardHireVo> getPopularBoardHire();
+	// trade 게시글 인기수
+	List<BoardTradeVo> getPopularBoardTrade();
 
 	
 	// 산책 게시물 + 이미지를 입력하는 기능

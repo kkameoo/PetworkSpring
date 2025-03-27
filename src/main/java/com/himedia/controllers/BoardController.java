@@ -77,11 +77,31 @@ public class BoardController {
 		return ResponseEntity.ok(boardTradeVo);
 	}
 	// 특정 고용 게시물 조회 (READ)
-		@GetMapping("/hire/{id}")
-		public ResponseEntity<?> selectBoardHire(@PathVariable Integer id) {
-			BoardHireVo boardHireVo = boardService.selectBoardHire(id);
-			return ResponseEntity.ok(boardHireVo);
-		}
+	@GetMapping("/hire/{id}")
+	public ResponseEntity<?> selectBoardHire(@PathVariable Integer id) {
+		BoardHireVo boardHireVo = boardService.selectBoardHire(id);
+		return ResponseEntity.ok(boardHireVo);
+	}
+	
+	// 산책 게시물 인기순
+	@GetMapping("/walk/popular")
+	public List<BoardWalkVo> getPopularBoardWalk() {
+	    return boardService.getPopularBoardWalk();
+	}
+	
+	// 고용 게시물 인기순
+	@GetMapping("/hire/popular")
+	public List<BoardHireVo> getPopularBoardHire() {
+	    return boardService.getPopularBoardHire();
+	}
+	
+	// 거래 게시물 인기순
+	@GetMapping("/trade/popular")
+	public List<BoardTradeVo> getPopularBoardTrade() {
+		return boardService.getPopularBoardTrade();
+	}
+
+
 	
 	// 특정 테이블 조회 (READ)
 	@GetMapping("/{id}")
