@@ -43,7 +43,7 @@ public class ChatController {
     // redis저장소의 채팅 내역들을 출력
     @GetMapping("/{id}")
     public ResponseEntity<?> getAllChats(@PathVariable Integer id) {
-    	List<Object> chatList = chatService.getRecentMessages(id.toString());
+    	List<Object> chatList = chatService.getRecentMessages(id);
     	if (chatList.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("데이터가 존재하지 않습니다.");
 		}
@@ -59,7 +59,18 @@ public class ChatController {
 		}
 		return ResponseEntity.ok(chatroomVo);
 	}
-	// 채팅룸 하나 출력
+	
+	// boardId로 채팅룸 하나 출력
+	@GetMapping("/room/board/{id}")
+	public ResponseEntity<?> selectOneChatroomByBoardId(@PathVariable Integer id) {
+		ChatroomVo chatroomVo = chatroomService.selectOneChatroomByBoardId(id);
+		if (chatroomVo == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("검색된 데이터가 존재하지 않습니다.");
+		}
+		return ResponseEntity.ok(chatroomVo);
+	}
+		
+	// 채팅룸 여러개 출력
 	@GetMapping("/room")
 	public ResponseEntity<?> selectChatrooms() {
 		List<ChatroomVo> chatroomVos = chatroomService.selectChatroom();

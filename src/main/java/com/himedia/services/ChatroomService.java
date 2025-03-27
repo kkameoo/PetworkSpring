@@ -14,4 +14,6 @@ public interface ChatroomService {
 	int insertChatroom (ChatroomVo chatroomVo);
 	// 모든 채팅방 출력
 	List<ChatroomVo> selectChatroom();
+	// 보드 아이디로 채팅방 하나 출력
+	ChatroomVo selectOneChatroomByBoardId(Integer id);
 }

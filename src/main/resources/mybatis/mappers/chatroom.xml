@@ -7,6 +7,7 @@
 	<select id="selectChatroom" resultType="ChatroomVo">
 		SELECT 
 		chatroom_id as chatroomId,
+		board_id as boardId,
 		chatroom_name as chatroomName,
 		reg_date as regDate
 		FROM chatroom
@@ -16,15 +17,27 @@
 	<select id="selectOneChatroom" parameterType="int" resultType="ChatroomVo">
 		SELECT 
 		chatroom_id as chatroomId,
+		board_id as boardId,
 		chatroom_name as chatroomName,
 		reg_date as regDate
 		FROM chatroom
 		WHERE chatroom_id = #{id}
 	</select>
 	
+	<!-- SELECT: GET -->
+	<select id="selectOneChatroomByBoardId" parameterType="int" resultType="ChatroomVo">
+		SELECT 
+		chatroom_id as chatroomId,
+		board_id as boardId,
+		chatroom_name as chatroomName,
+		reg_date as regDate
+		FROM chatroom
+		WHERE board_id = #{id}
+	</select>
+	
 	<!-- INSERT: POST -->
 	<insert id="insertChatroom" parameterType="ChatroomVo">
-	  	INSERT INTO chatroom (chatroom_name)
-     	VALUES (#{chatroomName});
+	  	INSERT INTO chatroom (board_id, chatroom_name)
+     	VALUES (#{boardId}, #{chatroomName});
 	</insert>
 </mapper>
