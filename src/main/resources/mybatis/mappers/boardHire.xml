@@ -77,16 +77,16 @@
     b.`update` AS `update`,
     h.board_hire_id AS boardHireId,
     h.hire_category AS hireCategory,
-    h.charge_type AS chargeType,
-    h.price AS price,
+    h.hire_price AS hirePrice,
+    h.hire_condition AS hireCondition,
     u.nickname AS nickname
-    FROM board b
-    JOIN board_hire h ON b.board_id = h.board_id
-    JOIN user u ON b.user_id = u.user_id
-    WHERE b.board_type = 3
-    ORDER BY b.click_count DESC
-    LIMIT 10
-</select>
+	FROM board b
+	JOIN board_hire h ON b.board_id = h.board_id
+	JOIN user u ON b.user_id = u.user_id
+	WHERE b.board_type = 3
+	ORDER BY b.click_count DESC
+	LIMIT 10
+	</select>
 
 	
 	<!-- UPDATE: PUT -->

@@ -59,7 +59,7 @@
 	
 	<!--SELECT: DESC-->
 	<select id="selectPopularBoardTrade" resultType="BoardTradeVo">
-    SELECT 
+ 	 SELECT 
     b.board_id AS boardId,
     b.user_id AS userId,
     b.board_type AS boardType,
@@ -73,18 +73,16 @@
     b.`update` AS `update`,
     t.board_trade_id AS boardTradeId,
     t.trade_category AS tradeCategory,
-    t.price AS price,
-    t.product_status AS productStatus,
-    t.trade_status AS tradeStatus,
+    t.trade_price AS tradePrice,
     u.nickname AS nickname
-    FROM board b
-    JOIN board_trade t ON b.board_id = t.board_id
-    JOIN user u ON b.user_id = u.user_id
-    WHERE b.board_type = 2
-    ORDER BY b.click_count DESC
-    LIMIT 6
-</select>
-
+  	FROM board b
+  	JOIN board_trade t ON b.board_id = t.board_id
+  	JOIN user u ON b.user_id = u.user_id
+  	WHERE b.board_type = 2
+  	ORDER BY b.click_count DESC
+  	LIMIT 6
+	</select>
+	
 	
 	<!-- UPDATE: PUT -->
 	<update id="updateBoardTrade" parameterType="BoardTradeVo">
