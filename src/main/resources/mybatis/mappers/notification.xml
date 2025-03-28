@@ -13,8 +13,21 @@
 <select id="selectByReceiverId" resultMap="NotificationResultMap">
   SELECT * FROM notification WHERE receiver_id = #{userId} ORDER BY notification_id DESC
 </select>
-  <insert id="insertNotification" parameterType="com.himedia.repository.vo.NotificationVo">
-  	INSERT INTO notification (receiver_id, content, link, is_read, created_at)
- 	VALUES (#{receiverId}, #{content}, #{link}, #{isRead}, NOW())
-  </insert>
+  <select id="selectNotificationsByUserId" resultType="NotificationVo">
+  SELECT 
+  ntf.notification_id as notificationId,
+  ntf.chatroom_id as chatroomId,
+  ntf.content,
+  ntf.is_read as isRead,
+  ntf.created_at as createdAt
+  FROM notification as ntf
+  JOIN chatroom as cr ON ntf.chatroom_id = cr.chatroom_id 
+  JOIN chatroom_user as cru ON cr.chatroom_id  = cru.chatroom_id
+  WHERE cru.user_id = 1
+  ORDER BY ntf.created_at DESC;
+</select>
+	<insert id="insertNotification" parameterType="NotificationVo">
+		INSERT INTO notification (chatroom_id, content)
+		VALUES (#{chatroomId}, #{content})
+	</insert>
 </mapper>

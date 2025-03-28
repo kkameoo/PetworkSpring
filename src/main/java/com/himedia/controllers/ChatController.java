@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.himedia.mappers.ChatMessageMapper;
 import com.himedia.repository.vo.ChatMessageVo;
+import com.himedia.repository.vo.ChatroomUserVo;
 import com.himedia.repository.vo.ChatroomVo;
 import com.himedia.serviceimpl.ChatServiceImpl;
 import com.himedia.services.ChatroomService;
+import com.himedia.services.ChatroomUserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +35,7 @@ public class ChatController {
 	
 	private final ChatServiceImpl chatService;
 	private final ChatroomService chatroomService;
+	private final ChatroomUserService chatroomUserService;
 	// /app/chat 으로 메세지 보냄
 	// 메시지 브로커는 받은 메세지를 /topic/messages가 목적지
     @MessageMapping("/chat")
@@ -98,6 +102,25 @@ public class ChatController {
 		return ResponseEntity.ok(chatMessageVos);
 	}
 	
+	// 채팅룸 하나 생성
+	@PostMapping("/room/user")
+	public ResponseEntity<?> insertChatroomUser(@RequestBody ChatroomUserVo chatroomUserVo) {
+		int result = chatroomUserService.insertChatroomUser(chatroomUserVo);
+		if (result != 1) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("채팅방 유저 입력중 오류가 발생했습니다.");
+		}
+		return ResponseEntity.ok(chatroomUserVo);
+	}
+	
+	// 채팅룸 하나 생성
+	@GetMapping("/room/byuser/{id}")
+	public ResponseEntity<?> selectAllChatroomByUserid(@PathVariable Integer id) {
+		List<ChatroomVo> chatroomVos = chatroomService.selectChatroomByUserId(id);
+		if (chatroomVos.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("검색된 데이터가 존재하지 않습니다.");
+		}
+		return ResponseEntity.ok(chatroomVos);
+	}
 	
 	// (테스트) 한꺼번에 메세지를 mysql에 입력
 //	@PostMapping("/history")

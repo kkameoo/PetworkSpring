@@ -35,6 +35,17 @@
 		WHERE board_id = #{id}
 	</select>
 	
+	<!-- SELECT: GET -->
+	<select id="selectChatroomByUserId" parameterType="int" resultType="ChatroomVo">
+		SELECT 
+		cr.chatroom_id as chatroomId,
+		cr.board_id as boardId,
+		cr.chatroom_name as chatroomName,
+		cr.reg_date as regDate
+		FROM chatroom as cr JOIN chatroom_user as cru
+		WHERE cru.user_id = #{id}
+	</select>
+	
 	<!-- INSERT: POST -->
 	<insert id="insertChatroom" parameterType="ChatroomVo">
 	  	INSERT INTO chatroom (board_id, chatroom_name)

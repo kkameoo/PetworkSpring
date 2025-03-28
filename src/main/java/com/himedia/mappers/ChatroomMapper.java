@@ -19,4 +19,7 @@ public interface ChatroomMapper {
 
 //	<select id="selectOneChatroomByBoardId" parameterType="int" resultType="ChatroomVo">
 	ChatroomVo selectOneChatroomByBoardId(Integer id);
+	
+//	<select id="selectChatroomByUserId" parameterType="int" resultType="ChatroomVo">
+	List<ChatroomVo> selectChatroomByUserId(Integer id);
 }

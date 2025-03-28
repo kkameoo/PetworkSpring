@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.ChatroomUserMapper">
+
+	<!-- SELECT: GET -->
+	<select id="selectChatroomUsers" resultType="ChatroomUserVo">
+		SELECT 
+		chatroom_user_id as chatroomUserId,
+		chatroom_id as chatroomId,
+		user_id as userId
+		FROM chatroom_user
+	</select>
+
+
+	
+	<!-- INSERT: POST --> 
+	<insert id="insertChatroomUser" parameterType="ChatroomUserVo">
+	  	INSERT INTO chatroom_user (chatroom_id, user_id)
+     	VALUES (#{chatroomId}, #{userId});
+	</insert>
+</mapper>

@@ -16,4 +16,7 @@ public interface ChatMessageMapper {
 	
 //	<select id="selectAllChatMessageByBoardId" parameterType="int" resultType="ChatMessageVo">
 	List<ChatMessageVo> selectAllChatMessageByBoardId(Integer Id);
+	
+//	<insert id="insertNotification" parameterType="ChatMessageVo">
+	int insertNotification(ChatMessageVo chatMessageVo);
 }
