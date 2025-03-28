@@ -37,4 +37,9 @@
      		 (#{ChatMessageVo.chatroomId}, #{ChatMessageVo.sender}, #{ChatMessageVo.content}, #{ChatMessageVo.messageType})
      	</foreach>
 	</insert>
+	
+	<insert id="insertNotification" parameterType="ChatMessageVo">
+		INSERT INTO notification (chatroom_id, content)
+		VALUES (#{chatroomId}, CONCAT(#{sender}, '의 메세지', #{content}))
+	</insert>
 </mapper>

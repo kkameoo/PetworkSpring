@@ -39,4 +39,10 @@ public class ChatroomServiceImpl implements ChatroomService {
 		return chatroomVo;
 	}
 
+	@Override
+	public List<ChatroomVo> selectChatroomByUserId(Integer id) {
+		List<ChatroomVo> chatroomVos = chatroomMapper.selectChatroomByUserId(id);
+		return chatroomVos;
+	}
+
 }

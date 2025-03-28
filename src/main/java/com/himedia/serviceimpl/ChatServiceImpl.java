@@ -1,6 +1,8 @@
 package com.himedia.serviceimpl;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,8 +18,10 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.himedia.mappers.ChatMessageMapper;
 import com.himedia.mappers.ChatroomMapper;
+import com.himedia.mappers.NotificationMapper;
 import com.himedia.repository.vo.ChatMessageVo;
 import com.himedia.repository.vo.ChatroomVo;
+import com.himedia.repository.vo.NotificationVo;
 import com.himedia.services.ChatService;
 
 import jakarta.annotation.PostConstruct;
@@ -39,22 +43,33 @@ public class ChatServiceImpl implements ChatService{
 	private final ObjectMapper objectMapper;
 	private final ChatMessageMapper chatMessageMapper;
 	private final ChatroomMapper chatroomMapper;
+	private final SimpMessagingTemplate messagingTemplate;
+	private final NotificationMapper notificationMapper;
 
 	@Override
 	public void sendMessage(String channel, ChatMessageVo message) throws IOException {
+		NotificationVo notificationVo = NotificationVo.builder()
+				.chatroomId(message.getChatroomId())
+				.content(message.getSender() + "님의 메세지: " + message.getContent())
+				.isRead(false)
+				.createdAt(Timestamp.valueOf(LocalDateTime.now()))
+				.build();
+		
+		int result = notificationMapper.insertNotification(notificationVo);
+		messagingTemplate.convertAndSend("/user/" + message.getChatroomId() + "/notification", notificationVo);
 	    redisPublisher.publish(channel, message);
-	    saveMessage(message, message.getChatroomId().toString());
+	    saveMessage(message, message.getChatroomId());
 //	    System.out.println(getRecentMessages());
 	}
 	
 	@Override
-	public void saveMessage(ChatMessageVo message, String chatroomKey) throws IOException {
+	public void saveMessage(ChatMessageVo message, Integer chatroomKey) throws IOException {
 		String jsonMessage = objectMapper.writeValueAsString(message); 
 		messageBuffer.add(message);
 		// 채팅저장
-		redisTemplate.opsForList().leftPush(chatroomKey, jsonMessage);
+		redisTemplate.opsForList().leftPush("room/" + chatroomKey, jsonMessage);
 		// 50개 까지 유지
-		redisTemplate.opsForList().trim(chatroomKey, 0, MAX_MESSAGES - 1);
+		redisTemplate.opsForList().trim("room/" + chatroomKey, 0, MAX_MESSAGES - 1);
 		
 		// 버퍼에 10개 차면 저장
 		if (messageBuffer.size() >= BATCH_SIZE ) {
@@ -65,7 +80,7 @@ public class ChatServiceImpl implements ChatService{
 	@Override
 	public List<Object> getRecentMessages(Integer chatroomKey) {
 		ChatroomVo chatroomVo = chatroomMapper.selectOneChatroomByBoardId(chatroomKey);
-		return redisTemplate.opsForList().range(chatroomVo.getChatroomId().toString(), 0, MAX_MESSAGES - 1);
+		return redisTemplate.opsForList().range("room/" + chatroomVo.getChatroomId(), 0, MAX_MESSAGES - 1);
 	}
 
 	@Override
