@@ -16,4 +16,5 @@ public class ChatroomUserVo {
 	private Integer chatroomUserId;
 	private Integer chatroomId;
 	private Integer userId;
+	private String userName;
 }

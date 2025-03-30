@@ -20,6 +20,7 @@ import com.himedia.mappers.ChatMessageMapper;
 import com.himedia.mappers.ChatroomMapper;
 import com.himedia.mappers.NotificationMapper;
 import com.himedia.repository.vo.ChatMessageVo;
+import com.himedia.repository.vo.ChatroomUserVo;
 import com.himedia.repository.vo.ChatroomVo;
 import com.himedia.repository.vo.NotificationVo;
 import com.himedia.services.ChatService;
@@ -45,6 +46,10 @@ public class ChatServiceImpl implements ChatService{
 	private final ChatroomMapper chatroomMapper;
 	private final SimpMessagingTemplate messagingTemplate;
 	private final NotificationMapper notificationMapper;
+	// 방 키
+	private static final String ROOM_KEY_PREFIX = "room:";
+	// 접속중인 유저 키
+	private static final String USER_KEY_PREFIX = "room/userlist:";
 
 	@Override
 	public void sendMessage(String channel, ChatMessageVo message) throws IOException {
@@ -63,13 +68,40 @@ public class ChatServiceImpl implements ChatService{
 	}
 	
 	@Override
+	public List<Object> sendUserList(ChatroomUserVo chatroomUserVo) throws IOException {
+		System.out.println("받아온 데이터 : " + chatroomUserVo.getUserId() + chatroomUserVo.getChatroomId());
+		String chatroomUserKey = USER_KEY_PREFIX + chatroomUserVo.getChatroomId();
+		String jsonMessage = objectMapper.writeValueAsString(chatroomUserVo); 
+		
+		redisTemplate.opsForList().leftPush(chatroomUserKey, jsonMessage);
+//		List<Object> userList = new ArrayList<Object>();
+//		userList.addAll(redisTemplate.opsForList().range(chatroomUserKey, 0, -1));
+		return redisTemplate.opsForList().range(chatroomUserKey, 0, -1);	// 현재 접속중인 유저 목록 반환
+	}
+	
+	@Override
+	public List<Object> popUserList(ChatroomUserVo chatroomUserVo) throws IOException {
+		String chatroomUserKey = USER_KEY_PREFIX + chatroomUserVo.getChatroomId();
+		String jsonMessage = objectMapper.writeValueAsString(chatroomUserVo); 
+		
+		redisTemplate.opsForList().remove(chatroomUserKey, 1, jsonMessage);
+//		List<Object> userList = new ArrayList<Object>();
+//		userList.addAll(redisTemplate.opsForList().range(chatroomUserKey, 0, -1));
+//		System.out.println("나가기 발동");
+		return redisTemplate.opsForList().range(chatroomUserKey, 0, -1);	// 현재 접속중인 유저 목록 반환
+		
+	}
+	
+	
+	@Override
 	public void saveMessage(ChatMessageVo message, Integer chatroomKey) throws IOException {
+		System.out.println(message);
 		String jsonMessage = objectMapper.writeValueAsString(message); 
 		messageBuffer.add(message);
 		// 채팅저장
-		redisTemplate.opsForList().leftPush("room/" + chatroomKey, jsonMessage);
+		redisTemplate.opsForList().leftPush(ROOM_KEY_PREFIX + chatroomKey, jsonMessage);
 		// 50개 까지 유지
-		redisTemplate.opsForList().trim("room/" + chatroomKey, 0, MAX_MESSAGES - 1);
+		redisTemplate.opsForList().trim(ROOM_KEY_PREFIX + chatroomKey, 0, MAX_MESSAGES - 1);
 		
 		// 버퍼에 10개 차면 저장
 		if (messageBuffer.size() >= BATCH_SIZE ) {
@@ -80,7 +112,7 @@ public class ChatServiceImpl implements ChatService{
 	@Override
 	public List<Object> getRecentMessages(Integer chatroomKey) {
 		ChatroomVo chatroomVo = chatroomMapper.selectOneChatroomByBoardId(chatroomKey);
-		return redisTemplate.opsForList().range("room/" + chatroomVo.getChatroomId(), 0, MAX_MESSAGES - 1);
+		return redisTemplate.opsForList().range(ROOM_KEY_PREFIX + chatroomVo.getChatroomId(), 0, MAX_MESSAGES - 1);
 	}
 
 	@Override
