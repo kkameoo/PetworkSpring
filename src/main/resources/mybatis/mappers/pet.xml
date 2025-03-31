@@ -4,10 +4,11 @@
 <mapper namespace="com.himedia.mappers.PetMapper">
 
 <!-- CREATE -->
-    <insert id="insertPet">
-        INSERT INTO pet (user_id, pet_name, pet_type, pet_category, pet_introduce)
-        VALUES (#{userId}, #{petName}, #{petType}, #{petCategory}, #{petIntroduce});
-    </insert>
+    <insert id="insertPet" parameterType="PetVo" useGeneratedKeys="true" keyProperty="petId">
+    INSERT INTO pet (user_id, pet_name, pet_type, pet_category, pet_introduce)
+    VALUES (#{userId}, #{petName}, #{petType},#{petCategory},#{petIntroduce})
+	</insert>
+
 
     <!-- READ - 전체 (유저 기준) -->
     <select id="selectPetsByUserId" resultType="com.himedia.repository.vo.PetVo">
@@ -30,6 +31,13 @@
             pet_introduce = #{petIntroduce}
         WHERE pet_id = #{petId};
     </update>
+    
+    <update id="updatePetPhoto">
+   		UPDATE pet_photo
+    	SET pet_photo_name = #{petPhotoName},
+       		pet_photo_src = #{petPhotoSrc}
+  		WHERE pet_id = #{petId}
+	</update>
 
     <!-- DELETE -->
     <delete id="deletePet">
