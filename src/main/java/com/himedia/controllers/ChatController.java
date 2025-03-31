@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import com.himedia.repository.vo.ChatMessageVo;
 import com.himedia.repository.vo.ChatroomUserVo;
 import com.himedia.repository.vo.ChatroomVo;
 import com.himedia.serviceimpl.ChatServiceImpl;
+import com.himedia.services.ChatService;
 import com.himedia.services.ChatroomService;
 import com.himedia.services.ChatroomUserService;
 
@@ -33,7 +35,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/chat")
 public class ChatController {
 	
-	private final ChatServiceImpl chatService;
+	private final ChatService chatService;
 	private final ChatroomService chatroomService;
 	private final ChatroomUserService chatroomUserService;
 	// /app/chat 으로 메세지 보냄
@@ -44,6 +46,21 @@ public class ChatController {
     	chatService.sendMessage("topic/chat", chatMessage);
         return chatMessage;
     }
+    
+    @MessageMapping("/chat/join")
+    @SendTo("/topic/userlist")
+    public List<Object> joinUser(@Payload ChatroomUserVo chatroomUserVo) throws IOException {
+        List<Object> list = chatService.sendUserList(chatroomUserVo);
+        return list;
+    }
+    
+    @MessageMapping("/chat/leave")
+    @SendTo("/topic/userlist")
+    public List<Object> leaveUser(@Payload ChatroomUserVo chatroomUserVo) throws IOException {
+        List<Object> list = chatService.popUserList(chatroomUserVo);
+        return list;
+    }
+    
     // redis저장소의 채팅 내역들을 출력
     @GetMapping("/{id}")
     public ResponseEntity<?> getAllChats(@PathVariable Integer id) {

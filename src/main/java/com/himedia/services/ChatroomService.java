@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.himedia.repository.vo.ChatroomUserVo;
 import com.himedia.repository.vo.ChatroomVo;
 
 @Service
@@ -18,4 +19,5 @@ public interface ChatroomService {
 	ChatroomVo selectOneChatroomByBoardId(Integer id);
 	// 유저 아이디로 채팅방 여러개 출력
 	List<ChatroomVo> selectChatroomByUserId(Integer id);
+	
 }

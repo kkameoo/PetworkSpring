@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.himedia.repository.vo.ChatMessageVo;
+import com.himedia.repository.vo.ChatroomUserVo;
 
 @Service
 public interface ChatService {
@@ -21,5 +22,9 @@ public interface ChatService {
 	void insertChatMessages();
 //	채팅 가져오기 
 //	List<ChatMessageVo> selectAllChatMessageByBoardId(Integer Id);
+	// 유저리스트 레디스에 저장 및 출력
+	List<Object> sendUserList(ChatroomUserVo chatroomUserVo) throws IOException;
+	// 유저리스트에 제거 및 출력
+	List<Object> popUserList(ChatroomUserVo chatroomUserVo) throws IOException;
 
 }

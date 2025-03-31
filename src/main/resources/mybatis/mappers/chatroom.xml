@@ -42,7 +42,7 @@
 		cr.board_id as boardId,
 		cr.chatroom_name as chatroomName,
 		cr.reg_date as regDate
-		FROM chatroom as cr JOIN chatroom_user as cru
+		FROM chatroom as cr JOIN chatroom_user as cru ON cr.chatroom_id = cru.chatroom_id 
 		WHERE cru.user_id = #{id}
 	</select>
 	
