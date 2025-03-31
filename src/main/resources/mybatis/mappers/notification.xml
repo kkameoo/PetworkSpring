@@ -10,24 +10,38 @@
   <result column="is_read" property="isRead"/>
   <result column="created_at" property="createdAt"/>
 </resultMap>
-<select id="selectByReceiverId" resultMap="NotificationResultMap">
-  SELECT * FROM notification WHERE receiver_id = #{userId} ORDER BY notification_id DESC
-</select>
-  <select id="selectNotificationsByUserId" resultType="NotificationVo">
-  SELECT 
-  ntf.notification_id as notificationId,
-  ntf.chatroom_id as chatroomId,
-  ntf.content,
-  ntf.is_read as isRead,
-  ntf.created_at as createdAt
-  FROM notification as ntf
-  JOIN chatroom as cr ON ntf.chatroom_id = cr.chatroom_id 
-  JOIN chatroom_user as cru ON cr.chatroom_id  = cru.chatroom_id
-  WHERE cru.user_id = 1
-  ORDER BY ntf.created_at DESC;
-</select>
+	<select id="selectByReceiverId" resultMap="NotificationResultMap">
+  		SELECT * FROM notification WHERE receiver_id = #{userId} ORDER BY notification_id DESC
+	</select>
+  	<select id="selectNotificationsByUserId" resultType="NotificationVo">
+  	SELECT 
+  		ntf.notification_id as notificationId,
+  		ntf.chatroom_id as chatroomId,
+  		ntf.content,
+  		ntf.is_read as isRead,
+  		ntf.created_at as createdAt
+  		FROM notification as ntf
+  		JOIN chatroom as cr ON ntf.chatroom_id = cr.chatroom_id 
+  		JOIN chatroom_user as cru ON cr.chatroom_id  = cru.chatroom_id
+  		WHERE cru.user_id = #{id}
+  		ORDER BY ntf.created_at DESC;
+	</select>
 	<insert id="insertNotification" parameterType="NotificationVo">
 		INSERT INTO notification (chatroom_id, content)
 		VALUES (#{chatroomId}, #{content})
 	</insert>
+	
+	<!-- UPDATE: PUT -->
+	<update id="updateNotificationIsRead" parameterType="int">
+		UPDATE notification ntf
+    	JOIN chatroom cr ON ntf.chatroom_id = cr.chatroom_id
+    	JOIN chatroom_user cru ON cr.chatroom_id = cru.chatroom_id
+    	SET ntf.is_read = 1
+    	WHERE cru.user_id = #{id}
+	</update>
+	
+	<!-- delete: delete -->
+	<delete id="deleteNotification" parameterType="int">
+		DELETE FROM notification WHERE notification_id = #{id}
+	</delete>
 </mapper>
