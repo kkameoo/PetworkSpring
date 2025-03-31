@@ -26,5 +26,10 @@ public interface ChatService {
 	List<Object> sendUserList(ChatroomUserVo chatroomUserVo) throws IOException;
 	// 유저리스트에 제거 및 출력
 	List<Object> popUserList(ChatroomUserVo chatroomUserVo) throws IOException;
+	
+	// 알람 읽음 표시
+	int updateNotificationIsRead(Integer id);
+	// 알람 삭제
+	int deleteNotification(Integer id);
 
 }
