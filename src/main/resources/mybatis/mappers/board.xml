@@ -61,10 +61,16 @@
 	</delete>
 	
 	<!-- UPDATE: PUT -->
-	<update id="increaseCount" parameterType="int">
+	<update id="increaseClickCount" parameterType="int">
 	UPDATE board 
 	SET click_count = click_count + 1
 	WHERE board_id = #{id};
 	</update>
 	
+	<!-- UPDATE: PUT -->
+	<update id="increaseReportCount" parameterType="int">
+	UPDATE board 
+	SET report_count = report_count + 1
+	WHERE board_id = #{id};
+	</update>
 </mapper>

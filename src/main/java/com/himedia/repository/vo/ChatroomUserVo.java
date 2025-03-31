@@ -7,18 +7,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ChatroomVo {
-	
+public class ChatroomUserVo {
+	private Integer chatroomUserId;
 	private Integer chatroomId;
-	private Integer boardId;
-	private String chatroomName;
-	private Timestamp regDate;
-
+	private Integer userId;
+	private String userName;
 }

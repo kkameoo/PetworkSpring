@@ -23,6 +23,8 @@
 		<typeAlias alias="BoardCommentVo" type="com.himedia.repository.vo.BoardCommentVo"/>
 		<typeAlias alias="NotificationVo" type="com.himedia.repository.vo.NotificationVo"/>
 		<typeAlias alias="ChatMessageVo" type="com.himedia.repository.vo.ChatMessageVo"/>
+		<typeAlias alias="ReportVo" type="com.himedia.repository.vo.ReportVo"/>
+		<typeAlias alias="ChatroomUserVo" type="com.himedia.repository.vo.ChatroomUserVo"/>
 	</typeAliases>
 	
 	<mappers>
@@ -38,6 +40,8 @@
 		<mapper resource="mybatis/mappers/boardComment.xml" />
 		<mapper resource="mybatis/mappers/notification.xml" />
 		<mapper resource="mybatis/mappers/chatMessage.xml" />
+		<mapper resource="mybatis/mappers/report.xml" />
+		<mapper resource="mybatis/mappers/chatroomUser.xml" />
 	</mappers>
 
 	

@@ -18,6 +18,10 @@ public interface BoardMapper {
 	int updateBoard(BoardVo board);
 	// 특정 게시물을 삭제하는 sql
 	int deleteBoard(Integer id);
-	// 특정 게시물의 count를 증가하는 sql
-	int increaseCount(Integer id); 
+	// 특정 게시물의 클릭 count를 증가하는 sql
+	int increaseClickCount(Integer id); 
+	// 특정 게시물의 신고 count 증가
+//	<update id="increaseReportCount" parameterType="int">
+	int increaseReportCount(Integer id);
+	
 }
