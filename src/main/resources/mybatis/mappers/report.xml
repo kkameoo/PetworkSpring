@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.ReportMapper">
+
+	<!-- INSERT: POST -->
+	<insert id="insertReport" parameterType="ReportVo">
+    	INSERT INTO report 
+    	(board_id, sender_id, report_type, report_comment)
+    	VALUES 
+    	(#{boardId}, #{senderId}, #{reportType}, #{reportComment})
+	</insert>
+	
+	<!-- RETRIEVE: GET -->
+	<select id="selectReports" resultType="ReportVo">
+		SELECT 
+		report_id as reportId,
+		board_id as boardId,
+		sender_id as senderId,
+		report_type as reportType,
+		report_comment as reportComment
+		FROM report
+	</select>
+	
+	<!-- RETRIEVE: GET -->
+	<select id="selectReportsByBoardId" parameterType="int" resultType="ReportVo">
+		SELECT 
+		report_id as reportId,
+		board_id as boardId,
+		sender_id as senderId,
+		report_type as reportType,
+		report_comment as reportComment
+		FROM report
+		WHERE board_id = #{id}
+	</select>
+
+</mapper>

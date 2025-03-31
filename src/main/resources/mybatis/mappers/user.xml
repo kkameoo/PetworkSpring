@@ -37,8 +37,8 @@
 
 	<!-- 유저 생성 (CREATE)-->
 	<insert id="insertUser">
-	  	INSERT INTO user (name, nickname, password, tel_number, email, preference, local_si, local_gu, `update`)
-     	VALUES (#{name}, #{nickname}, #{password}, #{telNumber}, #{email}, #{preference}, #{localSi}, #{localGu}, NOW());
+	  	INSERT INTO user (name, nickname, password, tel_number, email, preference, local_si, local_gu, is_admin, `update`)
+     	VALUES (#{name}, #{nickname}, #{password}, #{telNumber}, #{email}, #{preference}, #{localSi}, #{localGu}, 0, NOW());
 	</insert>
 
 	<!-- 단일 유저 조회 (READ) -->

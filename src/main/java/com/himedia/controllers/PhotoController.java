@@ -74,8 +74,10 @@ public class PhotoController {
 		
 		// 검색된 데이터가 없을 경우 404 반환
 	    if (boardPhotoVos == null || boardPhotoVos.isEmpty()) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("검색된 데이터가 존재하지 않습니다.");
-	    }
+	    	return ResponseEntity.status(HttpStatus.NOT_FOUND).body("데이터를 받아오는데 실패했습니다.");
+	    } else {
+			
+		
 	    
 	    // 파일을 Resource 리스트로 변환
 	    List<Resource> resources = boardPhotoVos.stream()
@@ -110,6 +112,7 @@ public class PhotoController {
 	        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(base64Images);
 	    } catch (Exception e) {
 	    	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이미지 처리 중 오류 발생: " + e.getMessage());
+	    }
 	    }
 	    
 	}

@@ -63,7 +63,6 @@ public class PhotoServiceImpl implements PhotoService {
 	     petPhotoVo.setPetPhotoSrc(fileVo.getFilePath().toString());
 	     petPhotoVo.setPetId(id);
 	     petPhotoMapper.insertOrUpdatePetPhoto(petPhotoVo);  
-
 	     return fileVo.getFilePath().toString();
 	 }
 
