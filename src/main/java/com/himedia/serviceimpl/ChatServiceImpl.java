@@ -138,4 +138,16 @@ public class ChatServiceImpl implements ChatService{
         System.out.println("서버 종료 중, 메시지 강제 저장");
         insertChatMessages();
     }
+
+	@Override
+	public int updateNotificationIsRead(Integer id) {
+		int result = notificationMapper.updateNotificationIsRead(id);
+		return result;
+	}
+
+	@Override
+	public int deleteNotification(Integer id) {
+		int result = notificationMapper.deleteNotification(id);
+		return result;
+	}
 }

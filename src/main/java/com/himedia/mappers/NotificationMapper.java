@@ -18,4 +18,10 @@ public interface NotificationMapper {
     
 //    <insert id="insertNotification" parameterType="NotificationVo">
     int insertNotification(NotificationVo notificationVo);
+    
+//    <update id="updateNotificationIsRead" parameterType="int">
+    int updateNotificationIsRead(Integer id);
+    
+//    <delete id="deleteNotification" parameterType="int">
+    int deleteNotification(Integer id);
 }
