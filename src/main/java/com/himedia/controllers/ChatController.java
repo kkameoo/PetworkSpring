@@ -11,6 +11,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/chat")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class ChatController {
 	
 	private final ChatService chatService;
@@ -137,6 +139,23 @@ public class ChatController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("검색된 데이터가 존재하지 않습니다.");
 		}
 		return ResponseEntity.ok(chatroomVos);
+	}
+	
+	// 채팅방 유저 체크후 없으면 유저 입력
+	@PostMapping("/room/userlist")
+	public ResponseEntity<?> checkAndInsertChatroomUser(@RequestBody ChatroomUserVo chatroomUserVo) {
+		int result = chatroomUserService.checkAndInsertChatroomUser(chatroomUserVo);
+		if (result == 0) {
+			return ResponseEntity.ok("NoInsert");
+		}
+		return ResponseEntity.ok(chatroomUserVo);
+	}
+	
+	// 채팅방 유저들 검색
+	@GetMapping("/room/userlist/{id}")
+	public ResponseEntity<?> selectChatroomUsersByRoomId(@PathVariable Integer id) {
+		List<ChatroomUserVo> chatroomUserVos = chatroomUserService.selectChatroomUsersByRoomId(id);
+		return ResponseEntity.ok(chatroomUserVos);
 	}
 	
 	// (테스트) 한꺼번에 메세지를 mysql에 입력
