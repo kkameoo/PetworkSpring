@@ -12,13 +12,27 @@
 
     <!-- READ - 전체 (유저 기준) -->
     <select id="selectPetsByUserId" resultType="com.himedia.repository.vo.PetVo">
-        SELECT * FROM pet
+        SELECT
+        pet_id AS petId,
+        user_id AS userId,
+        pet_name AS petName,
+        pet_type AS petType,
+        pet_category AS petCategory,
+        pet_introduce AS petIntroduce 
+        FROM pet
         WHERE user_id = #{userId};
     </select>
 
     <!-- READ - 단일 -->
     <select id="selectPetById" resultType="com.himedia.repository.vo.PetVo">
-        SELECT * FROM pet
+       SELECT
+        pet_id AS petId,
+        user_id AS userId,
+        pet_name AS petName,
+        pet_type AS petType,
+        pet_category AS petCategory,
+        pet_introduce AS petIntroduce 
+        FROM pet
         WHERE pet_id = #{petId};
     </select>
 
