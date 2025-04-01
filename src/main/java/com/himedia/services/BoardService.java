@@ -58,6 +58,10 @@ public interface BoardService {
 	List<BoardHireVo> getPopularBoardHire();
 	// trade 게시글 인기수
 	List<BoardTradeVo> getPopularBoardTrade();
+	// userid기준 게시글 받아오는 기능
+	List<BoardVo> selectBoardByUserId(int userId);
+
+
 
 	
 	// 산책 게시물 + 이미지를 입력하는 기능

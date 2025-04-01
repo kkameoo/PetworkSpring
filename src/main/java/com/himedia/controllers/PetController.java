@@ -72,6 +72,7 @@ public class PetController {
             return ResponseEntity.status(401).build();
         }
         List<PetVo> pets = petService.selectPetsByUserId(sessionUser.getUserId());
+//        System.out.println(pets + "jjjjjjjjjj");
         return ResponseEntity.ok(pets);
     }
 

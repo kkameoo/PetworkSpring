@@ -36,6 +36,25 @@
 	`update`
 	FROM board WHERE board_id = #{id}
 	</select>
+	
+	<select id="selectBoardByUserId" parameterType="int" resultType="BoardVo">
+  	SELECT 
+    board_id AS boardId,
+    user_id AS userId,
+    title,
+    content,
+    report_count AS reportCount,
+    click_count AS clickCount,
+    board_type AS boardType,
+    local_si AS localSi,
+    local_gu AS localGu,
+    reg_date AS regDate,
+    `update`
+  	FROM board
+  	WHERE user_id = #{userId}
+	</select>
+
+
 		
 	<!-- INSERT: POST -->
 	<insert id="insertBoard" parameterType="BoardVo" useGeneratedKeys="true" keyProperty="boardId" >
