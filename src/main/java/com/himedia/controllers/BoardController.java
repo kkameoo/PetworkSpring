@@ -20,7 +20,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.himedia.repository.vo.BoardCommentVo;
 import com.himedia.repository.vo.BoardHireRequestVo;
 import com.himedia.repository.vo.BoardHireVo;
-import com.himedia.repository.vo.BoardPhotoVo;
 import com.himedia.repository.vo.BoardTradeRequestVo;
 import com.himedia.repository.vo.BoardTradeVo;
 import com.himedia.repository.vo.BoardVo;
@@ -101,6 +100,12 @@ public class BoardController {
 		return boardService.getPopularBoardTrade();
 	}
 
+
+	// userid로 테이블 조회
+	@GetMapping("/user/{userId}")
+	public ResponseEntity<List<BoardVo>> getBoardsByUserId(@PathVariable int userId) {
+	    return ResponseEntity.ok(boardService.selectBoardByUserId(userId));
+	}
 
 	
 	// 특정 테이블 조회 (READ)
