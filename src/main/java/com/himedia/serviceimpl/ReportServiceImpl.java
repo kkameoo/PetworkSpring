@@ -22,13 +22,19 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public int insertReport(ReportVo reportVo) throws SQLException {
-		int result1 = boardMapper.increaseReportCount(reportVo.getBoardId());
-		if (result1 == 0) {
-			throw new SQLException("board의 report_count 업데이트가 실패했습니다.");
-		}
-	 	int result2 = reportMapper.insertReport(reportVo);
-		return result2;
+	  
+	    int result2 = reportMapper.insertReport(reportVo);
+
+	    if (result2 > 0) {
+	        int result1 = boardMapper.increaseReportCount(reportVo.getBoardId());
+	        if (result1 == 0) {
+	            throw new SQLException("board의 report_count 업데이트가 실패했습니다.");
+	        }
+	    }
+
+	    return result2;
 	}
+
 	
 //	@Override
 //	public int selectReportCount(Integer boardId) {
