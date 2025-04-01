@@ -23,5 +23,9 @@ public interface BoardMapper {
 	// 특정 게시물의 신고 count 증가
 //	<update id="increaseReportCount" parameterType="int">
 	int increaseReportCount(Integer id);
+	//userid 기준 게시시물들 가져오는 sql
+	List<BoardVo> selectBoardByUserId(int userId);
+
+
 	
 }
