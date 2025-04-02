@@ -12,6 +12,7 @@ public interface UserService {
 	UserVo login(String email, String password); // 로그인 기능
 	String encodePassword(String password); // 비밀번호 암호화 
 	UserVo getUserById(Integer userId); // READ (단일 조회)
+	UserVo getUserInfoById(Integer id);
 	List<UserVo> selectAllUsers(); // READ (전체 조회)
 	void updateUser(UserVo user) throws Exception; // UPDATE 수정기능
 	void deleteUser(Integer userId) throws Exception; //DELETE 삭제기능
