@@ -74,7 +74,7 @@ public class PhotoController {
 		
 		// 검색된 데이터가 없을 경우 404 반환
 	    if (boardPhotoVos == null || boardPhotoVos.isEmpty()) {
-	    	return ResponseEntity.status(HttpStatus.NOT_FOUND).body("데이터를 받아오는데 실패했습니다.");
+	    	return ResponseEntity.ok("사진이 없습니다.");
 	    } else {
 			
 		

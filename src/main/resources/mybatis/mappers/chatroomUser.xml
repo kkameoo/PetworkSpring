@@ -13,11 +13,20 @@
 		FROM chatroom_user
 	</select>
 
-
-	
 	<!-- INSERT: POST --> 
 	<insert id="insertChatroomUser" parameterType="ChatroomUserVo">
 	  	INSERT INTO chatroom_user (chatroom_id, user_id, user_name)
      	VALUES (#{chatroomId}, #{userId}, #{userName});
 	</insert>
+	
+	<!-- SELECT: GET -->
+	<select id="selectChatroomUsersByRoomId" parameterType="int" resultType="ChatroomUserVo">
+		SELECT 
+		chatroom_user_id as chatroomUserId,
+		chatroom_id as chatroomId,
+		user_id as userId,
+		user_name as userName
+		FROM chatroom_user
+		WHERE chatroom_id = #{id}
+	</select>
 </mapper>
