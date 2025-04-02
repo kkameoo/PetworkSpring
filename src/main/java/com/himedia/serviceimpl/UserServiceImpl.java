@@ -62,6 +62,12 @@ public class UserServiceImpl implements UserService {
 	public UserVo getUserById(Integer userId) {
 		return userMapper.selectUserById(userId);
 	}
+	
+	@Override
+	public UserVo getUserInfoById(Integer id) {
+	    return userMapper.getUserInfoById(id);
+	}
+
 
 	@Override
 	public List<UserVo> selectAllUsers() {

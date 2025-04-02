@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.himedia.repository.vo.UserVo;
@@ -98,6 +99,13 @@ public class UserController {
     public String getUser(@PathVariable("id") String id) {
         return "유저 조회 성공";
     }
+    
+    @GetMapping("/info/{id}")
+    @ResponseBody
+    public UserVo getUserInfo(@PathVariable("id") Integer id) {
+        return userService.getUserInfoById(id);
+    }
+
     
 	// 전체 조회 (READ)
 	@GetMapping("")
