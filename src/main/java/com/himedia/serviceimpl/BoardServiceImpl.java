@@ -141,6 +141,14 @@ public class BoardServiceImpl implements BoardService {
 				.tradeCategory(boardTradeRequestVo.getTradeCategory())
 				.build();
 		int result2 = boardTradeMapper.insertBoardTrade(boardTradeVo);
+		ChatroomVo chatroomVo = ChatroomVo.builder()
+				.boardId(board.getBoardId())
+				.chatroomName(boardTradeRequestVo.getUserId()+ "님의 방")
+				.build();
+		int result3 = chatroomService.insertChatroom(chatroomVo);
+		if (result3 == 0) {
+			throw new IOException();
+		}
 		
 		if (!file.isEmpty()) {
 			photoService.uploadBoardPicture(file, board.getBoardId());
@@ -172,6 +180,14 @@ public class BoardServiceImpl implements BoardService {
 				.hireCategory(boardHireRequestVo.getHireCategory())
 				.build();
 		int result2 = boardHireMapper.insertBoardHire(boardHireVo);
+		ChatroomVo chatroomVo = ChatroomVo.builder()
+				.boardId(board.getBoardId())
+				.chatroomName(boardHireRequestVo.getUserId()+ "님의 방")
+				.build();
+		int result3 = chatroomService.insertChatroom(chatroomVo);
+		if (result3 == 0) {
+			throw new IOException();
+		}
 		
 		if (!file.isEmpty()) {
 			photoService.uploadBoardPicture(file, board.getBoardId());
