@@ -27,4 +27,5 @@ public class BoardVo {
 	private Integer localGu;
 	private Timestamp regDate;
 	private Timestamp update;
+	private String nickname;
 }
