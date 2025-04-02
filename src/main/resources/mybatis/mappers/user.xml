@@ -10,8 +10,19 @@
     
     <!-- 이메일로 사용자 조회 -->
 	<select id="findByEmail" resultType="com.himedia.repository.vo.UserVo">
- 	   SELECT user_id as userId, name, nickname, email, password, tel_number as telNumber, preference, local_si as localSi, 
-           local_gu as localGu, reg_date as regDate, `update`
+ 	   SELECT user_id as 
+ 	   userId,
+ 	   name, 
+ 	   nickname, 
+ 	   email, 
+ 	   password, 
+ 	   tel_number as telNumber, 
+ 	   preference, 
+ 	   local_si as localSi, 
+       local_gu as localGu, 
+       reg_date as regDate, 
+       `update`,
+       is_admin as isAdmin
        FROM user
   	   WHERE email = #{email};
 	</select>
@@ -26,22 +37,43 @@
 
 	<!-- 유저 생성 (CREATE)-->
 	<insert id="insertUser">
-	  	INSERT INTO user (name, nickname, password, tel_number, email, preference, local_si, local_gu, `update`)
-     	VALUES (#{name}, #{nickname}, #{password}, #{telNumber}, #{email}, #{preference}, #{localSi}, #{localGu}, NOW());
+	  	INSERT INTO user (name, nickname, password, tel_number, email, preference, local_si, local_gu, is_admin, `update`)
+     	VALUES (#{name}, #{nickname}, #{password}, #{telNumber}, #{email}, #{preference}, #{localSi}, #{localGu}, 0, NOW());
 	</insert>
 
 	<!-- 단일 유저 조회 (READ) -->
     <select id="selectUserById" resultType="com.himedia.repository.vo.UserVo">
-        SELECT user_id as userId, name, nickname, password, tel_number as telNumber, email, preference, local_si as localSi, 
-               local_gu as localGu, reg_date as regDate, `update`
-        FROM user 
-        WHERE user_id = #{userId};
+       SELECT 
+        user_id as userId, 
+        name,
+        nickname, 
+        password, 
+        tel_number as telNumber, 
+        email, 
+        preference, 
+        local_si as localSi, 
+        local_gu as localGu, 
+        reg_date as regDate, 
+        `update`,
+        is_admin as isAdmin
+       FROM user 
+       WHERE user_id = #{userId};
     </select>
 
     <!-- 전체 유저 조회 (READ) -->
     <select id="selectAllUsers" resultType="com.himedia.repository.vo.UserVo">
-         SELECT user_id as userId, name, nickname, password, tel_number as telNumber, email, preference, local_si as localSi, 
-               local_gu as localGu, reg_date as regDate, `update`
+        SELECT 
+         user_id as userId, 
+         name, 
+         nickname, 
+         password, 
+         tel_number as telNumber, 
+         email, preference, 
+         local_si as localSi, 
+         local_gu as localGu, 
+         reg_date as regDate, 
+         `update`,
+         is_admin as isAdmin
         FROM user;
     </select>
 

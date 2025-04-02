@@ -3,6 +3,7 @@ package com.himedia.repository.vo;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Builder
 public class BoardHireVo {
 	//board 필드
 	private Integer boardId;
@@ -32,5 +34,7 @@ public class BoardHireVo {
 	private Timestamp hireDate;
 	private Integer hirePrice;
 	private Integer hireCategory;
+	//user 필드
+	private String nickname;
 
 }

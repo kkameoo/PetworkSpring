@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.BoardPhotoMapper">
+
+	<!-- INSERT: POST -->
+	<insert id="insertOrUpdateBoardPhoto" parameterType="BoardPhotoVo">
+    INSERT INTO board_photo 
+    (board_id, board_photo_name, board_photo_src)
+    VALUES (#{boardId}, #{boardPhotoName}, #{boardPhotoSrc})
+    ON DUPLICATE KEY UPDATE
+        board_photo_name = VALUES(board_photo_name),
+        board_photo_src = VALUES(board_photo_src)
+	</insert>
+	
+	<!-- RETRIEVE: GET -->
+	<select id="getBoardPhotoById" parameterType="int" resultType="BoardPhotoVo">
+		SELECT board_photo_id,
+		board_photo_name as boardPhotoName,
+		board_photo_src as boardPhotoSrc,
+		reg_date as regDate
+		FROM board_photo
+		WHERE board_id = #{id}
+	</select>
+
+</mapper>

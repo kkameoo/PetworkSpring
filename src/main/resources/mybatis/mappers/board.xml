@@ -36,6 +36,25 @@
 	`update`
 	FROM board WHERE board_id = #{id}
 	</select>
+	
+	<select id="selectBoardByUserId" parameterType="int" resultType="BoardVo">
+  	SELECT 
+    board_id AS boardId,
+    user_id AS userId,
+    title,
+    content,
+    report_count AS reportCount,
+    click_count AS clickCount,
+    board_type AS boardType,
+    local_si AS localSi,
+    local_gu AS localGu,
+    reg_date AS regDate,
+    `update`
+  	FROM board
+  	WHERE user_id = #{userId}
+	</select>
+
+
 		
 	<!-- INSERT: POST -->
 	<insert id="insertBoard" parameterType="BoardVo" useGeneratedKeys="true" keyProperty="boardId" >
@@ -61,10 +80,16 @@
 	</delete>
 	
 	<!-- UPDATE: PUT -->
-	<update id="increaseCount" parameterType="int">
+	<update id="increaseClickCount" parameterType="int">
 	UPDATE board 
 	SET click_count = click_count + 1
 	WHERE board_id = #{id};
 	</update>
 	
+	<!-- UPDATE: PUT -->
+	<update id="increaseReportCount" parameterType="int">
+	UPDATE board 
+	SET report_count = report_count + 1
+	WHERE board_id = #{id};
+	</update>
 </mapper>
