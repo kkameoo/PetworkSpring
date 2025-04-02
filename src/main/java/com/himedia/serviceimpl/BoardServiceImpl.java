@@ -71,6 +71,13 @@ public class BoardServiceImpl implements BoardService {
 		BoardVo board = boardMapper.selectBoard(id);
 		return board;
 	}
+	
+	@Override
+	public List<BoardVo> selectBoardByUserId(int userId) {
+	    return boardMapper.selectBoardByUserId(userId);
+	}
+
+
 
 	// 산책 게시물 입력
 	@Override

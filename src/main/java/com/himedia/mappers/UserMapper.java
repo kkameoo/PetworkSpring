@@ -16,6 +16,7 @@ public interface UserMapper {
 	 int countEmail(@Param("email") String email);
 	 int countTelNumber(@Param("telNumber") String telNumber);
 	 UserVo selectUserById(Integer userId);
+	 UserVo getUserInfoById(Integer id);
 	 List<UserVo> selectAllUsers();
 	 int updateUser(UserVo user);
 	 int deleteUser(@Param("userId") Integer userId);
