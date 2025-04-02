@@ -1,9 +1,11 @@
 package com.himedia.serviceimpl;
 
+import java.io.Console;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.himedia.mappers.ChatMessageMapper;
 import com.himedia.mappers.ChatroomMapper;
+import com.himedia.mappers.ChatroomUserMapper;
 import com.himedia.mappers.NotificationMapper;
 import com.himedia.repository.vo.ChatMessageVo;
 import com.himedia.repository.vo.ChatroomUserVo;
@@ -43,6 +46,7 @@ public class ChatServiceImpl implements ChatService{
 	private final int BATCH_SIZE = 10;
 	private final ObjectMapper objectMapper;
 	private final ChatMessageMapper chatMessageMapper;
+	private final ChatroomUserMapper chatroomUserMapper;
 	private final ChatroomMapper chatroomMapper;
 	private final SimpMessagingTemplate messagingTemplate;
 	private final NotificationMapper notificationMapper;
@@ -59,9 +63,13 @@ public class ChatServiceImpl implements ChatService{
 				.isRead(false)
 				.createdAt(Timestamp.valueOf(LocalDateTime.now()))
 				.build();
-		
 		int result = notificationMapper.insertNotification(notificationVo);
-		messagingTemplate.convertAndSend("/user/" + message.getChatroomId() + "/notification", notificationVo);
+		List<ChatroomUserVo> chatroomUserVos = chatroomUserMapper.selectChatroomUsersByRoomId(message.getChatroomId());
+		for (ChatroomUserVo chatroomUserVo : chatroomUserVos) {
+			System.out.println(chatroomUserVo.getUserId() + "가나다");
+			messagingTemplate.convertAndSend("/user/" + chatroomUserVo.getUserId() + "/notification", notificationVo);
+		}
+//		messagingTemplate.convertAndSend("/user/" + message.getChatroomId() + "/notification", notificationVo);
 	    redisPublisher.publish(channel, message);
 	    saveMessage(message, message.getChatroomId());
 //	    System.out.println(getRecentMessages());
