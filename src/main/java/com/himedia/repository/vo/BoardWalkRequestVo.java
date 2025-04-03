@@ -33,4 +33,7 @@ public class BoardWalkRequestVo {
 	private Integer boardPhotoId;
 	private String boardPhotoName;
 	private String boardPhotoSrc;
+	//map 필드
+	private double latitude;
+	private double longitude;
 }
