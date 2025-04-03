@@ -12,6 +12,7 @@ import com.himedia.mappers.BoardHireMapper;
 import com.himedia.mappers.BoardMapper;
 import com.himedia.mappers.BoardTradeMapper;
 import com.himedia.mappers.BoardWalkMapper;
+import com.himedia.mappers.MapMapper;
 import com.himedia.repository.vo.BoardHireRequestVo;
 import com.himedia.repository.vo.BoardHireVo;
 import com.himedia.repository.vo.BoardPhotoVo;
@@ -21,6 +22,7 @@ import com.himedia.repository.vo.BoardVo;
 import com.himedia.repository.vo.BoardWalkRequestVo;
 import com.himedia.repository.vo.BoardWalkVo;
 import com.himedia.repository.vo.ChatroomVo;
+import com.himedia.repository.vo.MapVo;
 import com.himedia.services.BoardService;
 import com.himedia.services.ChatroomService;
 import com.himedia.services.PhotoService;
@@ -41,6 +43,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardHireMapper boardHireMapper;
 	@Autowired
 	private PhotoService photoService;
+	@Autowired
+	private MapMapper mapMapper;
 	private final ChatroomService chatroomService;
 	
 	// 모든 게시물 출력
@@ -111,6 +115,16 @@ public class BoardServiceImpl implements BoardService {
 		if (result3 == 0) {
 			throw new IOException();
 		}
+		MapVo mapVo = MapVo.builder()
+				.latitude(boardWalkRequestVo.getLatitude())
+				.longitude(boardWalkRequestVo.getLongitude())
+				.boardId(board.getBoardId())
+				.build();
+		System.out.println(mapVo);
+		int result4 = mapMapper.insertMap(mapVo);
+		if (result4 == 0) {
+			throw new IOException();
+		}
 		// 이미지 존재할 시 
 		if (!file.isEmpty()) {
 			photoService.uploadBoardPicture(file, board.getBoardId());
@@ -141,7 +155,24 @@ public class BoardServiceImpl implements BoardService {
 				.tradeCategory(boardTradeRequestVo.getTradeCategory())
 				.build();
 		int result2 = boardTradeMapper.insertBoardTrade(boardTradeVo);
-		
+		ChatroomVo chatroomVo = ChatroomVo.builder()
+				.boardId(board.getBoardId())
+				.chatroomName(boardTradeRequestVo.getUserId()+ "님의 방")
+				.build();
+		int result3 = chatroomService.insertChatroom(chatroomVo);
+		if (result3 == 0) {
+			throw new IOException();
+		}
+		MapVo mapVo = MapVo.builder()
+				.latitude(boardTradeRequestVo.getLatitude())
+				.longitude(boardTradeRequestVo.getLongitude())
+				.boardId(board.getBoardId())
+				.build();
+		System.out.println(mapVo);
+		int result4 = mapMapper.insertMap(mapVo);
+		if (result4 == 0) {
+			throw new IOException();
+		}
 		if (!file.isEmpty()) {
 			photoService.uploadBoardPicture(file, board.getBoardId());
 		}
@@ -172,7 +203,24 @@ public class BoardServiceImpl implements BoardService {
 				.hireCategory(boardHireRequestVo.getHireCategory())
 				.build();
 		int result2 = boardHireMapper.insertBoardHire(boardHireVo);
-		
+		ChatroomVo chatroomVo = ChatroomVo.builder()
+				.boardId(board.getBoardId())
+				.chatroomName(boardHireRequestVo.getUserId()+ "님의 방")
+				.build();
+		int result3 = chatroomService.insertChatroom(chatroomVo);
+		if (result3 == 0) {
+			throw new IOException();
+		}
+		MapVo mapVo = MapVo.builder()
+				.latitude(boardHireRequestVo.getLatitude())
+				.longitude(boardHireRequestVo.getLongitude())
+				.boardId(board.getBoardId())
+				.build();
+		System.out.println(mapVo);
+		int result4 = mapMapper.insertMap(mapVo);
+		if (result4 == 0) {
+			throw new IOException();
+		}
 		if (!file.isEmpty()) {
 			photoService.uploadBoardPicture(file, board.getBoardId());
 		}
