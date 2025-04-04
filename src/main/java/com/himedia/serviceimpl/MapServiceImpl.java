@@ -20,4 +20,10 @@ public class MapServiceImpl implements MapService{
 		return mapVo;
 	}
 
+	@Override
+	public int updateMapByBoardId(MapVo mapVo) {
+		int result = mapMapper.updateMap(mapVo);
+		return result;
+	}
+
 }
