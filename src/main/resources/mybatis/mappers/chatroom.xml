@@ -47,7 +47,7 @@
 	</select>
 	
 	<!-- INSERT: POST -->
-	<insert id="insertChatroom" parameterType="ChatroomVo">
+	<insert id="insertChatroom" parameterType="ChatroomVo" useGeneratedKeys="true" keyProperty="chatroomId">
 	  	INSERT INTO chatroom (board_id, chatroom_name)
      	VALUES (#{boardId}, #{chatroomName});
 	</insert>

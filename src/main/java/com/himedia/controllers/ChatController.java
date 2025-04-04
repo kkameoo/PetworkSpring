@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,27 +41,30 @@ public class ChatController {
 	private final ChatService chatService;
 	private final ChatroomService chatroomService;
 	private final ChatroomUserService chatroomUserService;
+	private final SimpMessagingTemplate messagingTemplate;
 	// /app/chat 으로 메세지 보냄
 	// 메시지 브로커는 받은 메세지를 /topic/messages가 목적지
     @MessageMapping("/chat")
-    @SendTo("/topic/messages")
-    public ChatMessageVo sendChatMessage(ChatMessageVo chatMessage) throws IOException {
+//    @SendTo("/topic/messages")
+    public void sendChatMessage(ChatMessageVo chatMessage) throws IOException {
     	chatService.sendMessage("topic/chat", chatMessage);
-        return chatMessage;
+    	messagingTemplate.convertAndSend("/topic/messages/" + chatMessage.getChatroomId(), chatMessage);
+//        return chatMessage;
     }
     
     @MessageMapping("/chat/join")
-    @SendTo("/topic/userlist")
-    public List<Object> joinUser(@Payload ChatroomUserVo chatroomUserVo) throws IOException {
+//    @SendTo("/topic/userlist/{id}")
+    public void joinUser(@Payload ChatroomUserVo chatroomUserVo) throws IOException {
         List<Object> list = chatService.sendUserList(chatroomUserVo);
-        return list;
+        messagingTemplate.convertAndSend("/topic/userlist/" + chatroomUserVo.getChatroomId(), list);
+//        return list;
     }
     
     @MessageMapping("/chat/leave")
-    @SendTo("/topic/userlist")
-    public List<Object> leaveUser(@Payload ChatroomUserVo chatroomUserVo) throws IOException {
+//    @SendTo("/topic/userlist/{id}")
+    public void leaveUser(@Payload ChatroomUserVo chatroomUserVo) throws IOException {
         List<Object> list = chatService.popUserList(chatroomUserVo);
-        return list;
+        messagingTemplate.convertAndSend("/topic/userlist/" + chatroomUserVo.getChatroomId(), list);
     }
     
     // redis저장소의 채팅 내역들을 출력

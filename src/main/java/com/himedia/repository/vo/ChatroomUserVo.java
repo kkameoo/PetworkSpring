@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ChatroomUserVo {
 	private Integer chatroomUserId;
 	private Integer chatroomId;

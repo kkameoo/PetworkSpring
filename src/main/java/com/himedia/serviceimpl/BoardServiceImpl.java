@@ -12,6 +12,7 @@ import com.himedia.mappers.BoardHireMapper;
 import com.himedia.mappers.BoardMapper;
 import com.himedia.mappers.BoardTradeMapper;
 import com.himedia.mappers.BoardWalkMapper;
+import com.himedia.mappers.ChatroomUserMapper;
 import com.himedia.mappers.MapMapper;
 import com.himedia.repository.vo.BoardHireRequestVo;
 import com.himedia.repository.vo.BoardHireVo;
@@ -21,10 +22,12 @@ import com.himedia.repository.vo.BoardTradeVo;
 import com.himedia.repository.vo.BoardVo;
 import com.himedia.repository.vo.BoardWalkRequestVo;
 import com.himedia.repository.vo.BoardWalkVo;
+import com.himedia.repository.vo.ChatroomUserVo;
 import com.himedia.repository.vo.ChatroomVo;
 import com.himedia.repository.vo.MapVo;
 import com.himedia.services.BoardService;
 import com.himedia.services.ChatroomService;
+import com.himedia.services.ChatroomUserService;
 import com.himedia.services.PhotoService;
 
 import lombok.RequiredArgsConstructor;
@@ -46,6 +49,8 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private MapMapper mapMapper;
 	private final ChatroomService chatroomService;
+	private final ChatroomUserService chatroomUserService;
+
 	
 	// 모든 게시물 출력
 	@Override
@@ -109,7 +114,7 @@ public class BoardServiceImpl implements BoardService {
 		int result2 = boardWalkMapper.insertBoardWalk(boardWalkVo);
 		ChatroomVo chatroomVo = ChatroomVo.builder()
 				.boardId(board.getBoardId())
-				.chatroomName(boardWalkRequestVo.getUserId()+ "님의 방")
+				.chatroomName(board.getBoardId() + "." + boardWalkRequestVo.getNickname() + "님의 방")
 				.build();
 		int result3 = chatroomService.insertChatroom(chatroomVo);
 		if (result3 == 0) {
@@ -123,6 +128,15 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println(mapVo);
 		int result4 = mapMapper.insertMap(mapVo);
 		if (result4 == 0) {
+			throw new IOException();
+		}
+		ChatroomUserVo chatroomUserVo = ChatroomUserVo.builder()
+				.chatroomId(chatroomVo.getChatroomId())
+				.userId(boardWalkRequestVo.getUserId())
+				.userName(boardWalkRequestVo.getNickname())
+				.build();
+		int result5 = chatroomUserService.insertChatroomUser(chatroomUserVo);
+		if (result5 == 0) {
 			throw new IOException();
 		}
 		// 이미지 존재할 시 
@@ -157,7 +171,7 @@ public class BoardServiceImpl implements BoardService {
 		int result2 = boardTradeMapper.insertBoardTrade(boardTradeVo);
 		ChatroomVo chatroomVo = ChatroomVo.builder()
 				.boardId(board.getBoardId())
-				.chatroomName(boardTradeRequestVo.getUserId()+ "님의 방")
+				.chatroomName(board.getBoardId() + "." + boardTradeRequestVo.getNickname() + "님의 방")
 				.build();
 		int result3 = chatroomService.insertChatroom(chatroomVo);
 		if (result3 == 0) {
@@ -171,6 +185,15 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println(mapVo);
 		int result4 = mapMapper.insertMap(mapVo);
 		if (result4 == 0) {
+			throw new IOException();
+		}
+		ChatroomUserVo chatroomUserVo = ChatroomUserVo.builder()
+				.chatroomId(chatroomVo.getChatroomId())
+				.userId(boardTradeRequestVo.getUserId())
+				.userName(boardTradeRequestVo.getNickname())
+				.build();
+		int result5 = chatroomUserService.insertChatroomUser(chatroomUserVo);
+		if (result5 == 0) {
 			throw new IOException();
 		}
 		if (!file.isEmpty()) {
@@ -205,7 +228,7 @@ public class BoardServiceImpl implements BoardService {
 		int result2 = boardHireMapper.insertBoardHire(boardHireVo);
 		ChatroomVo chatroomVo = ChatroomVo.builder()
 				.boardId(board.getBoardId())
-				.chatroomName(boardHireRequestVo.getUserId()+ "님의 방")
+				.chatroomName(board.getBoardId() + "." + boardHireRequestVo.getNickname() + "님의 방")
 				.build();
 		int result3 = chatroomService.insertChatroom(chatroomVo);
 		if (result3 == 0) {
@@ -219,6 +242,15 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println(mapVo);
 		int result4 = mapMapper.insertMap(mapVo);
 		if (result4 == 0) {
+			throw new IOException();
+		}
+		ChatroomUserVo chatroomUserVo = ChatroomUserVo.builder()
+				.chatroomId(chatroomVo.getChatroomId())
+				.userId(boardHireRequestVo.getUserId())
+				.userName(boardHireRequestVo.getNickname())
+				.build();
+		int result5 = chatroomUserService.insertChatroomUser(chatroomUserVo);
+		if (result5 == 0) {
 			throw new IOException();
 		}
 		if (!file.isEmpty()) {
