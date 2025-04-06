@@ -21,11 +21,11 @@ public interface BoardService {
 	// 특정 게시물을 받아오는 기능
 	BoardVo selectOneBoard(Integer id);
 	// 산책 게시물을 입력하는 기능
-	int insertBoardWalk(MultipartFile file, BoardWalkRequestVo boardWalkRequestVo) throws IOException;
+	int insertBoardWalk(List<MultipartFile> file, BoardWalkRequestVo boardWalkRequestVo) throws IOException;
 	// 거래 게시물을 입력하는 기능
-	int insertBoardTrade(MultipartFile file, BoardTradeRequestVo boardTradeRequestVo) throws IOException;
+	int insertBoardTrade(List<MultipartFile> file, BoardTradeRequestVo boardTradeRequestVo) throws IOException;
 	// 고용 게시물을 입력하는 기능
-	int insertBoardHire(MultipartFile file, BoardHireRequestVo boardHireRequestVo) throws IOException;
+	int insertBoardHire(List<MultipartFile> file, BoardHireRequestVo boardHireRequestVo) throws IOException;
 	// 특정 게시물을 수정하는 기능
 	int updateBoard(BoardVo board);
 	// 특정 게시물을 삭제하는 기능
@@ -45,11 +45,23 @@ public interface BoardService {
 	// 고용 게시물을 받아오는 기능
 	BoardHireVo selectBoardHire(Integer id);
 	// 산책 게시물을 수정하는 기능
-	int updateBoardWalk(BoardWalkVo boardWalkVo);
+	int updateBoardWalk(
+			BoardWalkVo boardWalkVo,   
+			List<MultipartFile> file, 
+			List<Integer> deleted, 
+			Integer id) throws IOException;
 	// 거래 게시물을 수정하는 기능
-	int updateBoardTrade(BoardTradeVo boardTradeVo);
+	int updateBoardTrade(
+			BoardTradeVo boardTradeVo,
+			List<MultipartFile> file, 
+			List<Integer> deleted, 
+			Integer id) throws IOException;
 	// 고용 게시물을 수정하는 기능
-	int updateBoardHire(BoardHireVo boardHireVo);
+	int updateBoardHire(
+			BoardHireVo boardHireVo,
+			List<MultipartFile> file, 
+			List<Integer> deleted, 
+			Integer id) throws IOException;
 	// 펫스타그램 게시글
 	int insertOneBoard(MultipartFile file, BoardVo boardVo) throws IOException;
 	// walk 게시글 인기순

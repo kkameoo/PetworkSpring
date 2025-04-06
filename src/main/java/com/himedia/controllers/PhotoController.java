@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.himedia.repository.vo.BoardPhotoVo;
+import com.himedia.repository.vo.FileEditVo;
 import com.himedia.repository.vo.PetPhotoVo;
 import com.himedia.services.PhotoService;
 
@@ -115,6 +116,40 @@ public class PhotoController {
 	    }
 	    }
 	    
+	}
+	
+//	GET : /api/photo/board/upload/edit/{id} -> 프로필 사진 조회 (여러 장)
+	@GetMapping("/board/upload/edit/{id}")
+	public ResponseEntity<?> getEditBoardPhoto(@PathVariable Integer id) {
+		List<BoardPhotoVo> boardPhotoVos = photoService.getBoardPhoto(id);
+		
+		// 검색된 데이터가 없을 경우 404 반환
+	    if (boardPhotoVos == null || boardPhotoVos.isEmpty()) {
+	    	return ResponseEntity.ok("사진이 없습니다.");
+	    } 
+			
+	    // 파일을 Resource 리스트로 변환
+	    List<FileEditVo> resultList = new ArrayList();
+	    
+	    for(BoardPhotoVo photoVo : boardPhotoVos) {
+	    	 try {
+	             Resource resource = photoService.convertFile(photoVo.getBoardPhotoSrc());
+	             if (resource != null) {
+	                 String base64 = Base64.getEncoder().encodeToString(resource.getInputStream().readAllBytes());
+	                 String base64Full = "data:image/jpeg;base64," + base64;
+
+	                 FileEditVo fileEditVo = new FileEditVo(base64Full, photoVo.getBoardPhotoId()); // fileId를 photo의 ID로 설정
+	                 resultList.add(fileEditVo);
+	             }
+	    	 } catch (IOException e) {
+	             // 로깅 또는 무시
+	             e.printStackTrace();
+	         }
+	    }
+	    if (resultList.isEmpty()) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이미지 변환 실패");
+	    }
+	    return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(resultList);
 	}
 	
 //	GET : /api/pet/board/upload/{id} -> 프로필 사진 조회 (한 장)

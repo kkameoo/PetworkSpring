@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -53,6 +54,25 @@ public class PhotoServiceImpl implements PhotoService {
 	     boardPhotoMapper.insertOrUpdateBoardPhoto(boardPhotoVo);  
 
 	     return fileVo.getFilePath().toString();
+	 }
+	 
+	 @Override
+	 public String uploadBoardPictures(List<MultipartFile> file, Integer id) throws IOException {
+		 List<BoardPhotoVo> boardPhotoVos = new ArrayList();
+		 for (MultipartFile image : file) {
+			 FileVo fileVo = uploadPicture(image);
+			 BoardPhotoVo boardPhotoVo = BoardPhotoVo.builder()
+					 .boardPhotoName(fileVo.getFileName())
+					 .boardPhotoSrc(fileVo.getFilePath().toString())
+					 .boardId(id)
+					 .build();
+			 boardPhotoVos.add(boardPhotoVo);	 
+		 }
+		 boardPhotoMapper.insertBoardPhotos(boardPhotoVos);
+		 
+//	     boardPhotoMapper.insertOrUpdateBoardPhoto(boardPhotoVo);  
+
+	     return "ok";
 	 }
 	 
 	 @Override
