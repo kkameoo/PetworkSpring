@@ -3,9 +3,125 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.himedia.mappers.UserMapper">
 
-	<!-- SELECT: GET -->
-	<select id="selectAllUser" resultType="UserVo">
-	SELECT * FROM user
+	<!-- 중복 체크 -->
+    <select id="countNickname" resultType="int">
+        SELECT COUNT(*) FROM user WHERE nickname = #{nickname};
+    </select>
+    
+    <!-- 이메일로 사용자 조회 -->
+	<select id="findByEmail" resultType="com.himedia.repository.vo.UserVo">
+ 	   SELECT user_id as 
+ 	   userId,
+ 	   name, 
+ 	   nickname, 
+ 	   email, 
+ 	   password, 
+ 	   tel_number as telNumber, 
+ 	   preference, 
+ 	   local_si as localSi, 
+       local_gu as localGu, 
+       reg_date as regDate, 
+       `update`,
+       is_admin as isAdmin
+       FROM user
+  	   WHERE email = #{email};
 	</select>
+
+    <select id="countEmail" resultType="int">
+        SELECT COUNT(*) FROM user WHERE email = #{email};
+    </select>
+
+    <select id="countTelNumber" resultType="int">
+        SELECT COUNT(*) FROM user WHERE tel_number = #{telNumber};
+    </select>
+
+	<!-- 유저 생성 (CREATE)-->
+	<insert id="insertUser">
+	  	INSERT INTO user (name, nickname, password, tel_number, email, preference, local_si, local_gu, is_admin, `update`)
+     	VALUES (#{name}, #{nickname}, #{password}, #{telNumber}, #{email}, #{preference}, #{localSi}, #{localGu}, 0, NOW());
+	</insert>
+
+	<!-- 단일 유저 조회 (READ) -->
+    <select id="selectUserById" resultType="com.himedia.repository.vo.UserVo">
+       SELECT 
+        user_id as userId, 
+        name,
+        nickname, 
+        password, 
+        tel_number as telNumber, 
+        email, 
+        preference, 
+        local_si as localSi, 
+        local_gu as localGu, 
+        reg_date as regDate, 
+        `update`,
+        is_admin as isAdmin
+       FROM user 
+       WHERE user_id = #{userId};
+    </select>
+    
+    <select id="getUserInfoById" parameterType="int" resultType="com.himedia.repository.vo.UserVo">
+  	SELECT 
+     user_id as userId, 
+        name,
+        nickname, 
+        password, 
+        tel_number as telNumber, 
+        email, 
+        preference, 
+        local_si as localSi, 
+        local_gu as localGu, 
+        reg_date as regDate, 
+        `update`,
+        is_admin as isAdmin
+       FROM user 
+       WHERE user_id = #{userId};
+	</select>
+
+
+    <!-- 전체 유저 조회 (READ) -->
+    <select id="selectAllUsers" resultType="com.himedia.repository.vo.UserVo">
+        SELECT 
+         user_id as userId, 
+         name, 
+         nickname, 
+         password, 
+         tel_number as telNumber, 
+         email, preference, 
+         local_si as localSi, 
+         local_gu as localGu, 
+         reg_date as regDate, 
+         `update`,
+         is_admin as isAdmin
+        FROM user;
+    </select>
+
+    <!-- 유저 정보 수정 (UPDATE) -->
+    <update id="updateUser">
+    UPDATE user 
+    SET name=#{name}, 
+        nickname=#{nickname}, 
+        tel_number=#{telNumber}, 
+		email=#{email},
+        preference=#{preference}, 
+        local_si=#{localSi}, 
+        local_gu=#{localGu}, 
+        `update`=NOW()
+        <if test="password != null and password != ''">, password=#{password}</if>
+    WHERE user_id=#{userId};
+	</update>
+	
+	<!--이메일 인증 후 비밀번호 수정-->
+	<update id="updatePasswordByEmail">
+   		UPDATE user
+    	SET password = #{password}
+   		WHERE email = #{email}
+	</update>
+
+
+    <!-- 유저 삭제 (DELETE) -->
+    <delete id="deleteUser">
+        DELETE FROM user WHERE user_id=#{userId};
+    </delete>
 	
 </mapper>

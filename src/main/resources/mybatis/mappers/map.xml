@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.MapMapper">
+	<!-- SELECT: GET -->
+	<select id="selectMap" resultType="MapVo" parameterType="int">
+		SELECT 
+		map_id as mapId,
+		latitude,
+		longitude,
+		board_id as boardId
+		FROM map
+		WHERE board_id = #{id}
+	</select>
+
+	<!-- INSERT: POST --> 
+	<insert id="insertMap" parameterType="MapVo">
+	  	INSERT INTO map (latitude, longitude, board_id)
+     	VALUES (#{latitude}, #{longitude}, #{boardId});
+	</insert>
+	
+	<!-- UPDATE: PUT -->
+	<update id="updateMap" parameterType="MapVo">
+	UPDATE map 
+	SET latitude = #{latitude}, 
+	    longitude = #{longitude}
+	WHERE board_id = #{boardId};
+	</update>
+	
+</mapper>

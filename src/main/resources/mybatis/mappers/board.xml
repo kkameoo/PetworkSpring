@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.BoardMapper">
+
+	<!-- SELECT: GET -->
+	<select id="selectAllBoard" resultType="BoardVo">
+	SELECT 
+	board_id as boardId, 
+	user_id as userId, 
+	title, 
+	content, 
+	report_count as reportCount,
+	click_count as clickCount, 
+	board_type as boardType,
+	local_si as localSi,
+	local_gu as localGu,
+	reg_date as regDate, 
+	`update`
+	FROM board
+	</select>
+	
+	<!-- SELECT: GET -->
+	<select id="selectBoard" parameterType="int" resultType="BoardVo">
+	SELECT 
+	 b.board_id AS boardId,
+    b.user_id AS userId,
+    b.title,
+    b.content,
+    b.report_count AS reportCount,
+    b.click_count AS clickCount,
+    b.board_type AS boardType,
+    b.local_si AS localSi,
+    b.local_gu AS localGu,
+    b.reg_date AS regDate,
+    b.`update`,
+    u.nickname AS nickname
+  	FROM board b
+  	JOIN user u ON b.user_id = u.user_id
+	WHERE b.board_id = #{id}
+	</select>
+	
+	<select id="selectBoardByUserId" parameterType="int" resultType="BoardVo">
+  	SELECT 
+    b.board_id AS boardId,
+    b.user_id AS userId,
+    b.title,
+    b.content,
+    b.report_count AS reportCount,
+    b.click_count AS clickCount,
+    b.board_type AS boardType,
+    b.local_si AS localSi,
+    b.local_gu AS localGu,
+    b.reg_date AS regDate,
+    b.`update`,
+    u.nickname AS nickname
+  	FROM board b
+  	JOIN user u ON b.user_id = u.user_id
+  	WHERE b.user_id = #{userId}
+	</select>
+
+
+
+		
+	<!-- INSERT: POST -->
+	<insert id="insertBoard" parameterType="BoardVo" useGeneratedKeys="true" keyProperty="boardId" >
+	INSERT INTO board (user_id, title, content, board_type, local_si, local_gu)
+	VALUES (#{userId}, #{title}, #{content}, #{boardType}, #{localSi}, #{localGu});
+	</insert>
+	
+	<!-- UPDATE: PUT -->
+	<update id="updateBoard" parameterType="BoardVo">
+	UPDATE board 
+	SET title = #{title}, 
+	    content = #{content},  
+	    board_type = #{boardType}, 
+	    local_si = #{localSi}, 
+	    local_gu = #{localGu},
+	    `update` = NOW()
+	WHERE board_id = #{boardId};
+	</update>
+	
+	<!-- DELETE: DELETE -->
+	<delete id="deleteBoard" parameterType="int">
+	DELETE FROM board WHERE board_id = #{id}
+	</delete>
+	
+	<!-- UPDATE: PUT -->
+	<update id="increaseClickCount" parameterType="int">
+	UPDATE board 
+	SET click_count = click_count + 1
+	WHERE board_id = #{id};
+	</update>
+	
+	<!-- UPDATE: PUT -->
+	<update id="increaseReportCount" parameterType="int">
+	UPDATE board 
+	SET report_count = report_count + 1
+	WHERE board_id = #{id};
+	</update>
+</mapper>
