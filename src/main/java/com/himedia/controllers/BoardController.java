@@ -54,6 +54,7 @@ public class BoardController {
 	@GetMapping("/walk")
 	public ResponseEntity<?> selectAllBoardWalkList() {
 		List<BoardWalkVo> boardWalkVos = boardService.selectAllBoardWalk();
+		System.out.println("새로운 버젼");
 		return ResponseEntity.ok(boardWalkVos);
 	}
 	// 거래 게시물 전체 조회 (READ)
