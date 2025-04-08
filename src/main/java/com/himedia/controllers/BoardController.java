@@ -32,7 +32,10 @@ import com.himedia.services.PhotoService;
 
 @RestController
 @RequestMapping("/api/board")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = 
+"http://ec2-3-36-26-131.ap-northeast-2.compute.amazonaws.com:5173"
+,
+allowCredentials = "true")
 public class BoardController {
 	
 	@Autowired
@@ -54,7 +57,7 @@ public class BoardController {
 	@GetMapping("/walk")
 	public ResponseEntity<?> selectAllBoardWalkList() {
 		List<BoardWalkVo> boardWalkVos = boardService.selectAllBoardWalk();
-		System.out.println("새로운 버젼");
+		System.out.println("새로운 버젼2");
 		return ResponseEntity.ok(boardWalkVos);
 	}
 	// 거래 게시물 전체 조회 (READ)
