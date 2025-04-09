@@ -25,7 +25,7 @@ import com.himedia.services.ChatService;
 import lombok.RequiredArgsConstructor;
 
 @CrossOrigin(origins = 
-		"http://ec2-3-36-26-131.ap-northeast-2.compute.amazonaws.com:5173"
+		"http://ec2-43-202-32-6.ap-northeast-2.compute.amazonaws.com:5173"
 		, 
 allowCredentials = "true")
 @RestController

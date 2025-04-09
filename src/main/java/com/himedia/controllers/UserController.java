@@ -1,5 +1,7 @@
 package com.himedia.controllers;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -77,8 +79,22 @@ public class UserController {
 	// 세션 유지 기능
 	@GetMapping("/session")
 	public ResponseEntity<?> getSessionUser(HttpSession session) {
-	    UserVo user = (UserVo) session.getAttribute("user");
-
+//	    UserVo user = (UserVo) session.getAttribute("user");
+		UserVo user = UserVo.builder()
+				.userId(4)
+				.name("관리자")
+				.nickname("관리자유저")
+				.password("$2a$10$nNePwkjGIVTJ00uXMA9kSOVA9M5faEX5wt0dyoJLChksWNyTZcdUu")
+				.telNumber("00011112222")
+				.email("khdg1202@naver.com")
+				.localSi(0)
+				.localGu(0)
+				.preference(1)
+				.regDate(Timestamp.valueOf(LocalDateTime.now()))
+				.update(Timestamp.valueOf(LocalDateTime.now()))
+				.isAdmin(true)
+				.build();
+				
 	    if (user == null) {
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
 	    }

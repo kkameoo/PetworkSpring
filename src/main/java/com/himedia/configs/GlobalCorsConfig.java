@@ -12,7 +12,7 @@ public class GlobalCorsConfig implements WebMvcConfigurer {
 //		CORS 정책 설정
 		registry.addMapping("/api/**")	
 		//	/api로 시작되는 모든 요청에 CORS 정책 부여
-			.allowedOrigins("http://ec2-3-36-26-131.ap-northeast-2.compute.amazonaws.com:5173")	//	모든 도메인에 대해 허용
+			.allowedOrigins("http://ec2-43-202-32-6.ap-northeast-2.compute.amazonaws.com:5173")	//	모든 도메인에 대해 허용
 			.allowedMethods("GET", "POST", "PUT", "DELETE")
 			.allowedHeaders("*")	//	모든 헤더 허용
 			.maxAge(3600)	//	CORS 캐싱 허용 시간 (초단위)
