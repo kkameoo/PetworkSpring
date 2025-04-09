@@ -10,8 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.himedia.mappers.BoardHireMapper;
 import com.himedia.mappers.BoardMapper;
+import com.himedia.mappers.BoardPhotoMapper;
 import com.himedia.mappers.BoardTradeMapper;
 import com.himedia.mappers.BoardWalkMapper;
+import com.himedia.mappers.ChatroomUserMapper;
 import com.himedia.mappers.MapMapper;
 import com.himedia.repository.vo.BoardHireRequestVo;
 import com.himedia.repository.vo.BoardHireVo;
@@ -21,10 +23,12 @@ import com.himedia.repository.vo.BoardTradeVo;
 import com.himedia.repository.vo.BoardVo;
 import com.himedia.repository.vo.BoardWalkRequestVo;
 import com.himedia.repository.vo.BoardWalkVo;
+import com.himedia.repository.vo.ChatroomUserVo;
 import com.himedia.repository.vo.ChatroomVo;
 import com.himedia.repository.vo.MapVo;
 import com.himedia.services.BoardService;
 import com.himedia.services.ChatroomService;
+import com.himedia.services.ChatroomUserService;
 import com.himedia.services.PhotoService;
 
 import lombok.RequiredArgsConstructor;
@@ -45,7 +49,11 @@ public class BoardServiceImpl implements BoardService {
 	private PhotoService photoService;
 	@Autowired
 	private MapMapper mapMapper;
+	@Autowired
+	private BoardPhotoMapper boardPhotoMapper;
 	private final ChatroomService chatroomService;
+	private final ChatroomUserService chatroomUserService;
+
 	
 	// 모든 게시물 출력
 	@Override
@@ -86,7 +94,7 @@ public class BoardServiceImpl implements BoardService {
 	// 산책 게시물 입력
 	@Override
 	@Transactional
-	public int insertBoardWalk(MultipartFile file ,BoardWalkRequestVo boardWalkRequestVo) throws IOException {
+	public int insertBoardWalk(List<MultipartFile> file ,BoardWalkRequestVo boardWalkRequestVo) throws IOException {
 		BoardVo board = BoardVo.builder()
 				.userId(boardWalkRequestVo.getUserId())
 				.title(boardWalkRequestVo.getTitle())
@@ -109,7 +117,7 @@ public class BoardServiceImpl implements BoardService {
 		int result2 = boardWalkMapper.insertBoardWalk(boardWalkVo);
 		ChatroomVo chatroomVo = ChatroomVo.builder()
 				.boardId(board.getBoardId())
-				.chatroomName(boardWalkRequestVo.getUserId()+ "님의 방")
+				.chatroomName(board.getBoardId() + "." + boardWalkRequestVo.getNickname() + "님의 방")
 				.build();
 		int result3 = chatroomService.insertChatroom(chatroomVo);
 		if (result3 == 0) {
@@ -125,9 +133,18 @@ public class BoardServiceImpl implements BoardService {
 		if (result4 == 0) {
 			throw new IOException();
 		}
+		ChatroomUserVo chatroomUserVo = ChatroomUserVo.builder()
+				.chatroomId(chatroomVo.getChatroomId())
+				.userId(boardWalkRequestVo.getUserId())
+				.userName(boardWalkRequestVo.getNickname())
+				.build();
+		int result5 = chatroomUserService.insertChatroomUser(chatroomUserVo);
+		if (result5 == 0) {
+			throw new IOException();
+		}
 		// 이미지 존재할 시 
 		if (!file.isEmpty()) {
-			photoService.uploadBoardPicture(file, board.getBoardId());
+			photoService.uploadBoardPictures(file, board.getBoardId());
 		}
 		
 		return result2;
@@ -136,7 +153,7 @@ public class BoardServiceImpl implements BoardService {
 	// 거래 게시물 입력
 	@Override
 	@Transactional
-	public int insertBoardTrade(MultipartFile file ,BoardTradeRequestVo boardTradeRequestVo) throws IOException {
+	public int insertBoardTrade(List<MultipartFile> file ,BoardTradeRequestVo boardTradeRequestVo) throws IOException {
 		BoardVo board = BoardVo.builder()
 				.userId(boardTradeRequestVo.getUserId())
 				.title(boardTradeRequestVo.getTitle())
@@ -157,7 +174,7 @@ public class BoardServiceImpl implements BoardService {
 		int result2 = boardTradeMapper.insertBoardTrade(boardTradeVo);
 		ChatroomVo chatroomVo = ChatroomVo.builder()
 				.boardId(board.getBoardId())
-				.chatroomName(boardTradeRequestVo.getUserId()+ "님의 방")
+				.chatroomName(board.getBoardId() + "." + boardTradeRequestVo.getNickname() + "님의 방")
 				.build();
 		int result3 = chatroomService.insertChatroom(chatroomVo);
 		if (result3 == 0) {
@@ -173,8 +190,17 @@ public class BoardServiceImpl implements BoardService {
 		if (result4 == 0) {
 			throw new IOException();
 		}
+		ChatroomUserVo chatroomUserVo = ChatroomUserVo.builder()
+				.chatroomId(chatroomVo.getChatroomId())
+				.userId(boardTradeRequestVo.getUserId())
+				.userName(boardTradeRequestVo.getNickname())
+				.build();
+		int result5 = chatroomUserService.insertChatroomUser(chatroomUserVo);
+		if (result5 == 0) {
+			throw new IOException();
+		}
 		if (!file.isEmpty()) {
-			photoService.uploadBoardPicture(file, board.getBoardId());
+			photoService.uploadBoardPictures(file, board.getBoardId());
 		}
 		return result2;
 	}
@@ -182,7 +208,7 @@ public class BoardServiceImpl implements BoardService {
 	// 고용 게시물 입력
 	@Override
 	@Transactional
-	public int insertBoardHire(MultipartFile file ,BoardHireRequestVo boardHireRequestVo) throws IOException {
+	public int insertBoardHire(List<MultipartFile> file ,BoardHireRequestVo boardHireRequestVo) throws IOException {
 		BoardVo board = BoardVo.builder()
 				.userId(boardHireRequestVo.getUserId())
 				.title(boardHireRequestVo.getTitle())
@@ -205,7 +231,7 @@ public class BoardServiceImpl implements BoardService {
 		int result2 = boardHireMapper.insertBoardHire(boardHireVo);
 		ChatroomVo chatroomVo = ChatroomVo.builder()
 				.boardId(board.getBoardId())
-				.chatroomName(boardHireRequestVo.getUserId()+ "님의 방")
+				.chatroomName(board.getBoardId() + "." + boardHireRequestVo.getNickname() + "님의 방")
 				.build();
 		int result3 = chatroomService.insertChatroom(chatroomVo);
 		if (result3 == 0) {
@@ -221,8 +247,17 @@ public class BoardServiceImpl implements BoardService {
 		if (result4 == 0) {
 			throw new IOException();
 		}
+		ChatroomUserVo chatroomUserVo = ChatroomUserVo.builder()
+				.chatroomId(chatroomVo.getChatroomId())
+				.userId(boardHireRequestVo.getUserId())
+				.userName(boardHireRequestVo.getNickname())
+				.build();
+		int result5 = chatroomUserService.insertChatroomUser(chatroomUserVo);
+		if (result5 == 0) {
+			throw new IOException();
+		}
 		if (!file.isEmpty()) {
-			photoService.uploadBoardPicture(file, board.getBoardId());
+			photoService.uploadBoardPictures(file, board.getBoardId())   ;
 		}
 		return result2;
 	}
@@ -290,23 +325,54 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 산책 게시물 수정
+	@Transactional
 	@Override
-	public int updateBoardWalk(BoardWalkVo boardWalkVo) {
+	public int updateBoardWalk(
+			BoardWalkVo boardWalkVo,  
+			List<MultipartFile> file, 
+			List<Integer> deleted, 
+			Integer id) throws IOException {
 		int result = boardWalkMapper.updateBoardWalk(boardWalkVo);
+		if(file != null && !file.isEmpty()) {
+			photoService.uploadBoardPictures(file, id);
+		} 
+		if(deleted != null && !deleted.isEmpty()) {
+			boardPhotoMapper.deleteBoardPhotos(deleted);
+		}
 		return result;
 	}
 
 	// 거래 게시물 수정
 	@Override
-	public int updateBoardTrade(BoardTradeVo boardTradeVo) {
+	public int updateBoardTrade(
+			BoardTradeVo boardTradeVo,
+			List<MultipartFile> file, 
+			List<Integer> deleted, 
+			Integer id) throws IOException {
 		int result = boardTradeMapper.updateBoardTrade(boardTradeVo);
+		if(file != null && !file.isEmpty()) {
+			photoService.uploadBoardPictures(file, id);
+		} 
+		if(deleted != null && !deleted.isEmpty()) {
+			boardPhotoMapper.deleteBoardPhotos(deleted);
+		}
 		return result;
 	}
 
 	// 고용 게시물 수정
 	@Override
-	public int updateBoardHire(BoardHireVo boardHireVo) {
+	public int updateBoardHire(
+			BoardHireVo boardHireVo,
+			List<MultipartFile> file, 
+			List<Integer> deleted, 
+			Integer id) throws IOException {
 		int result = boardHireMapper.updateBoardHire(boardHireVo);
+		if(file != null && !file.isEmpty()) {
+			photoService.uploadBoardPictures(file, id);
+		} 
+		if(deleted != null && !deleted.isEmpty()) {
+			boardPhotoMapper.deleteBoardPhotos(deleted);
+		}
 		return result;
 	}
 	

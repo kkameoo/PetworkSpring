@@ -6,4 +6,5 @@ import com.himedia.repository.vo.MapVo;
 @Service
 public interface MapService {
 	MapVo selectMap(Integer id);
+	int updateMapByBoardId(MapVo mapVo);
 }

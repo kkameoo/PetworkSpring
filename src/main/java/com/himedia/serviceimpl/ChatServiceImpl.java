@@ -59,14 +59,14 @@ public class ChatServiceImpl implements ChatService{
 	public void sendMessage(String channel, ChatMessageVo message) throws IOException {
 		NotificationVo notificationVo = NotificationVo.builder()
 				.chatroomId(message.getChatroomId())
-				.content(message.getSender() + "님의 메세지: " + message.getContent())
+				.content("(" + message.getChatroomName() + ") " + message.getSender() + "님의 메세지: " + message.getContent())
 				.isRead(false)
 				.createdAt(Timestamp.valueOf(LocalDateTime.now()))
 				.build();
 		int result = notificationMapper.insertNotification(notificationVo);
 		List<ChatroomUserVo> chatroomUserVos = chatroomUserMapper.selectChatroomUsersByRoomId(message.getChatroomId());
 		for (ChatroomUserVo chatroomUserVo : chatroomUserVos) {
-			System.out.println(chatroomUserVo.getUserId() + "가나다");
+//			System.out.println(chatroomUserVo.getUserId() + "가나다");
 			messagingTemplate.convertAndSend("/user/" + chatroomUserVo.getUserId() + "/notification", notificationVo);
 		}
 //		messagingTemplate.convertAndSend("/user/" + message.getChatroomId() + "/notification", notificationVo);

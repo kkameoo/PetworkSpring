@@ -21,6 +21,7 @@ public class ChatMessageVo {
 	private Integer chatroomId;  // 채팅방 ID
 	private String sender;  // 보낸 사람
     private String content; // 메시지 내용
-    public Integer MessageType;	// 1. enter 2.exit 3.talk 
+    public Integer MessageType;	// 1. enter 2.exit 3.talk
+    public String chatroomName;
     private Timestamp regDate;
 }

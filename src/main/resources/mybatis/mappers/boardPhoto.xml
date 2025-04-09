@@ -15,12 +15,28 @@
 	
 	<!-- RETRIEVE: GET -->
 	<select id="getBoardPhotoById" parameterType="int" resultType="BoardPhotoVo">
-		SELECT board_photo_id,
+		SELECT board_photo_id as boardPhotoId,
 		board_photo_name as boardPhotoName,
 		board_photo_src as boardPhotoSrc,
 		reg_date as regDate
 		FROM board_photo
 		WHERE board_id = #{id}
 	</select>
-
+	
+	<!-- INSERT: POST -->
+	<insert id="insertBoardPhotos">
+	  	INSERT INTO board_photo (board_id, board_photo_name, board_photo_src)
+     	VALUES
+     	<foreach collection="list" item="BoardPhotoVo" separator=",">
+     		 (#{BoardPhotoVo.boardId}, #{BoardPhotoVo.boardPhotoName}, #{BoardPhotoVo.boardPhotoSrc})
+     	</foreach>
+	</insert>
+	
+	<delete id="deleteBoardPhotos">
+  		DELETE FROM board_photo
+  		WHERE board_photo_id IN
+  		<foreach item="id" collection="ids" open="(" separator="," close=")">
+    		#{id}
+  		</foreach>
+	</delete>
 </mapper>

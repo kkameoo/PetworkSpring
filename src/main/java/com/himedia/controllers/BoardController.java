@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,13 +28,17 @@ import com.himedia.repository.vo.BoardWalkRequestVo;
 import com.himedia.repository.vo.BoardWalkVo;
 import com.himedia.services.BoardCommentService;
 import com.himedia.services.BoardService;
+import com.himedia.services.PhotoService;
 
 @RestController
 @RequestMapping("/api/board")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private PhotoService photoService;
 	
 	@Autowired
 	private BoardCommentService boardCommentService;
@@ -120,7 +125,7 @@ public class BoardController {
 	
 	// 산책 테이블을 입력 (INSERT)
 	@PostMapping("/walk")
-	public ResponseEntity<?> insertAllBoardWalk(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<?> insertAllBoardWalk(@RequestParam("file")List<MultipartFile> file,
 			@RequestParam("requestJson") String requestJson) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		BoardWalkRequestVo boardWalkRequestVo = objectMapper.readValue(requestJson, BoardWalkRequestVo.class);
@@ -133,7 +138,7 @@ public class BoardController {
 	
 	// 거래 테이블을 입력 (INSERT)
 	@PostMapping("/trade")
-	public ResponseEntity<?> insertBoardTrade(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<?> insertBoardTrade(@RequestParam("file") List<MultipartFile> file,
 			@RequestParam("requestJson") String requestJson) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		BoardTradeRequestVo boardTradeRequestVo = objectMapper.readValue(requestJson, BoardTradeRequestVo.class);
@@ -146,7 +151,7 @@ public class BoardController {
 	
 	// 고용 테이블을 입력 (INSERT)
 	@PostMapping("/hire")
-	public ResponseEntity<?> insertBoardHire(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<?> insertBoardHire(@RequestParam("file") List<MultipartFile> file,
 			@RequestParam("requestJson") String requestJson) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		BoardHireRequestVo boardHireRequestVo = objectMapper.readValue(requestJson, BoardHireRequestVo.class);
@@ -170,9 +175,16 @@ public class BoardController {
 		
 	// 산책 테이블을 수정 (UPDATE)
 	@PutMapping("/walk/{id}")
-	public ResponseEntity<?> updateBoardWalk(@RequestBody BoardWalkVo boardWalkVo, @PathVariable Integer id) {
+	public ResponseEntity<?> updateBoardWalk(
+			@RequestParam(value = "file", required = false) List<MultipartFile> file, 
+			@RequestParam("requestJson") String requestJson,
+			@RequestParam(value = "deleted", required = false) List<Integer> deleted,
+			@PathVariable Integer id) throws IOException {
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		BoardWalkVo boardWalkVo = objectMapper.readValue(requestJson, BoardWalkVo.class);
 		boardWalkVo.setBoardId(id);
-		int result = boardService.updateBoardWalk(boardWalkVo);
+		int result = boardService.updateBoardWalk(boardWalkVo, file, deleted, id);
 		if (result == 0) {
 			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
 		}
@@ -181,9 +193,15 @@ public class BoardController {
 	
 	// 산책 테이블을 수정 (UPDATE)
 	@PutMapping("/trade/{id}")
-	public ResponseEntity<?> updateBoardTrade(@RequestBody BoardTradeVo boardTradeVo, @PathVariable Integer id) {
+	public ResponseEntity<?> updateBoardTrade(
+			@RequestParam(value = "file", required = false) List<MultipartFile> file, 
+			@RequestParam("requestJson") String requestJson,
+			@RequestParam(value = "deleted", required = false) List<Integer> deleted,
+			@PathVariable Integer id) throws IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		BoardTradeVo boardTradeVo = objectMapper.readValue(requestJson, BoardTradeVo.class);
 		boardTradeVo.setBoardId(id);
-		int result = boardService.updateBoardTrade(boardTradeVo);
+		int result = boardService.updateBoardTrade(boardTradeVo, file, deleted, id);
 		if (result == 0) {
 			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
 		}
@@ -192,9 +210,16 @@ public class BoardController {
 	
 	// 고용 테이블을 수정 (UPDATE)
 	@PutMapping("/hire/{id}")
-	public ResponseEntity<?> updateBoardHire(@RequestBody BoardHireVo boardHireVo, @PathVariable Integer id) {
+	public ResponseEntity<?> updateBoardHire(
+			@RequestParam(value = "file", required = false) List<MultipartFile> file, 
+			@RequestParam("requestJson") String requestJson,
+			@RequestParam(value = "deleted", required = false) List<Integer> deleted,
+			@PathVariable Integer id) throws IOException {
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		BoardHireVo boardHireVo = objectMapper.readValue(requestJson, BoardHireVo.class);
 		boardHireVo.setBoardId(id);
-		int result = boardService.updateBoardHire(boardHireVo);
+		int result = boardService.updateBoardHire(boardHireVo, file, deleted, id);
 		if (result == 0) {
 			return ResponseEntity.badRequest().body("에러가 발생했습니다.");
 		}
