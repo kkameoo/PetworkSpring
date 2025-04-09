@@ -50,7 +50,7 @@ public class NotificationController {
 	 public List<NotificationVo> getNotificationByUserId(@PathVariable Integer id) {
 	     return notificationMapper.selectNotificationsByUserId(id);
 	 }
-	 
+	  
 	 // userid로 알림 업데이트
 	 @PutMapping("/isread/{id}")
 	 public ResponseEntity<?> updateIsRead(@PathVariable Integer id) {
