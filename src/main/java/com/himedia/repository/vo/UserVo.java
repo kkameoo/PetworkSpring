@@ -52,4 +52,7 @@ public class UserVo {
 	private Timestamp regDate;
 	private Timestamp update;
 	private boolean isAdmin;
+	
+	// 토큰
+	private String token;
 }

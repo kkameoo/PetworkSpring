@@ -19,26 +19,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.himedia.handlers.JwtUtil;
 import com.himedia.repository.vo.UserVo;
 import com.himedia.services.EmailService;
 import com.himedia.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/user")
+@RequiredArgsConstructor
 public class UserController {
 
     private final BoardController boardController;
+    private final JwtUtil jwtUtil;
+    
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private EmailService emailService;
 
-    UserController(BoardController boardController) {
-        this.boardController = boardController;
-    }
+ 
 	
 	// 회원가입 (CREATE)
 	@PostMapping("/register")
@@ -76,6 +79,29 @@ public class UserController {
 			}
 		}
 	
+	// jwt방식 로그인
+	@PostMapping("/login/jwt")
+	public ResponseEntity<?> loginJwtUser(@RequestBody UserVo user) {
+		try {
+			UserVo authenticatedUser = userService.login(user.getEmail(), user.getPassword());
+			System.out.println(user.getEmail());
+			System.out.println(user.getPassword());
+			System.out.println(authenticatedUser);
+
+			if (authenticatedUser != null) {
+					
+				String token = jwtUtil.generateToken(authenticatedUser.getEmail());
+				authenticatedUser.setPassword("");
+				authenticatedUser.setToken(token);
+				return ResponseEntity.ok(authenticatedUser);
+				}else {
+					return ResponseEntity.badRequest().body("이메일 또는 비밀번호가 올바르지 않습니다.");
+				}
+			} catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 중 오류 발생");
+			}
+	}
+	
 	// 세션 유지 기능
 	@GetMapping("/session")
 	public ResponseEntity<?> getSessionUser(HttpSession session) {
@@ -100,6 +126,22 @@ public class UserController {
 	    }
 
 	    return ResponseEntity.ok(user);
+	}
+	
+	// 토큰 유효성 체크
+	@PostMapping("/token")
+	public ResponseEntity<?> validateToken(@RequestBody UserVo userVo) {
+		System.out.println(userVo);
+		 try {
+             String username = jwtUtil.validateTokenAndGetUsername(userVo.getToken());
+             if(username != null) {
+            	 return ResponseEntity.ok(userVo);
+             }
+             
+         } catch (Exception e) {
+             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+         }
+		return ResponseEntity.ok(null);
 	}
 	
 	// 로그아웃
