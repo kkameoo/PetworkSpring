@@ -19,11 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.himedia.repository.vo.PetVo;
-import com.himedia.repository.vo.UserVo;
 import com.himedia.services.PetService;
 import com.himedia.services.PhotoService;
-
-import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api/pet")
@@ -37,17 +34,17 @@ public class PetController {
 	 // 펫 등록 (CREATE)
     @PostMapping("/create")
     public ResponseEntity<String> createPet(@RequestParam("file") MultipartFile file,
-    	    @RequestParam("requestJson") String requestJson, HttpSession session) throws IOException {
+    	    @RequestParam("requestJson") String requestJson) throws IOException {
     	 try {
     	        // 1. 로그인 유저 확인
-    	        UserVo sessionUser = (UserVo) session.getAttribute("user");
-    	        if (sessionUser == null) {
-    	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-    	        }
-  
+//    	        UserVo sessionUser = (UserVo) session.getAttribute("user");
+//    	        if (sessionUser == null) {
+//    	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+//    	        }
+//  
     	        ObjectMapper objectMapper = new ObjectMapper();
     	        PetVo pet = objectMapper.readValue(requestJson, PetVo.class);
-    	        pet.setUserId(sessionUser.getUserId());
+    	        pet.setUserId(pet.getUserId());
     	        // 3. 펫 등록
     	        petService.insertPet(pet);
     	        // 4. 사진 업로드
@@ -65,14 +62,19 @@ public class PetController {
     }
 
     // 특정 사용자 펫 전체 조회 (READ)
+//    @GetMapping("/list")
+//    public ResponseEntity<List<PetVo>> getPetsByUser(HttpSession session) {
+//        UserVo sessionUser = (UserVo) session.getAttribute("user");
+//        if (sessionUser == null) {
+//            return ResponseEntity.status(401).build();
+//        }
+//        List<PetVo> pets = petService.selectPetsByUserId(sessionUser.getUserId());
+////        System.out.println(pets + "jjjjjjjjjj");
+//        return ResponseEntity.ok(pets);
+//    }
     @GetMapping("/list")
-    public ResponseEntity<List<PetVo>> getPetsByUser(HttpSession session) {
-        UserVo sessionUser = (UserVo) session.getAttribute("user");
-        if (sessionUser == null) {
-            return ResponseEntity.status(401).build();
-        }
-        List<PetVo> pets = petService.selectPetsByUserId(sessionUser.getUserId());
-//        System.out.println(pets + "jjjjjjjjjj");
+    public ResponseEntity<List<PetVo>> getPetsByUser(@RequestParam("userId") Integer userId) {
+        List<PetVo> pets = petService.selectPetsByUserId(userId);
         return ResponseEntity.ok(pets);
     }
 
@@ -86,28 +88,26 @@ public class PetController {
         return ResponseEntity.ok(pet);
     }
 
+    
+
     // 펫 정보 수정 (UPDATE)
     @PutMapping("/update")
-    public ResponseEntity<String> updatePet(@RequestBody PetVo pet, HttpSession session) {
-        UserVo sessionUser = (UserVo) session.getAttribute("user");
-        if (sessionUser == null) {
-            return ResponseEntity.status(401).body("로그인이 필요합니다.");
-        }
-        pet.setUserId(sessionUser.getUserId());
+    public ResponseEntity<String> updatePet(@RequestBody PetVo pet) {
+//        UserVo sessionUser = (UserVo) session.getAttribute("user");
+//        if (sessionUser == null) {
+//            return ResponseEntity.status(401).body("로그인이 필요합니다.");
+//        }
+//        pet.setUserId(sessionUser.getUserId());
+    	pet.setUserId(pet.getUserId());
         petService.updatePet(pet);
         return ResponseEntity.ok("펫 정보 수정 완료");
     }
+ 
 
     // 펫 사진 수정
     @PutMapping("/photo/update")
     public ResponseEntity<String> updatePetPhoto(@RequestParam("file") MultipartFile file,
-                                                 @RequestParam("petId") Integer petId,
-                                                 HttpSession session) throws IOException {
-        UserVo sessionUser = (UserVo) session.getAttribute("user");
-        if (sessionUser == null) {
-            return ResponseEntity.status(401).body("로그인이 필요합니다.");
-        }
-
+                                                 @RequestParam("petId") Integer petId) throws IOException {
         photoService.uploadPetPicture(file, petId);
         return ResponseEntity.ok("펫 사진 수정 완료");
     }
@@ -115,12 +115,9 @@ public class PetController {
     
     // 펫 삭제 (DELETE)
     @DeleteMapping("/delete/{petId}")
-    public ResponseEntity<String> deletePet(@PathVariable int petId, HttpSession session) {
-        UserVo sessionUser = (UserVo) session.getAttribute("user");
-        if (sessionUser == null) {
-            return ResponseEntity.status(401).body("로그인이 필요합니다.");
-        }
+    public ResponseEntity<String> deletePet(@PathVariable int petId) {
         petService.deletePet(petId);
         return ResponseEntity.ok("펫 삭제 완료");
     }
+  
 }
