@@ -72,8 +72,8 @@ public class PetController {
 ////        System.out.println(pets + "jjjjjjjjjj");
 //        return ResponseEntity.ok(pets);
 //    }
-    @GetMapping("/list")
-    public ResponseEntity<List<PetVo>> getPetsByUser(@RequestParam("userId") Integer userId) {
+    @GetMapping("/list/{userId}")
+    public ResponseEntity<List<PetVo>> getPetsByUser(@PathVariable("userId") Integer userId) {
         List<PetVo> pets = petService.selectPetsByUserId(userId);
         return ResponseEntity.ok(pets);
     }
