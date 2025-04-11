@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Builder
 public class UserVo {
 	private Integer userId;
 
@@ -50,4 +52,7 @@ public class UserVo {
 	private Timestamp regDate;
 	private Timestamp update;
 	private boolean isAdmin;
+	
+	// 토큰
+	private String token;
 }

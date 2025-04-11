@@ -24,7 +24,6 @@ import com.himedia.services.ChatService;
 
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/alarm")

@@ -1,11 +1,15 @@
 package com.himedia.serviceimpl;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -54,8 +58,23 @@ public class EmailServiceImpl implements EmailService {
 
 		        helper.setText(emailContent, true);  // HTML 지원 가능
 		        
-		        File file = new File("src/main/resources/static/logo.png");
-		        helper.addInline("logo", file);
+		        ClassPathResource resource = new ClassPathResource("static/logo.png");
+
+		        // 임시 파일 생성 (이름, 확장자)
+		        File tempFile = File.createTempFile("logo", ".png");
+		        tempFile.deleteOnExit(); // JVM 종료 시 임시파일 삭제
+
+		        try (InputStream inputStream = resource.getInputStream();
+		             OutputStream outputStream = new FileOutputStream(tempFile)) {
+
+		            byte[] buffer = new byte[1024];
+		            int bytesRead;
+		            while ((bytesRead = inputStream.read(buffer)) != -1) {
+		                outputStream.write(buffer, 0, bytesRead);
+		            }
+		        }
+//		        File file = resource.getFile();
+		        helper.addInline("logo", tempFile);
 		
 			mailSender.send(message);	// 메일 전송
 		} catch (Exception e) {
