@@ -24,10 +24,6 @@ import com.himedia.services.ChatService;
 
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin(origins = 
-		"http://ec2-43-202-32-6.ap-northeast-2.compute.amazonaws.com:5173"
-		, 
-allowCredentials = "true")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/alarm")
