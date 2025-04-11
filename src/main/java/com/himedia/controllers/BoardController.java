@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,9 +33,7 @@ import com.himedia.services.PhotoService;
 
 @RestController
 @RequestMapping("/api/board")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class BoardController {
-	
 	@Autowired
 	private BoardService boardService;
 	@Autowired
@@ -54,6 +53,7 @@ public class BoardController {
 	@GetMapping("/walk")
 	public ResponseEntity<?> selectAllBoardWalkList() {
 		List<BoardWalkVo> boardWalkVos = boardService.selectAllBoardWalk();
+		System.out.println("새로운 버젼2");
 		return ResponseEntity.ok(boardWalkVos);
 	}
 	// 거래 게시물 전체 조회 (READ)
