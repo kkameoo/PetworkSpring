@@ -31,12 +31,7 @@ public class NotificationController {
 	 private final SimpMessagingTemplate messagingTemplate;
 	 private final NotificationMapper notificationMapper;
 	 private final ChatService chatService;
-	 // 알림 목록 조회 API
-//	 @GetMapping("/list")
-//	 public List<NotificationVo> getNotificationList(@RequestParam("userId") int userId) {
-//	     return notificationMapper.selectByReceiverId(userId);
-//	 }
-	
+
 	 // 알림 저장 + WebSocket 전송
 	 @PostMapping("/save")
 	 public void saveNotification(@RequestBody NotificationVo noti) {
@@ -70,12 +65,5 @@ public class NotificationController {
 		 return ResponseEntity.ok("성공");
 	 }
 		 
-//	@PostMapping("/room/notification")
-//	public ResponseEntity<?> insertNotification(@RequestBody ChatMessageVo chatMessageVo) {
-//		int result = chatMessageMapper.insertNotification(chatMessageVo);
-//		if (result == 0) {
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생");
-//		}
-//		return ResponseEntity.ok("200 ok");
-//	}
+
 }

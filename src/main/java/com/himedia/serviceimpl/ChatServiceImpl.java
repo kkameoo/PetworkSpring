@@ -66,13 +66,11 @@ public class ChatServiceImpl implements ChatService{
 		int result = notificationMapper.insertNotification(notificationVo);
 		List<ChatroomUserVo> chatroomUserVos = chatroomUserMapper.selectChatroomUsersByRoomId(message.getChatroomId());
 		for (ChatroomUserVo chatroomUserVo : chatroomUserVos) {
-//			System.out.println(chatroomUserVo.getUserId() + "가나다");
+
 			messagingTemplate.convertAndSend("/user/" + chatroomUserVo.getUserId() + "/notification", notificationVo);
 		}
-//		messagingTemplate.convertAndSend("/user/" + message.getChatroomId() + "/notification", notificationVo);
 	    redisPublisher.publish(channel, message);
 	    saveMessage(message, message.getChatroomId());
-//	    System.out.println(getRecentMessages());
 	}
 	
 	@Override
@@ -82,8 +80,6 @@ public class ChatServiceImpl implements ChatService{
 		String jsonMessage = objectMapper.writeValueAsString(chatroomUserVo); 
 		
 		redisTemplate.opsForList().leftPush(chatroomUserKey, jsonMessage);
-//		List<Object> userList = new ArrayList<Object>();
-//		userList.addAll(redisTemplate.opsForList().range(chatroomUserKey, 0, -1));
 		return redisTemplate.opsForList().range(chatroomUserKey, 0, -1);	// 현재 접속중인 유저 목록 반환
 	}
 	
@@ -93,9 +89,6 @@ public class ChatServiceImpl implements ChatService{
 		String jsonMessage = objectMapper.writeValueAsString(chatroomUserVo); 
 		
 		redisTemplate.opsForList().remove(chatroomUserKey, 1, jsonMessage);
-//		List<Object> userList = new ArrayList<Object>();
-//		userList.addAll(redisTemplate.opsForList().range(chatroomUserKey, 0, -1));
-//		System.out.println("나가기 발동");
 		return redisTemplate.opsForList().range(chatroomUserKey, 0, -1);	// 현재 접속중인 유저 목록 반환
 		
 	}

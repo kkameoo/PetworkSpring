@@ -38,11 +38,4 @@ public class ReportController {
 		return ResponseEntity.ok(reportVo);
 	}
 	
-//	GET : /api/report/count/{id} -> 신고 개수 출력
-//	@GetMapping("/count/{boardId}")
-//	public ResponseEntity<?> selectReportCount(@PathVariable Integer boardId) {
-//		int result = reportService.selectReportCount(boardId);
-//		return ResponseEntity.ok(result);
-//	}
-
 }
