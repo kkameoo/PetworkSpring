@@ -3,12 +3,50 @@
 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+	<settings>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+
 	<typeAliases>
 		<typeAlias alias="UserVo" type="com.himedia.repository.vo.UserVo"/>
+		<typeAlias alias="BoardVo" type="com.himedia.repository.vo.BoardVo"/>
+		<typeAlias alias="BoardWalkVo" type="com.himedia.repository.vo.BoardWalkVo"/>
+		<typeAlias alias="BoardTradeVo" type="com.himedia.repository.vo.BoardTradeVo"/>
+		<typeAlias alias="BoardHireVo" type="com.himedia.repository.vo.BoardHireVo"/>
+		<typeAlias alias="BoardPhotoVo" type="com.himedia.repository.vo.BoardPhotoVo"/>
+		<typeAlias alias="PetVo" type="com.himedia.repository.vo.PetVo"/>
+		<typeAlias alias="PetPhotoVo" type="com.himedia.repository.vo.PetPhotoVo"/>
+		<typeAlias alias="ChatroomVo" type="com.himedia.repository.vo.ChatroomVo"/>
+		<typeAlias alias="BoardCommentVo" type="com.himedia.repository.vo.BoardCommentVo"/>
+		<typeAlias alias="NotificationVo" type="com.himedia.repository.vo.NotificationVo"/>
+		<typeAlias alias="ChatMessageVo" type="com.himedia.repository.vo.ChatMessageVo"/>
+		<typeAlias alias="ReportVo" type="com.himedia.repository.vo.ReportVo"/>
+		<typeAlias alias="ChatroomUserVo" type="com.himedia.repository.vo.ChatroomUserVo"/>
+		<typeAlias alias="MapVo" type="com.himedia.repository.vo.MapVo"/>
 	</typeAliases>
+	
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
+		<mapper resource="mybatis/mappers/board.xml" />
+		<mapper resource="mybatis/mappers/boardWalk.xml" />
+		<mapper resource="mybatis/mappers/boardTrade.xml" />
+		<mapper resource="mybatis/mappers/boardHire.xml" />
+		<mapper resource="mybatis/mappers/pet.xml" />
+		<mapper resource="mybatis/mappers/boardPhoto.xml" />
+		<mapper resource="mybatis/mappers/petPhoto.xml" />
+		<mapper resource="mybatis/mappers/chatroom.xml" />
+		<mapper resource="mybatis/mappers/boardComment.xml" />
+		<mapper resource="mybatis/mappers/notification.xml" />
+		<mapper resource="mybatis/mappers/chatMessage.xml" />
+		<mapper resource="mybatis/mappers/report.xml" />
+		<mapper resource="mybatis/mappers/chatroomUser.xml" />
+		<mapper resource="mybatis/mappers/map.xml" />
 	</mappers>
+
+	
 </configuration>	
  
 

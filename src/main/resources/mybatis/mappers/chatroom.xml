@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.ChatroomMapper">
+
+	<!-- SELECT: GET -->
+	<select id="selectChatroom" resultType="ChatroomVo">
+		SELECT 
+		chatroom_id as chatroomId,
+		board_id as boardId,
+		chatroom_name as chatroomName,
+		reg_date as regDate
+		FROM chatroom
+	</select>
+
+	<!-- SELECT: GET -->
+	<select id="selectOneChatroom" parameterType="int" resultType="ChatroomVo">
+		SELECT 
+		chatroom_id as chatroomId,
+		board_id as boardId,
+		chatroom_name as chatroomName,
+		reg_date as regDate
+		FROM chatroom
+		WHERE chatroom_id = #{id}
+	</select>
+	
+	<!-- SELECT: GET -->
+	<select id="selectOneChatroomByBoardId" parameterType="int" resultType="ChatroomVo">
+		SELECT 
+		chatroom_id as chatroomId,
+		board_id as boardId,
+		chatroom_name as chatroomName,
+		reg_date as regDate
+		FROM chatroom
+		WHERE board_id = #{id}
+	</select>
+	
+	<!-- SELECT: GET -->
+	<select id="selectChatroomByUserId" parameterType="int" resultType="ChatroomVo">
+		SELECT 
+		cr.chatroom_id as chatroomId,
+		cr.board_id as boardId,
+		cr.chatroom_name as chatroomName,
+		cr.reg_date as regDate
+		FROM chatroom as cr JOIN chatroom_user as cru ON cr.chatroom_id = cru.chatroom_id 
+		WHERE cru.user_id = #{id}
+	</select>
+	
+	<!-- INSERT: POST -->
+	<insert id="insertChatroom" parameterType="ChatroomVo" useGeneratedKeys="true" keyProperty="chatroomId">
+	  	INSERT INTO chatroom (board_id, chatroom_name)
+     	VALUES (#{boardId}, #{chatroomName});
+	</insert>
+</mapper>

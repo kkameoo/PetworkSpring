@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.himedia.mappers.BoardTradeMapper">
+
+	<!-- INSERT: POST -->
+	<insert id="insertBoardTrade" parameterType="BoardTradeVo">
+	INSERT INTO board_trade (board_id, trade_price, trade_category)
+	VALUES (#{boardId}, #{tradePrice}, #{tradeCategory});
+	</insert>
+	
+	<!-- SELECT: GET -->
+	<select id="selectAllBoardTrade" resultType="BoardTradeVo">
+	SELECT 
+	b.board_id as boardId, 
+	b.user_id as userId, 
+	b.board_type as boardType,
+	b.title as title, 
+	b.content as content, 
+	b.report_count as reportCount,
+	b.click_count as clickCount, 
+	b.local_si as localSi, 
+	b.local_gu as localGu, 
+	b.reg_date as regDate, 
+	b.`update` as `update`, 
+	t.board_trade_id as boardTradeId,
+	t.trade_price as tradePrice,
+	t.trade_category as tradeCategory,
+	u.nickname as nickname
+	FROM board AS b 
+	JOIN board_trade AS t ON b.board_id = t.board_id
+	JOIN user AS u ON b.user_id = u.user_id
+	WHERE board_type = 2
+	</select>
+	
+	<!-- SELECT: GET -->
+	<select id="selectBoardTrade" resultType="BoardTradeVo" parameterType="int">
+	SELECT 
+	b.board_id as boardId, 
+	b.user_id as userId, 
+	b.board_type as boardType,
+	b.title as title, 
+	b.content as content, 
+	b.report_count as reportCount,
+	b.click_count as clickCount, 
+	b.local_si as localSi, 
+	b.local_gu as localGu, 
+	b.reg_date as regDate, 
+	b.`update` as `update`, 
+	t.board_trade_id as boardTradeId,
+	t.trade_price as tradePrice,
+	t.trade_category as tradeCategory,
+	u.nickname as nickname
+	FROM board AS b 
+	JOIN board_trade AS t ON b.board_id = t.board_id
+	JOIN user AS u ON b.user_id = u.user_id
+	WHERE board_type = 2 AND b.board_id = #{id}
+	</select>
+	
+	<!--SELECT: DESC-->
+	<select id="selectPopularBoardTrade" resultType="BoardTradeVo">
+ 	 SELECT 
+    b.board_id AS boardId,
+    b.user_id AS userId,
+    b.board_type AS boardType,
+    b.title AS title,
+    b.content AS content,
+    b.report_count AS reportCount,
+    b.click_count AS clickCount,
+    b.local_si AS localSi,
+    b.local_gu AS localGu,
+    b.reg_date AS regDate,
+    b.`update` AS `update`,
+    t.board_trade_id AS boardTradeId,
+    t.trade_category AS tradeCategory,
+    t.trade_price AS tradePrice,
+    u.nickname AS nickname
+  	FROM board b
+  	JOIN board_trade t ON b.board_id = t.board_id
+  	JOIN user u ON b.user_id = u.user_id
+  	WHERE b.board_type = 2
+  	ORDER BY b.click_count DESC
+  	LIMIT 6
+	</select>
+	
+	
+	<!-- UPDATE: PUT -->
+	<update id="updateBoardTrade" parameterType="BoardTradeVo">
+	UPDATE board AS b
+	JOIN board_trade AS t ON b.board_id = t.board_id
+	SET 
+	b.title = #{title},
+	b.content = #{content},
+    b.local_si = #{localSi},
+    b.local_gu = #{localGu},
+    b.`update` = NOW(),
+    t.trade_price = #{tradePrice},
+    t.trade_category = #{tradeCategory}
+	WHERE b.board_id = #{boardId};
+	</update>
+</mapper>
