@@ -173,27 +173,6 @@ public class UserController {
 	     return ResponseEntity.ok(user);
 	 }
 	
-	 // 수정 (UPDATE)
-//	 @PutMapping("/update")
-//	 public ResponseEntity<String> updateUser(@Valid @RequestBody UserVo user, HttpSession session) {
-//		 // 현재 로그인한 사용자 정보를 세션에서 가져옴
-//		 UserVo sessionUser = (UserVo) session.getAttribute("user");
-//		 
-//		 // 만약 세션이 없으면 401 으로 응답
-//		 if (sessionUser == null ) {
-//			 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다");
-//		 }
-//		 
-//		 try {
-//			 // 로그인 한 사용자의 Id를 가져와서 업데이트
-//			 user.setUserId(sessionUser.getUserId());
-//			 
-//			 userService.updateUser(user);
-//			 return ResponseEntity.ok("회원 정보 수정 완료");
-//		 } catch (Exception e) {
-//			 return ResponseEntity.badRequest().body(e.getMessage());
-//		 }
-//	 }
 	@PutMapping("/update")
 	public ResponseEntity<String> updateUser(@RequestBody UserVo user) {
 	    try {
