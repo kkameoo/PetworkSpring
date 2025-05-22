@@ -2,22 +2,24 @@
 ***
 ### 목차
 ***
-- [포트폴리오 개요](https://github.com/kkameoo/cocktailproject#포트폴리오-개요)
-- [기술 및 도구](https://github.com/kkameoo/cocktailproject#기술-및-도구)
-- [백엔드 사용 기술](https://github.com/kkameoo/cocktailproject#백엔드-사용-기술)
-- [기능 구현](https://github.com/kkameoo/cocktailproject#기능-구현)
-- [시현 영상](https://github.com/kkameoo/cocktailproject#시현-영상)
+- [포트폴리오 개요](https://github.com/kkameoo/PetworkSpring#포트폴리오-개요)
+- [기술 및 도구](https://github.com/kkameoo/PetworkSpring#기술-및-도구)
+- [백엔드 사용 기술](https://github.com/kkameoo/PetworkSpring#백엔드-사용-기술)
+- [기능 구현](https://github.com/kkameoo/PetworkSpring#기능-구현)
+- [시현 영상](https://github.com/kkameoo/PetworkSpring#시현-영상)
 ### 포트폴리오 개요
 ***
-![Test사진](https://github.com/kkameoo/cocktailproject/assets/116774845/dd32e5b3-dec6-4206-987c-7970779faf1c)
-분류: 팀 프로젝트  
+![Image](https://github.com/user-attachments/assets/fcbfd3d9-7651-4bcd-a9d2-a8548b8660e2)
+분류: 팀 프로젝트
+프로젝트 이름: 펫트워크
+간단한 소개: 반려동물 산책을 함께할 이웃을 연결해주는 커뮤니티 사이트
 제작 기간: 2025.03.18 ~ 2025.04.16  
 팀 인원: 5명    
 담당: 백엔드
 
 ### 기술 및 도구
 ***
-프론트엔드 - Html, css, javascript, react            
+프론트엔드 - Html, css, javascript, react vite            
 백엔드 - java, Springboot     
 데이터베이스 - Mysql, Redis 
 배포 - docker, aws ec2     
@@ -37,7 +39,10 @@
 ### 프론트 엔드 사용 기술
 ***
 - Styled Component
-- 
+- stompjs
+- sockjs
+- router
+  
 ### 기능 구현
 ***
 ##  페이지 넘기기
