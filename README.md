@@ -9,6 +9,7 @@
 - https://petwork-6047.postman.co/workspace/petwork-Workspace~dc0f7b7a-0d6a-487a-8913-f6aac985895c/collection/40448387-6d8847bc-3804-4edd-9eeb-6ab0e64422f2?action=share&creator=40448387&active-environment=40448387-645be5f6-59dd-48fa-b787-c45778ca6f0a
 
 ## 시스템 아키텍처
-<img width="1408" height="768" alt="Image" src="https://github.com/user-attachments/assets/92bbea1f-bb45-4a5b-8576-7c77428b9671" />
+<img width="2046" height="1116" alt="Image" src="https://github.com/user-attachments/assets/d98925b0-05c1-4477-a6f1-6c4c89671689" />
+
 ## 배포 방법
 - AWS EC2를 사용해서 DB와 백엔드서버를 배포
