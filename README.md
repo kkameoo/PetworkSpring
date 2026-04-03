@@ -13,7 +13,7 @@
 - AWS EC2를 사용해서 DB와 백엔드서버를 배포
 
 
-<img width="1024" height="261" alt="bid-logo" src="https://github.com/user-attachments/assets/13a3b6d7-c5fe-44f3-aad3-eea92a859552" />
+<img width="2651" height="718" alt="Image" src="https://github.com/user-attachments/assets/997a1af1-159e-4efa-b7fa-b08ccfc0b15f" />
 
 <br/>
 
