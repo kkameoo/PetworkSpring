@@ -37,7 +37,7 @@
 
 ## 📝 WBS
 
-wbs 위치
+![Image](https://github.com/user-attachments/assets/c65094ff-705c-4db7-b521-0ba89d48012f)
 
 
 </div>
