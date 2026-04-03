@@ -45,7 +45,7 @@ wbs 위치
 
 ## 🧱 ERD
 
-erd 위치
+<img width="1201" height="1162" alt="Image" src="https://github.com/user-attachments/assets/83fef241-02e0-43be-905c-5e1523e5a22a" />
 
 
 ## 📄 API 명세서
