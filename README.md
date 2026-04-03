@@ -33,7 +33,7 @@
 
 ## 📈 요구 사항 정의서
 
-요구사항 정의서 위치
+<img width="2560" height="1440" alt="Image" src="https://github.com/user-attachments/assets/03cf9a70-7eab-441c-8ccc-e0ac5156c8a2" />
 
 ## 📝 WBS
 
