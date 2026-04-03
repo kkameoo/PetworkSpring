@@ -19,9 +19,9 @@
 
 ## 🙋🏻팀원
 
-| **xxx** | **xxx** |
-| :------: |  :------: |
-| <img width="224" height="238" alt="Image" src="https://github.com/user-attachments/assets/fa5fe9c5-d7ac-4bff-aa22-515389828d08" /> | 
+| **한동길** | **xxx** | **xxx** |
+| :------: |  :------: |  :------: |
+| <img width="224" height="238" alt="Image" src="https://github.com/user-attachments/assets/fa5fe9c5-d7ac-4bff-aa22-515389828d08" /> | <img width="897" height="952" alt="Image" src="https://github.com/user-attachments/assets/2177f4e7-3812-487b-8fbd-fe27777a05eb" /> |
 
 <br/>
 
