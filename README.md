@@ -21,7 +21,7 @@
 
 | **xxx** | **xxx** |
 | :------: |  :------: |
-| <img width="897" height="952" alt="Image" src="https://github.com/user-attachments/assets/fa5fe9c5-d7ac-4bff-aa22-515389828d08" /> | 
+| <img width="448" height="476" alt="Image" src="https://github.com/user-attachments/assets/fa5fe9c5-d7ac-4bff-aa22-515389828d08" /> | 
 
 <br/>
 
