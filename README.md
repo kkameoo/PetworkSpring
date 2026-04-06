@@ -9,8 +9,7 @@
 
 | **한동길** | **cheowha1** | **jensen-kor** |
 | :------: |  :------: |  :------: |
-| [<img width="224" height="238" alt="Image" src="https://github.com/user-attachments/assets/fa5fe9c5-d7ac-4bff-aa22-515389828d08" /> <br/> @kkameoo](https://github.com/kkameoo)  
-| [<img width="224" height="238" alt="Image" src="https://github.com/user-attachments/assets/2177f4e7-3812-487b-8fbd-fe27777a05eb" /> <br/ > @cheowha1](https://github.com/cheowha1) | <img width="224" height="238" alt="Image" src="https://github.com/user-attachments/assets/2b4e5c30-4f6c-4ae4-99bf-ab40a2f47fd8" /> |
+| [<img width="224" height="238" alt="Image" src="https://github.com/user-attachments/assets/fa5fe9c5-d7ac-4bff-aa22-515389828d08" /> <br/> @kkameoo](https://github.com/kkameoo)  | [<img width="224" height="238" alt="Image" src="https://github.com/user-attachments/assets/2177f4e7-3812-487b-8fbd-fe27777a05eb" /> <br/ > @cheowha1](https://github.com/cheowha1) | <img width="224" height="238" alt="Image" src="https://github.com/user-attachments/assets/2b4e5c30-4f6c-4ae4-99bf-ab40a2f47fd8" /> |
 
 <br/>
 
