@@ -33,8 +33,15 @@
 
 ## 🧱 ERD
 
-<img width="1201" height="1162" alt="Image" src="https://github.com/user-attachments/assets/83fef241-02e0-43be-905c-5e1523e5a22a" />
+<img width="1191" height="797" alt="Image" src="https://github.com/user-attachments/assets/2c76c9fe-a3b3-4714-af0b-941872c5dea4" />
 
+<div align="center">
+<br>
+   
+[Petwork ERD 보기](https://www.erdcloud.com/d/RKZxgzpAbgWufC5Mf)
+
+</div>
+<br>
 
 ## 📄 API 명세서
 
