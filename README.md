@@ -59,7 +59,7 @@ api 명세서 위치
 
 ## ⚙️ CI/CD 시스템 아키텍쳐
 
-<img width="2046" height="1116" alt="Image" src="https://github.com/user-attachments/assets/d98925b0-05c1-4477-a6f1-6c4c89671689" />
+<img width="1408" height="768" alt="Image" src="https://github.com/user-attachments/assets/2cd22644-1caa-4a93-9ddb-ddd374866aaa" />
 
 <br>
 
