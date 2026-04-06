@@ -42,7 +42,7 @@
 
 ## ⚙️ 백엔드 시스템 아키텍쳐
 
-<img width="1408" height="768" alt="Image" src="https://github.com/user-attachments/assets/42b828e1-228c-459c-86b0-02a1a073c772" />
+<img width="1408" height="768" alt="Image" src="https://github.com/user-attachments/assets/5a244947-ebdf-420f-ae0c-a12885f2005d" />
 
 
 ## ⚙️ CI/CD 시스템 아키텍쳐
