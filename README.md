@@ -40,9 +40,9 @@
 
 [api 명세서 위치](https://petwork-6047.postman.co/workspace/petwork-Workspace~dc0f7b7a-0d6a-487a-8913-f6aac985895c/collection/40448387-6d8847bc-3804-4edd-9eeb-6ab0e64422f2?action=share&creator=40448387&active-environment=40448387-645be5f6-59dd-48fa-b787-c45778ca6f0a)
 
-## ⚙️ 시스템 아키텍쳐
+## ⚙️ 백엔드 시스템 아키텍쳐
 
-시스템 아키텍처 img or gif 위치
+<img width="1408" height="768" alt="Image" src="https://github.com/user-attachments/assets/42b828e1-228c-459c-86b0-02a1a073c772" />
 
 
 ## ⚙️ CI/CD 시스템 아키텍쳐
