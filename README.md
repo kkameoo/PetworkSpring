@@ -358,7 +358,11 @@
 <summary>지도</summary>
    
 ### 위치 수정
+<img width="2066" height="1026" alt="Image" src="https://github.com/user-attachments/assets/a2c5e387-5c82-4d93-b7a2-3efe0e26cf34" />
 
+<img width="2078" height="1053" alt="Image" src="https://github.com/user-attachments/assets/e924332a-da02-4b8c-8a54-5ec425915a1d" />
+
+<img width="2062" height="1057" alt="Image" src="https://github.com/user-attachments/assets/f5c8f625-f99e-4fa4-9006-90dcbf3fb155" />
 
 </details>
 
