@@ -167,6 +167,100 @@
 </details>
 
 <details>
+<summary>채팅 (웹소캣)</summary>
+   
+## 💬 WebSocket - 채팅 메시지 전송
+
+> WebSocket(STOMP) 기반으로 동작하며 REST API로는 테스트할 수 없습니다.
+
+### 연결 정보
+| 항목 | 값 |
+|---|---|
+| Protocol | STOMP over WebSocket |
+| Endpoint | `/ws` |
+| 메시지 전송 | `/app/chat` |
+| 메시지 수신 | `/topic/messages/{chatroomId}` |
+| 알림 수신 | `/user/{userId}/notification` |
+
+### 전송 데이터
+```json
+{
+  "chatroomId": 1,
+  "sender": "멍멍이집사",
+  "content": "안녕하세요!",
+  "MessageType": 3,
+  "chatroomName": "1.멍멍이집사님의 방"
+}
+```
+
+### MessageType
+| 값 | 설명 |
+|---|---|
+| 1 | 입장 |
+| 2 | 퇴장 |
+| 3 | 일반 메시지 |
+
+### 동작 흐름
+1. 메시지 전송 → Redis Pub/Sub으로 발행
+2. 채팅방 참여 유저 전원에게 알림 전송
+3. Redis에 최근 메시지 저장 (최대 50개)
+4. DB에 메시지 저장
+
+## 👥 WebSocket - 채팅방 입장 / 퇴장
+
+> WebSocket(STOMP) 기반으로 동작하며 REST API로는 테스트할 수 없습니다.
+
+### 연결 정보
+| 항목 | 값 |
+|---|---|
+| Protocol | STOMP over WebSocket |
+| Endpoint | `/ws` |
+| 유저 목록 수신 | `/topic/userlist/{chatroomId}` |
+
+---
+
+### 입장
+| 항목 | 값 |
+|---|---|
+| 메시지 전송 | `/app/chat/join` |
+
+```json
+{
+  "chatroomId": 1,
+  "userId": 1,
+  "userName": "멍멍이집사"
+}
+```
+
+---
+
+### 퇴장
+| 항목 | 값 |
+|---|---|
+| 메시지 전송 | `/app/chat/leave` |
+
+```json
+{
+  "chatroomId": 1,
+  "userId": 1,
+  "userName": "멍멍이집사"
+}
+```
+
+---
+
+### 동작 흐름
+**입장**
+1. Redis에 접속 유저 추가
+2. 채팅방 현재 접속 유저 목록 반환
+
+**퇴장**
+1. Redis에서 해당 유저 제거
+2. 채팅방 현재 접속 유저 목록 반환
+
+</details>
+
+<details>
 <summary>채팅</summary>
    
 ### 실시간 채팅 내역 조회
