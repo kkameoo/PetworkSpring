@@ -24,12 +24,25 @@
 
 <img width="2560" height="1440" alt="Image" src="https://github.com/user-attachments/assets/03cf9a70-7eab-441c-8ccc-e0ac5156c8a2" />
 
+<div align="center">
+<br>
+   
+[요구사항 정의서 보기](https://docs.google.com/spreadsheets/d/1oXQ69GVMlEQ_vigeGj5mgVHxW_x3zJYIvR6wYpLSEfg/edit?gid=729947190#gid=729947190)
+
+</div>
+<br>
+
 ## 📝 WBS
 
 ![Image](https://github.com/user-attachments/assets/c65094ff-705c-4db7-b521-0ba89d48012f)
 
+<div align="center">
+<br>
+   
+[WBS 보기](https://docs.google.com/spreadsheets/d/1oXQ69GVMlEQ_vigeGj5mgVHxW_x3zJYIvR6wYpLSEfg/edit?gid=515410719#gid=515410719)
 
 </div>
+<br>
 
 
 ## 🧱 ERD
