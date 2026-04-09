@@ -60,7 +60,32 @@
 [API 단위 테스트(세부기능)](https://documenter.getpostman.com/view/40448387/2sBXirioKL#intro)
 
 
-<br>
+<details>
+<summary>사용자</summary>
+   
+### 회원 가입
+<img width="2286" height="530" alt="Image" src="https://github.com/user-attachments/assets/8627e76f-32df-4875-a48b-6fecd6d0d0dd" />
+
+### 사용자 로그인
+<img width="2286" height="603" alt="Image" src="https://github.com/user-attachments/assets/3c1868a1-37e1-4042-a152-3e9f592779ad" />
+
+### 모든 사용자 조회
+<img width="2284" height="529" alt="Image" src="https://github.com/user-attachments/assets/de056d5f-5ea3-400a-bbc1-c7cdd987413f" />
+
+### 회원 정보 수정
+<img width="2286" height="467" alt="Image" src="https://github.com/user-attachments/assets/2d3dfea8-955f-442d-9bf1-1bf0939a4b4a" />
+
+### 사용자 확인
+<img width="2282" height="359" alt="Image" src="https://github.com/user-attachments/assets/b10e4e45-11da-4f18-98f3-788e4f530421" />
+
+### 사용자 정보 조회
+<img width="2283" height="530" alt="Image" src="https://github.com/user-attachments/assets/2aac0162-cd2c-42ff-9b8f-1842a7ffbf36" />
+
+### 비밀번호 변경
+<img width="2288" height="537" alt="Image" src="https://github.com/user-attachments/assets/31943a8a-2206-4091-bc7c-e5d08b471ef8" />
+
+
+</details>
 
 
 
