@@ -124,7 +124,7 @@ public class ChatController {
 		return ResponseEntity.ok(chatMessageVos);
 	}
 	
-	// 채팅룸 하나 생성
+	// 채팅 유저 생성
 	@PostMapping("/room/user")
 	public ResponseEntity<?> insertChatroomUser(@RequestBody ChatroomUserVo chatroomUserVo) {
 		int result = chatroomUserService.insertChatroomUser(chatroomUserVo);
@@ -134,7 +134,7 @@ public class ChatController {
 		return ResponseEntity.ok(chatroomUserVo);
 	}
 	
-	// 채팅룸 하나 생성
+	// 유저로 채팅방 조회
 	@GetMapping("/room/byuser/{id}")
 	public ResponseEntity<?> selectAllChatroomByUserid(@PathVariable Integer id) {
 		List<ChatroomVo> chatroomVos = chatroomService.selectChatroomByUserId(id);
@@ -160,21 +160,4 @@ public class ChatController {
 		List<ChatroomUserVo> chatroomUserVos = chatroomUserService.selectChatroomUsersByRoomId(id);
 		return ResponseEntity.ok(chatroomUserVos);
 	}
-	
-	// (테스트) 한꺼번에 메세지를 mysql에 입력
-//	@PostMapping("/history")
-//	public ResponseEntity<?> insertBatchChat(@RequestBody List<ChatMessageVo> chatMessageVos) {
-//		for(ChatMessageVo chatMessageVo : chatMessageVos) {
-//			System.out.println(chatMessageVo.getChatroomId());
-//			System.out.println(chatMessageVo.getSender());
-//			System.out.println(chatMessageVo.getContent());
-//			System.out.println(chatMessageVo.getMessageType());
-//		}
-//		int result = chatService.insertChatMessages(chatMessageVos);
-//		if (result == 0) {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("검색된 데이터가 존재하지 않습니다.");
-//		}
-//		return ResponseEntity.ok(chatMessageVos);
-//	}
-	
 }
